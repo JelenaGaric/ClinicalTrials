@@ -4,6 +4,7 @@ import { SearchService } from '../services/search-service.service';
 import { SearchDTO } from '../DTO/searchDTO';
 import { PagerService } from '../services/pager-service.service';
 import { Router } from '@angular/router';
+import { PageDTO } from '../DTO/pageDTO';
 
 @Component({
   selector: 'app-search',
@@ -18,9 +19,11 @@ export class SearchComponent implements OnInit {
     Sponsor:  new FormControl('')
   });
 
-  searchDTO: SearchDTO = new SearchDTO();
+  searchUri: string;
+  
+  pageDTO: PageDTO;
 
-  allItems: any = [];
+  searchDTO: SearchDTO;
 
   // pager object
   pager: any = {};
@@ -33,31 +36,58 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+    this.pagedItems = [];
+    this.searchDTO = new SearchDTO();
+    this.pageDTO = new PageDTO();
+    this.pageDTO.pageNumber = 1;
+    this.pageDTO.pageSize = 10;
   }
 
   showStudy(id: string){
     this._router.navigate(["study/"+id]);  
   }
 
-  setPage(page: number) {
+  setPage(page: string, firstTime:boolean) {
     // get pager object from service
-    this.pager = this._pagerService.getPager(this.allItems.length, page);
-
+    //this.pager = this._pagerService.getPager(this.pageDTO.totalRecords, page);
     // get current page of items
-    this.pagedItems = this.allItems.slice(this.pager.startIndex, this.pager.endIndex + 1);
+    if(firstTime === undefined || firstTime === false){ 
+      //this.makeSearchUri(page, this.pageDTO.pageSize);
+      this.searchUri = page.slice(23);
+      this._searchService.search(this.searchUri).subscribe(data => {
+        this.setPageDTO(data);
+      });
+    }
+    //this.pagedItems = this.allItems;
   }
 
   onSubmit(){
     this.searchDTO = this.searchForm.value;
-
-    this._searchService.search(this.searchDTO).subscribe(data => {
-      this.allItems = data;
-      console.log(this.allItems);
-      this.setPage(1);
+    this.searchUri = this.makeSearchUri(1, this.pageDTO.pageSize);
+    this._searchService.search(this.searchUri).subscribe(data => {
+      this.setPageDTO(data);
+      //this.setPage(this.searchUri, true);
+      console.log(this.pagedItems)
     }, (error) => {
       console.log(error);
      });
 
+  }
+
+  makeSearchUri(pageNumber: number, pageSize: number): string{
+    return "api/StudyStructures/search?condition=" + this.searchDTO.Condition + "&Country=" + this.searchDTO.Country 
+    + "&Sponsor=" + this.searchDTO.Sponsor + "&pageNumber=" + pageNumber + "&pageSize=" + this.pageDTO.pageSize;
+  }
+  
+  setPageDTO(data: any){
+    this.pagedItems = data.data;
+    this.pageDTO.pageNumber = data.pageNumber;
+    this.pageDTO.firstPage = data.firstPage;
+    this.pageDTO.lastPage = data.lastPage;
+    this.pageDTO.previousPage = data.previousPage;
+    this.pageDTO.nextPage = data.nextPage;
+    this.pageDTO.totalPages = data.totalPages;
+    this.pageDTO.totalRecords = data.totalRecords;
+    console.log(data)
   }
 }

@@ -3,10 +3,12 @@ import {RouterModule, Routes} from '@angular/router';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { SearchComponent } from './search/search.component';
 import { StudyViewComponent } from './study-view/study-view.component';
+import { AdvancedSearchComponent } from './advanced-search/advanced-search.component';
 
 const routes: Routes = [
     { path: "", component: WelcomeComponent, pathMatch: "full" },
     { path: "search", component: SearchComponent, pathMatch: "full" },
+    { path: "advanced-search", component: AdvancedSearchComponent, pathMatch: "full" },
     { path: 'study/:id', component: StudyViewComponent },
     { path: "**", redirectTo: '/' }
 ];

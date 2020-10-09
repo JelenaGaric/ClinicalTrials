@@ -21,9 +21,11 @@ a:hover{
   text-decoration: none;
 }
 .pagination a.active {
-  background-color: rgb(131, 162, 187);
+  background-color: rgb(215, 226, 235);
 }
-
+.pagination a.disabled {
+  cursor: initial;
+}
 .pagination a:hover:not(.active) {background-color: #ddd;}
 
 #btn1 {

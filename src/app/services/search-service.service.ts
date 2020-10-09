@@ -3,18 +3,18 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { SearchDTO } from '../DTO/searchDTO';
 import { throwError, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators'; 
+import { GlobalVariable } from '../global';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SearchService {
-  private baseUrl = 'https://localhost:44317/';
   private headerOptions = new HttpHeaders({ 'Content-Type': 'application/json' });
 
   constructor(private http: HttpClient) { }
   
-  search(searchDTO: SearchDTO) : Observable<any> {
-    return this.http.post<any>(this.baseUrl + 'api/StudyStructures/search', searchDTO, {
+  search(searchUri: string) : Observable<any> {
+    return this.http.get<any>(GlobalVariable.baseUrl + searchUri, {
            headers: this.headerOptions
     }).pipe(catchError(this.handleError.bind(this)));
   }

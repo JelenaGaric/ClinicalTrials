@@ -2,18 +2,18 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { throwError, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators'; 
+import { GlobalVariable } from '../global';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StudyService {
-  private baseUrl = 'https://localhost:44317/';
   private headerOptions = new HttpHeaders({ 'Content-Type': 'application/json' });
 
   constructor(private http: HttpClient) { }
   
   get(id: string) : Observable<any> {
-    return this.http.get<any>(this.baseUrl + 'api/StudyStructures/'+id, {
+    return this.http.get<any>(GlobalVariable.baseUrl + 'api/StudyStructures/'+id, {
            headers: this.headerOptions
     }).pipe(catchError(this.handleError.bind(this)));
   }
