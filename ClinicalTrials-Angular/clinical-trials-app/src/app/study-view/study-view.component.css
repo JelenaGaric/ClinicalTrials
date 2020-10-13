@@ -1,0 +1,12 @@
+.tag{
+    background: cornflowerblue;
+    margin: 3px;
+}
+
+.closeTag{
+    cursor: pointer;
+}
+
+.dragItem{
+    cursor: pointer;
+}

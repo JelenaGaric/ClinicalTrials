@@ -1,0 +1,41 @@
+<form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+  <h1>Get statistics</h1>
+  <p class="lead">Fill in condition term below</p>
+  
+  <div class="md-form  mb-3">
+    <input class="form-control " type="text" formControlName="Condition" placeholder="Condition or disease" aria-label="Search">
+  </div>
+
+  <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+</form>
+
+<div>
+    <div class="infogram-embed" 
+      data-id="e24be205-42e0-400e-81e0-7a50097aa61e" 
+      data-type="interactive" 
+      data-title="ClinicalTrials">
+    </div>
+    <script>
+      !function(e,i,n,s)
+      {var t="InfogramEmbeds",d=e.getElementsByTagName("script")[0];
+      if(window[t]&&window[t].initialized)
+        window[t].process&&window[t].process();
+      else if(!e.getElementById(n))
+        {
+          var o=e.createElement("script");
+          o.async=1,o.id=n,o.src="https://e.infogram.com/js/dist/embed-loader-min.js",d.parentNode.insertBefore(o,d)}
+        }
+        (document,0,"infogram-async");
+      </script>
+</div>
+<br>
+<iframe 
+  src="https://e.infogram.com/e24be205-42e0-400e-81e0-7a50097aa61e?src=embed"
+  title="ClinicalTrials" 
+  width="1150" 
+  height="2510" 
+  scrolling="no" 
+  frameborder="0" 
+  style="border:none;" 
+  allowfullscreen="allowfullscreen">
+</iframe>
