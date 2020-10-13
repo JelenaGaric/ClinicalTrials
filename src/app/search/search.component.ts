@@ -36,6 +36,9 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit() {
+    // ako ima parametera u putanji.. postavi ih
+
+    
     this.pagedItems = [];
     this.searchDTO = new SearchDTO();
     this.pageDTO = new PageDTO();
@@ -43,9 +46,6 @@ export class SearchComponent implements OnInit {
     this.pageDTO.pageSize = 10;
   }
 
-  showStudy(id: string){
-    this._router.navigate(["study/"+id]);  
-  }
 
   setPage(page: string, firstTime:boolean) {
     // get pager object from service
@@ -67,6 +67,8 @@ export class SearchComponent implements OnInit {
     this._searchService.search(this.searchUri).subscribe(data => {
       this.setPageDTO(data);
       //this.setPage(this.searchUri, true);
+      //alert(this.searchUri.slice(20))
+     // this._router.navigate([this.searchUri.slice(20)]);
       console.log(this.pagedItems)
     }, (error) => {
       console.log(error);

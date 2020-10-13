@@ -58,8 +58,9 @@
         <li class="list-group-item d-flex justify-content-between lh-condensed"
           dndDropzone
           (dndDragover)="onDragover($event)"
-          (dndDrop)="onDrop($event)">
-          <div *ngIf = "study.fullStudy.study.protocolSection.armsInterventionsModule != null">
+          (dndDrop)="onDrop($event)"
+          *ngIf="study.fullStudy.study.protocolSection.armsInterventionsModule != null">
+          <div *ngIf = "study.fullStudy.study.protocolSection.armsInterventionsModule.interventionList != null">
             <h6 class="my-0" >Intervention</h6>
             <span dndPlaceholderRef id="intervention" 
               style="border: 1px cornflowerblue solid; border-radius: 5px; padding: 15px;">▼</span>
@@ -135,7 +136,8 @@
         dndDropzone
         (dndDragover)="onDragover($event)"
         (dndDrop)="onDrop($event)">
-          <span>Collaborator/Sponsor</span>
+        <div>
+          <h6>Collaborator/Sponsor</h6>
           <span dndPlaceholderRef id="collaborator" 
           style="border: 1px cornflowerblue solid; border-radius: 5px; padding: 15px;">▼</span>
           <span *ngFor='let droppedTag of droppedTagsOnCollaborator' class="tag badge badge-secondary">
@@ -144,6 +146,7 @@
           </span>
           <br *ngIf='droppedTagsOnCollaborator.length != 0'>
           <strong>{{study.fullStudy.study.protocolSection.sponsorCollaboratorsModule.leadSponsor.leadSponsorName}}</strong>
+        </div>
         </li>
       </ul>
     </div>

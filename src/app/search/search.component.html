@@ -43,7 +43,7 @@
                 <td>{{study.fullStudy.study.protocolSection.identificationModule.briefTitle}}</td>
                 <td>{{study.fullStudy.study.protocolSection.conditionsModule.conditionList.condition}}</td>
                 <td>{{study.fullStudy.study.protocolSection.identificationModule.organization.orgFullName}}</td>
-                <td><button id="btn1" (click)="showStudy(study.id)" class="primary">Show more</button></td>
+                <td><button id="btn1" routerLink="/study/{{ study.id }}" class="primary">Show more</button></td>
             </tr> 
 
             <tr class="collapse" attr.id="collapseDiv{{i}}">

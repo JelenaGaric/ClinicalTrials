@@ -7,10 +7,20 @@ import { AdvancedSearchComponent } from './advanced-search/advanced-search.compo
 
 const routes: Routes = [
     { path: "", component: WelcomeComponent, pathMatch: "full" },
-    { path: "search", component: SearchComponent, pathMatch: "full" },
+    { path: "search",
+    children: [
+      {
+        path: '?**',
+        component: SearchComponent,
+      },
+    ],
+     component: SearchComponent, 
+     pathMatch: "full" },
+    //{ path: "search?condition=:condition&Country=:country&Sponsor=:sponsor&pageNumber=:pageNumber&pageSize=:pageSize", component: SearchComponent},
     { path: "advanced-search", component: AdvancedSearchComponent, pathMatch: "full" },
     { path: 'study/:id', component: StudyViewComponent },
-    { path: "**", redirectTo: '/' }
+    { path: 'search/:condition/:nesto', component: SearchComponent}
+    //{ path: "**", redirectTo: '/' }
 ];
 
 @NgModule({  
