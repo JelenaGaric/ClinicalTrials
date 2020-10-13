@@ -31,7 +31,7 @@ export class SearchComponent implements OnInit {
 
   searchUri: string;
   
-  searchParams: Observable<SearchParams> = this._route.queryParams;
+  //searchParams: Observable<SearchParams> = this._route.queryParams;
 
   pageDTO: PageDTO;
 
@@ -80,7 +80,7 @@ export class SearchComponent implements OnInit {
       pageNumber: this.pageDTO.pageNumber,
       pageSize: this.pageDTO.pageSize
     }
-    this.searchParams = params;
+    //ng build --prod --base-href https://yourGithub-username.github.io/reponame/this.searchParams = params;
     this.searchUri = this.makeSearchUri(params);
 
     this._searchService.search(this.searchUri).subscribe(data => {
