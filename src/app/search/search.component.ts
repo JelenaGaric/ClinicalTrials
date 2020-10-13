@@ -3,8 +3,18 @@ import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { SearchService } from '../services/search-service.service';
 import { SearchDTO } from '../DTO/searchDTO';
 import { PagerService } from '../services/pager-service.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { PageDTO } from '../DTO/pageDTO';
+import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+
+export interface SearchParams {
+  condition: string;
+  country: string;
+  sponsor: string;
+  pageNumber: number;
+  pageSize: number;
+}
 
 @Component({
   selector: 'app-search',
@@ -21,6 +31,8 @@ export class SearchComponent implements OnInit {
 
   searchUri: string;
   
+  searchParams: Observable<SearchParams> = this._route.queryParams;
+
   pageDTO: PageDTO;
 
   searchDTO: SearchDTO;
@@ -31,14 +43,14 @@ export class SearchComponent implements OnInit {
   // paged items
   pagedItems: any[];
 
-  constructor( private _searchService: SearchService, private _router: Router, private _pagerService: PagerService) { 
-
-  }
+  constructor( private _searchService: SearchService, 
+              private _router: Router, 
+              private _route: ActivatedRoute) { }
 
   ngOnInit() {
     // ako ima parametera u putanji.. postavi ih
 
-    
+
     this.pagedItems = [];
     this.searchDTO = new SearchDTO();
     this.pageDTO = new PageDTO();
@@ -48,11 +60,8 @@ export class SearchComponent implements OnInit {
 
 
   setPage(page: string, firstTime:boolean) {
-    // get pager object from service
-    //this.pager = this._pagerService.getPager(this.pageDTO.totalRecords, page);
-    // get current page of items
+
     if(firstTime === undefined || firstTime === false){ 
-      //this.makeSearchUri(page, this.pageDTO.pageSize);
       this.searchUri = page.slice(23);
       this._searchService.search(this.searchUri).subscribe(data => {
         this.setPageDTO(data);
@@ -63,12 +72,27 @@ export class SearchComponent implements OnInit {
 
   onSubmit(){
     this.searchDTO = this.searchForm.value;
-    this.searchUri = this.makeSearchUri(1, this.pageDTO.pageSize);
+    
+    let params: Partial<SearchParams> = {
+      condition: this.searchDTO.Condition,
+      country: this.searchDTO.Country,
+      sponsor: this.searchDTO.Sponsor,
+      pageNumber: this.pageDTO.pageNumber,
+      pageSize: this.pageDTO.pageSize
+    }
+    this.searchParams = params;
+    this.searchUri = this.makeSearchUri(params);
+
     this._searchService.search(this.searchUri).subscribe(data => {
       this.setPageDTO(data);
       //this.setPage(this.searchUri, true);
       //alert(this.searchUri.slice(20))
-     // this._router.navigate([this.searchUri.slice(20)]);
+     
+
+      this._router.navigate([], {
+        queryParams: params,
+        queryParamsHandling: 'merge',
+      });
       console.log(this.pagedItems)
     }, (error) => {
       console.log(error);
@@ -76,9 +100,9 @@ export class SearchComponent implements OnInit {
 
   }
 
-  makeSearchUri(pageNumber: number, pageSize: number): string{
-    return "api/StudyStructures/search?condition=" + this.searchDTO.Condition + "&Country=" + this.searchDTO.Country 
-    + "&Sponsor=" + this.searchDTO.Sponsor + "&pageNumber=" + pageNumber + "&pageSize=" + this.pageDTO.pageSize;
+  makeSearchUri(params: any): string{
+    return "api/StudyStructures/search?condition=" + params.condition + "&Country=" + params.country 
+    + "&Sponsor=" + params.sponsor + "&pageNumber=" + params.pageNumber + "&pageSize=" + params.pageSize;
   }
   
   setPageDTO(data: any){

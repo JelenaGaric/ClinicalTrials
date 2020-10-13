@@ -13,7 +13,7 @@ export class SearchService {
 
   constructor(private http: HttpClient) { }
   
-  search(searchUri: string) : Observable<any> {
+  search(searchUri: string) : any {
     return this.http.get<any>(GlobalVariable.baseUrl + searchUri, {
            headers: this.headerOptions
     }).pipe(catchError(this.handleError.bind(this)));
