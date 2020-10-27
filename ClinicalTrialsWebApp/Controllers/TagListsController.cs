@@ -2,6 +2,7 @@
 using ClinicalTrialsWebApp.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Model;
 using System;
 using System.Collections.Generic;
@@ -14,12 +15,11 @@ namespace ClinicalTrialsWebApp.Controllers
     [ApiController]
     public class TagListsController : ControllerBase
     {
-        //private ILoggerManager _logger;
+        private ILogger<TagListsController> _logger;
         private IRepositoryWrapper _repoWrapper;
-        public TagListsController(IRepositoryWrapper repoWrapper)
+        public TagListsController(IRepositoryWrapper repoWrapper, ILogger<TagListsController> logger)
         {
-            //ILoggerManager logger as param
-            //_logger = logger;
+            _logger = logger;
 
             _repoWrapper = repoWrapper;
         }
@@ -40,6 +40,7 @@ namespace ClinicalTrialsWebApp.Controllers
 
             if (tagList == null)
             {
+                _logger.LogError($"TagList with id: {id}, hasn't been found in db.");
                 return NotFound();
             }
 
@@ -48,29 +49,34 @@ namespace ClinicalTrialsWebApp.Controllers
         
         [HttpGet]
         [Route("study/{NCTId}")]
-        public async Task<IEnumerable<TagList>> GetTagListsByNCTId(string? NCTId)
+        public async Task<ActionResult<IEnumerable<TagList>>> GetTagListsByNCTId(string? NCTId)
         {
-                return await _repoWrapper.TagList.GetTagListByNCTIdAsync(NCTId);
+            var tagList = await _repoWrapper.TagList.GetTagListByNCTIdAsync(NCTId);
+            
+            if (tagList == null)
+            {
+                _logger.LogError($"TagLists with NCTId: {NCTId}, hasn't been found in db.");
+                return NotFound();
+            }
+
+            return tagList.ToList();
         }
 
         //POST: api/TagLists
         [HttpPost]
-        public IActionResult CreateTagList([FromBody]TagListDTO tagListDTO)
+        public async Task<IActionResult> CreateTagList([FromBody]TagListDTO tagListDTO)
         {
-          
             //create a mapper in next version
              try
              {
                  if (tagListDTO == null)
                  {
-                     //_logger.LogError("Tag object sent from client is null.");
-                     Console.WriteLine("Tag object sent from client is null.");
-                     return BadRequest("Tag object is null");
+                     _logger.LogError("TagList object sent from client is null.");
+                     return BadRequest("TagList object is null");
                  }
                  if (!ModelState.IsValid)
                  {
-                     //_logger.LogError("Invalid tag object sent from client.");
-                     Console.WriteLine("Invalid tag object sent from client.");
+                     _logger.LogError("Invalid model object sent from client.");
                      return BadRequest("Invalid model object");
                  }
                  //var tagEntity = _mapper.Map<Tag>(tag);
@@ -78,20 +84,23 @@ namespace ClinicalTrialsWebApp.Controllers
                  TagList tagList = new TagList();
                  tagList.NCTId = tagListDTO.NCTId;
                  tagList.TagId = tagListDTO.TagId;
-                 if(!String.IsNullOrEmpty(tagListDTO.Section))
-                     tagList.Section = tagListDTO.Section;
+                 tagList.Section = tagListDTO.Section;
+
+                if (await _repoWrapper.TagList.GetTagListByIdAsync(tagListDTO.Id) != null)
+                {
+                    _logger.LogError($"There's already a taglist with id: {tagListDTO.Id}, exiting CreateTagList action.");
+                    return StatusCode(409, "Taglist already exists.");
+                }
 
                  _repoWrapper.TagList.Create(tagList);
                  _repoWrapper.Save();
 
                  //var createdTag = _mapper.Map<TagDto>(tagEntity);
-                 //return CreatedAtRoute("TagById", new { id = createdTag.Id }, createdTag);
                  return CreatedAtRoute("GetTagList", new { id = tagList.Id }, tagList);
              }
              catch (Exception ex)
              {
-                 //_logger.LogError($"Something went wrong inside Create action: {ex.Message}");
-                 Console.WriteLine($"Something went wrong inside Create action: {ex.Message}");
+                 _logger.LogError($"Something went wrong inside CreateTagList action: {ex.Message}");
                  return StatusCode(500, "Internal server error");
              }
         }
@@ -114,8 +123,7 @@ namespace ClinicalTrialsWebApp.Controllers
             }
             catch (Exception ex)
             {
-                //_logger.LogError($"Something went wrong inside Delete action: {ex.Message}");
-                Console.WriteLine($"Something went wrong inside Delete action: {ex.Message}");
+                _logger.LogError($"Something went wrong inside DeleteTagList action: {ex.Message}");
                 return StatusCode(500, "Internal server error");
             }
         }

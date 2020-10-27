@@ -33,20 +33,21 @@ namespace ClinicalTrialsWeb
             if (settings != null)
                 ConnectionString = settings.ConnectionString;
 
-            Console.WriteLine(ConnectionString);
+            Console.WriteLine("Using connection string: " + ConnectionString);
+            Console.WriteLine("Press enter to continue.");
             Console.ReadLine();
         }
         public static ClinicalTrialsContext AddToContext(ClinicalTrialsContext context, Root entity, int count, int commitCount, bool recreateContext)
         {
             context.Set<Root>().Add(entity);
-
             if (count % commitCount == 0)
             {
                 context.SaveChanges();
+
                 if (recreateContext)
                 {
                     context.Dispose();
-                    context = new ClinicalTrialsContext(ConnectionString);
+                    context = new ClinicalTrialsContext();
 
                     context.ChangeTracker.AutoDetectChangesEnabled = false;
                 }
@@ -57,70 +58,69 @@ namespace ClinicalTrialsWeb
 
         public static void DeleteOldDb()
         {
-
-            using (var db = new ClinicalTrialsContext(ConnectionString))
+            ClinicalTrialsContext db = new ClinicalTrialsContext();
+            using (db)
             {
-                db.Database.ExecuteSqlCommand("DELETE FROM [Studies] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [FullStudy] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [Study] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [ProtocolSection] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [DerivedSection] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [IdentificationModule] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [SecondaryIdInfo] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [StatusModule] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [MiscInfoModule] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [ConditionsModule] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [DescriptionModule] WHERE id > 0");
+                db.Database.ExecuteSqlCommand("delete from [Studies]");
+                db.Database.ExecuteSqlCommand("delete from [FullStudy]");
+                db.Database.ExecuteSqlCommand("delete from [Study]");
+                db.Database.ExecuteSqlCommand("delete from [ProtocolSection]");
+                db.Database.ExecuteSqlCommand("delete from[DerivedSection]");
+                db.Database.ExecuteSqlCommand("delete from[IdentificationModule]");
+                db.Database.ExecuteSqlCommand("delete from[SecondaryIdInfo]");
+                db.Database.ExecuteSqlCommand("delete from[StatusModule]");
+                db.Database.ExecuteSqlCommand("delete from[MiscInfoModule]");
+                db.Database.ExecuteSqlCommand("delete from[ConditionsModule]");
+                db.Database.ExecuteSqlCommand("delete from[DescriptionModule]");
                 Console.WriteLine("deleting from conditions..");
-                db.Database.ExecuteSqlCommand("DELETE FROM [ConditionBrowseModule] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [ArmsInterventionsModule] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [DescriptionModule] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [Intervention] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [InterventionList] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [InterventionBrowseModule] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [InterventionMesh] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [DesignModule] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [DesignInfo] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [InterventionBrowseBranch] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [InterventionBrowseBranch] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [ConditionMesh] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [ConditionList] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [InterventionMeshList] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [PhaseList] WHERE id > 0");
+                db.Database.ExecuteSqlCommand("delete from[ConditionBrowseModule]");
+                db.Database.ExecuteSqlCommand("delete from[ArmsInterventionsModule]");
+                db.Database.ExecuteSqlCommand("delete from[DescriptionModule]");
+                db.Database.ExecuteSqlCommand("delete from[Intervention]");
+                db.Database.ExecuteSqlCommand("delete from[InterventionList]");
+                db.Database.ExecuteSqlCommand("delete from[InterventionBrowseModule]");
+                db.Database.ExecuteSqlCommand("delete from[InterventionMesh]");
+                db.Database.ExecuteSqlCommand("delete from[DesignModule]");
+                db.Database.ExecuteSqlCommand("delete from[DesignInfo]");
+                db.Database.ExecuteSqlCommand("delete from[InterventionBrowseBranch]");
+                db.Database.ExecuteSqlCommand("delete from[InterventionBrowseBranch]");
+                db.Database.ExecuteSqlCommand("delete from[ConditionMesh]");
+                db.Database.ExecuteSqlCommand("delete from[ConditionList]");
+                db.Database.ExecuteSqlCommand("delete from[InterventionMeshList]");
+                db.Database.ExecuteSqlCommand("delete from[PhaseList]");
                 Console.WriteLine("deleting from phase list..");
-                db.Database.ExecuteSqlCommand("DELETE FROM [InterventionAncestor] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [InterventionAncestorList] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [OrgStudyIdInfo] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [Organization] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [Location] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [DesignMaskingInfo] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [EligibilityModule] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [ConditionBrowseLeaf] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [ConditionBrowseLeafList] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [InterventionBrowseLeaf] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [InterventionBrowseBranchList] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [ContactsLocationsModule] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [SponsorCollaboratorsModule] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [LeadSponsor] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [ConditionAncestor] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [ConditionAncestorList] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [ConditionMeshList] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [ConditionBrowseBranch] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [LocationList] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [ExpandedAccessInfo] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [InterventionBrowseLeafList] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [SecondaryIdInfoList] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [StdAgeList] WHERE id > 0");
+                db.Database.ExecuteSqlCommand("delete from[InterventionAncestor]");
+                db.Database.ExecuteSqlCommand("delete from[InterventionAncestorList]");
+                db.Database.ExecuteSqlCommand("delete from[OrgStudyIdInfo]");
+                db.Database.ExecuteSqlCommand("delete from[Organization]");
+                db.Database.ExecuteSqlCommand("delete from[Location]");
+                db.Database.ExecuteSqlCommand("delete from[DesignMaskingInfo]");
+                db.Database.ExecuteSqlCommand("delete from[EligibilityModule]");
+                db.Database.ExecuteSqlCommand("delete from[ConditionBrowseLeaf]");
+                db.Database.ExecuteSqlCommand("delete from[ConditionBrowseLeafList]");
+                db.Database.ExecuteSqlCommand("delete from[InterventionBrowseLeaf]");
+                db.Database.ExecuteSqlCommand("delete from[InterventionBrowseBranchList]");
+                db.Database.ExecuteSqlCommand("delete from[ContactsLocationsModule]");
+                db.Database.ExecuteSqlCommand("delete from[SponsorCollaboratorsModule]");
+                db.Database.ExecuteSqlCommand("delete from[LeadSponsor]");
+                db.Database.ExecuteSqlCommand("delete from[ConditionAncestor]");
+                db.Database.ExecuteSqlCommand("delete from[ConditionAncestorList]");
+                db.Database.ExecuteSqlCommand("delete from[ConditionMeshList]");
+                db.Database.ExecuteSqlCommand("delete from[ConditionBrowseBranch]");
+                db.Database.ExecuteSqlCommand("delete from[LocationList]");
+                db.Database.ExecuteSqlCommand("delete from[ExpandedAccessInfo]");
+                db.Database.ExecuteSqlCommand("delete from[InterventionBrowseLeafList]");
+                db.Database.ExecuteSqlCommand("delete from[SecondaryIdInfoList]");
+                db.Database.ExecuteSqlCommand("delete from[StdAgeList]");
                 Console.WriteLine("deleting from post date..");
-                db.Database.ExecuteSqlCommand("DELETE FROM [StudyFirstPostDateStruct] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [LastUpdatePostDateStruct] WHERE id > 0");
-                db.Database.ExecuteSqlCommand("DELETE FROM [ConditionBrowseBranchList] WHERE id > 0");
+                db.Database.ExecuteSqlCommand("delete from[StudyFirstPostDateStruct]");
+                db.Database.ExecuteSqlCommand("delete from[LastUpdatePostDateStruct]");
+                db.Database.ExecuteSqlCommand("delete from[ConditionBrowseBranchList]");
 
                 var modelNames = db.Model.GetEntityTypes();
                 foreach (var modelName in modelNames)
                 {
                     string tableName = modelName.Name.Split('.')[1];
-                    Console.WriteLine(tableName);
                     if (tableName.Equals("Root"))
                     {
                         tableName = "Studies";
@@ -129,62 +129,89 @@ namespace ClinicalTrialsWeb
                     {
                         continue;
                     }
-                    //db.Database.ExecuteSqlCommand("DELETE FROM [" + tableName +"] WHERE id > 0");
+                    //db.Database.ExecuteSqlCommand("delete from[" + tableName +"]");
                     db.Database.ExecuteSqlCommand("DBCC CHECKIDENT([" + tableName + "], RESEED, 0)");
                 }
+                /*
+
+                int count = 50;
+                while (count < db.Studies.OrderByDescending(s => s.Id).FirstOrDefault().Id)
+                {
+                    Console.WriteLine("Deleting ..." + count);
+
+                    var list = db.Studies.Where(s => s.Id <= count).ToList();
+                    db.Studies.RemoveRange(list);
+                    db.SaveChanges();
+                    count += 50;
+
+                }
+
+                */
+
             }
         }
-
+        
         public static void WriteToDB()
         {
-            SetConnectionString();
-            
-            DeleteOldDb();
-
+            //SetConnectionString();
+           
             ClinicalTrialsContext context = null;
             try
             {
-                context = new ClinicalTrialsContext(ConnectionString);
-                context.ChangeTracker.AutoDetectChangesEnabled = false;
+                context = new ClinicalTrialsContext();
 
-                int count = 0;
+                 try
+                 {
+                     foreach (string m in context.Database.GetMigrations())
+                         Console.WriteLine(m);
+                         context.Database.Migrate();
+                 } catch(Exception e)
+                 {
+                     Console.WriteLine(e.Message);
+                 }
+
+                 /*DeleteOldDb();
+
+                 context.ChangeTracker.AutoDetectChangesEnabled = false;
+
+                 int count = 0;
 
 
-                using (ZipArchive archive = ZipFile.Open(zipPath, ZipArchiveMode.Read))
-                {
-                    Console.WriteLine("Reading from zip in progress...");
+                 using (ZipArchive archive = ZipFile.Open(zipPath, ZipArchiveMode.Read))
+                 {
+                     Console.WriteLine("Reading from zip in progress...");
 
-                    int countZip = 0;
+                     int countZip = 0;
 
-                    foreach (ZipArchiveEntry entry in archive.Entries)
-                    {
-                        //if (countZip <= numFiles){
-                        if (entry.FullName.EndsWith(".json", StringComparison.OrdinalIgnoreCase))
-                        {
+                     foreach (ZipArchiveEntry entry in archive.Entries)
+                     {
+                         //if (countZip <= numFiles){
+                         if (entry.FullName.EndsWith(".json", StringComparison.OrdinalIgnoreCase))
+                         {
 
-                            using (StreamReader reader = new StreamReader(entry.Open()))
-                            {
-                                String json = reader.ReadToEnd();
-                                Root item = JsonConvert.DeserializeObject<Root>(json);
-                                ++count;
-                                context = AddToContext(context, item, count, commitCount, true);
-                                //Console.WriteLine(item.FullStudy.Study.ProtocolSection.IdentificationModule.NCTId);
+                             using (StreamReader reader = new StreamReader(entry.Open()))
+                             {
+                                 String json = reader.ReadToEnd();
+                                 Root item = JsonConvert.DeserializeObject<Root>(json);
+                                 ++count;
+                                 context = AddToContext(context, item, count, commitCount, true);
+                                 //Console.WriteLine(item.FullStudy.Study.ProtocolSection.IdentificationModule.NCTId);
 
-                            }
-                            Console.WriteLine(entry.FullName + " - " + count);
+                             }
+                             Console.WriteLine(entry.FullName + " - " + count);
 
-                            countZip++;
-                        }
-                    }
-                }
-                //context.SaveChanges();
+                             countZip++;
+                         }
+                     }
+                 }
+                 context.SaveChanges();*/
             }
             finally
             {
                 if (context != null)
                     context.Dispose();
             }
-
+            
             Console.WriteLine("Writing complete.");
             Console.ReadLine();
         }

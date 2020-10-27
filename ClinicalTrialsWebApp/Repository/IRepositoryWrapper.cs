@@ -10,6 +10,7 @@ namespace ClinicalTrialsWebApp.Repository
         IStudyStructureRepository StudyStructure { get; }
         ITagRepository Tag { get; }
         ITagListRepository TagList { get; }
+        IStatisticsSearchRepository StatisticsSearch { get; }
         void Save();
     }
 }

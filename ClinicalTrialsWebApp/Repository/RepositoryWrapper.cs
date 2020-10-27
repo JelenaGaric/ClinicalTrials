@@ -13,6 +13,8 @@ namespace ClinicalTrialsWebApp.Repository
 
         private ITagListRepository _tagList;
 
+        private IStatisticsSearchRepository _statisticsSearchRepository;
+
         public IStudyStructureRepository StudyStructure
         {
             get
@@ -47,7 +49,19 @@ namespace ClinicalTrialsWebApp.Repository
                 return _tagList;
             }
         }
-       
+
+        public IStatisticsSearchRepository StatisticsSearch
+        {
+            get
+            {
+                if (_statisticsSearchRepository == null)
+                {
+                    _statisticsSearchRepository = new StatisticsSearchRepository(_repoContext);
+                }
+                return _statisticsSearchRepository;
+            }
+        }
+
         public RepositoryWrapper(ClinicalTrialsContext repositoryContext)
         {
             _repoContext = repositoryContext;

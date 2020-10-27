@@ -48,10 +48,8 @@ namespace ClinicalTrialsWebApp
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseCors(builder => builder
-            .WithOrigins("http://localhost:4200")
-            .AllowAnyMethod()
-            .AllowCredentials()
-            .WithHeaders("Accept", "Content-Type", "Origin", "X-My-Header"));
+            .WithOrigins("http://localhost:4200", "http://angtrials.wemedoo.com", "http://*.wemedoo.com")
+            .AllowAnyMethod().AllowAnyOrigin().AllowAnyHeader());
 
             if (env.IsDevelopment())
             {

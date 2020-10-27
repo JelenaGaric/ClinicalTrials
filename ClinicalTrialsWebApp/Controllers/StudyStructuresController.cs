@@ -9,6 +9,8 @@ using Model;
 using ClinicalTrialsWebApp.DTO;
 using ClinicalTrialsWebApp.Repository;
 using ClinicalTrialsWebApp.Pagination;
+using Microsoft.Extensions.Logging;
+using ClinicalTrialsWebApp.Controllers;
 
 namespace ClinicalTrialsWebApp
 {
@@ -18,9 +20,12 @@ namespace ClinicalTrialsWebApp
     {
         private IRepositoryWrapper _repoWrapper;
         private readonly IUriService uriService;
+        private ILogger<StudyStructuresController> _logger;
 
-        public StudyStructuresController(IRepositoryWrapper repoWrapper, IUriService uriService)
+
+        public StudyStructuresController(IRepositoryWrapper repoWrapper, IUriService uriService, ILogger<StudyStructuresController> logger)
         {
+            _logger = logger;
             _repoWrapper = repoWrapper;
             this.uriService = uriService;
         }
@@ -34,16 +39,21 @@ namespace ClinicalTrialsWebApp
 
         // GET: api/StudyStructures/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Root>> GetRoot(int id)
+        public async Task<ActionResult<StudyView>> GetStudy(int id)
         {
-            var root = await _repoWrapper.StudyStructure.GetStudyByIdAsync(id);
+            var study = await _repoWrapper.StudyStructure.GetStudyWithDetailsAsync(id);
 
-            if (root == null)
+            if (study == null)
             {
+                _logger.LogError($"Study with id: {id}, hasn't been found in db.");
                 return NotFound();
             }
 
-            return root;
+            IEnumerable<TagList> tagLists = await _repoWrapper.TagList.GetTagListByNCTIdAsync(study.NCTId);
+
+            study.TagLists = tagLists.ToList();
+
+            return study;
         }
        
         //GET: api/StudyStructures/search
@@ -51,32 +61,71 @@ namespace ClinicalTrialsWebApp
         [Route("search")] 
         public ActionResult<IEnumerable<Root>> SearchStudies([FromQuery] PaginationFilter filter)
         {
-            //IEnumerable<Root> retValTotal = new List<Root>();
-            var route = Request.Path.Value;
-            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize, filter.Condition, filter.Country, filter.Sponsor);
-            SearchDTO searchDTO = new SearchDTO();
-            searchDTO.Condition = filter.Condition;
-            searchDTO.Sponsor = filter.Sponsor;
-            searchDTO.Country = filter.Country;
-
-            //retValTotal = _repoWrapper.StudyStructure.SimpleSearch(searchDTO);
-
-            var pagedData = _repoWrapper.StudyStructure.SimpleSearch(searchDTO).OrderBy(x => x.Id)
-                .Skip((validFilter.PageNumber - 1) * validFilter.PageSize)
-                .Take(validFilter.PageSize).ToList();
-
-            var totalRecords = _repoWrapper.StudyStructure.SimpleSearch(searchDTO).Count();
-
-            if (pagedData == null)
+            try
             {
-                return NotFound();
+                var route = Request.Path.Value;
+                var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize, filter.Condition, filter.Country, filter.Sponsor);
+
+                var pagedData = _repoWrapper.StudyStructure.SimpleSearch(validFilter);
+
+                var totalRecords = _repoWrapper.StudyStructure.GetSearchCount(validFilter);
+                //var totalRecords = 1000; 
+                //mozda bi se mogli prvo vratiti rezultati pa onda ostalo za paging
+                
+                if (pagedData == null)
+                {
+                    _logger.LogInformation("No studies found.");
+                    return NotFound();
+                }
+
+                var pagedReponse = PaginationHelper.CreatePagedReponse<ResultDTO>(pagedData, validFilter, totalRecords, uriService, route);
+                return Ok(pagedReponse);
+            } catch (Exception e)
+            {
+                _logger.LogError($"Something went wrong inside SearchStudies action: {e.Message}");
+                return StatusCode(404, e.Message);
             }
-
-            var pagedReponse = PaginationHelper.CreatePagedReponse<Root>(pagedData, validFilter, totalRecords, uriService, route);
-            return Ok(pagedReponse);
-            //return retVal.ToList();
-
         }
 
+        [HttpPost]
+        [Route("searchIds")]
+        public ActionResult<int[]> SearchStudyIds(SearchDTO searchDTO)
+        {
+            try
+            {
+                var ids = _repoWrapper.StudyStructure.SearchStudyIds(searchDTO);
+
+                if (ids == null)
+                {
+                    _logger.LogInformation("No study ids found.");
+                    return NotFound();
+                }
+
+                return Ok(ids);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Something went wrong inside SearchStudyIds action: {e.Message}");
+                return StatusCode(404, e.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("statistics")]
+        public ActionResult MakeStatistics(SearchDTO searchDTO)
+        {
+            try
+            {
+                _repoWrapper.StatisticsSearch.Create(new StatisticsSearch { Condition = searchDTO.Condition, DateCreated = DateTime.Now });
+                _repoWrapper.Save();
+                var retVal = _repoWrapper.StatisticsSearch.RunStatistics();
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Something went wrong inside MakeStatistics action: {e.Message}");
+                return StatusCode(404, e.Message);
+            }
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using ClinicalTrialsWebApp.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Model;
 using System;
 using System.Collections.Generic;
@@ -12,13 +13,12 @@ namespace ClinicalTrialsWebApp.Controllers
     [ApiController]
     public class TagsController : ControllerBase
     {
-        //private ILoggerManager _logger;
+        private ILogger<TagsController> _logger;
         private IRepositoryWrapper _repoWrapper;
-        public TagsController(IRepositoryWrapper repoWrapper)
+        public TagsController(IRepositoryWrapper repoWrapper, ILogger<TagsController> logger)
         {
-            //ILoggerManager logger as param
-            //_logger = logger;
-
+            
+            _logger = logger;
             _repoWrapper = repoWrapper;
         }
 
@@ -38,6 +38,7 @@ namespace ClinicalTrialsWebApp.Controllers
 
             if (tag == null)
             {
+                _logger.LogError($"Tag with id: {id}, hasn't been found in db.");
                 return NotFound();
             }
 
@@ -53,14 +54,12 @@ namespace ClinicalTrialsWebApp.Controllers
             {
                 if (tag == null)
                 {
-                    //_logger.LogError("Tag object sent from client is null.");
-                    Console.WriteLine("Tag object sent from client is null.");
+                    _logger.LogError("Tag object sent from client is null.");
                     return BadRequest("Tag object is null");
                 }
                 if (!ModelState.IsValid)
                 {
-                    //_logger.LogError("Invalid tag object sent from client.");
-                    Console.WriteLine("Invalid tag object sent from client.");
+                    _logger.LogError("Invalid tag object sent from client.");
                     return BadRequest("Invalid model object");
                 }
                 //var tagEntity = _mapper.Map<Tag>(tag);
@@ -73,8 +72,7 @@ namespace ClinicalTrialsWebApp.Controllers
             }
             catch (Exception ex)
             {
-                //_logger.LogError($"Something went wrong inside Create action: {ex.Message}");
-                Console.WriteLine($"Something went wrong inside Create action: {ex.Message}");
+                _logger.LogError($"Something went wrong inside CreateTag action: {ex.Message}");
                 return StatusCode(500, "Internal server error");
             }
         }
@@ -87,8 +85,7 @@ namespace ClinicalTrialsWebApp.Controllers
                 var tag = await _repoWrapper.Tag.GetTagByIdAsync(id);
                 if (tag == null)
                 {
-                    //_logger.LogError($"Owner with id: {id}, hasn't been found in db.");
-                    Console.WriteLine($"Tag with id: {id}, hasn't been found in db.");
+                    _logger.LogError($"Tag with id: {id}, hasn't been found in db.");
                     return NotFound();
                 }
                 _repoWrapper.Tag.DeleteTag(tag);
@@ -102,8 +99,7 @@ namespace ClinicalTrialsWebApp.Controllers
             }
             catch (Exception ex)
             {
-                //_logger.LogError($"Something went wrong inside Delete action: {ex.Message}");
-                Console.WriteLine($"Something went wrong inside Delete action: {ex.Message}");
+                _logger.LogError($"Something went wrong inside DeleteTag action: {ex.Message}");
                 return StatusCode(500, "Internal server error");
             }
         }

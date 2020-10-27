@@ -1,4 +1,5 @@
 ﻿using ClinicalTrialsWebApp.DTO;
+using ClinicalTrialsWebApp.Pagination;
 using Microsoft.EntityFrameworkCore;
 using Model;
 using Model.Context;
@@ -29,15 +30,28 @@ namespace ClinicalTrialsWebApp.Repository
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<Root> GetStudyWithDetailsAsync(long studyId)
+        public async Task<StudyView> GetStudyWithDetailsAsync(int studyId)
         {
-            //not using this
             return await FindByCondition(s => s.Id.Equals(studyId))
-                .FirstOrDefaultAsync();
+                .Select(x => new StudyView
+                {
+                    Id = x.Id,
+                    NCTId = x.FullStudy.Study.ProtocolSection.IdentificationModule.NCTId,
+                    BriefTitle = x.FullStudy.Study.ProtocolSection.IdentificationModule.BriefTitle,
+                    Condition = x.FullStudy.Study.ProtocolSection.ConditionsModule.ConditionList.Condition,
+                    StudyType = x.FullStudy.Study.ProtocolSection.DesignModule.StudyType,
+                    Intervention = x.FullStudy.Study.ProtocolSection.ArmsInterventionsModule.InterventionList.Intervention,
+                    OverallStatus = x.FullStudy.Study.ProtocolSection.StatusModule.OverallStatus,
+                    LastUpdateSubmitDate = x.FullStudy.Study.ProtocolSection.StatusModule.LastUpdateSubmitDate.ToString(),
+                    StudyFirstPostDate = x.FullStudy.Study.ProtocolSection.StatusModule.StudyFirstSubmitDate.ToString(),
+                    Location = x.FullStudy.Study.ProtocolSection.ContactsLocationsModule.LocationList.Location,
+                    DetailedDescription = x.FullStudy.Study.ProtocolSection.DescriptionModule.DetailedDescription,
+                    LeadSponsorName = x.FullStudy.Study.ProtocolSection.SponsorCollaboratorsModule.LeadSponsor.LeadSponsorName
+                }).FirstOrDefaultAsync();
         }
 
 
-        IEnumerable<Root> IStudyStructureRepository.FindInsideConditionList(string toFind)
+        public IEnumerable<Root> FindInsideConditionList(string toFind)
         {
             return RepositoryContext.Studies
                 .Where(x => x.FullStudy.Study.DerivedSection.ConditionBrowseModule.ConditionMeshList
@@ -45,47 +59,63 @@ namespace ClinicalTrialsWebApp.Repository
                 .ToList();
         }
 
-        IEnumerable<Root> IStudyStructureRepository.FindInsideLocationList(string toFind)
+        public IEnumerable<Root> FindInsideLocationList(string toFind)
         {
             return RepositoryContext.Studies
                 .Where(x => x.FullStudy.Study.ProtocolSection.ContactsLocationsModule.LocationList
                     .Location.Any(y => y.LocationCountry.ToLower().Contains(toFind.ToLower())))
                 .ToList();
         }
-
-        IEnumerable<Root> IStudyStructureRepository.SimpleSearch(SearchDTO searchDTO)
+        public int GetSearchCount(PaginationFilter filter)
         {
-            IEnumerable<Root> retVal = new List<Root>();
-           
-            if (!String.IsNullOrEmpty(searchDTO.Condition))
-            {
-                retVal = RepositoryContext.Studies
-                .Where(x => x.FullStudy.Study.DerivedSection.ConditionBrowseModule.ConditionMeshList
-                    .ConditionMesh.Any(y => y.ConditionMeshTerm.ToLower().Contains(searchDTO.Condition.ToLower())));
-            }
-            if (!String.IsNullOrEmpty(searchDTO.Country))
-            {
-                if (retVal.Count() == 0)
-                    retVal = RepositoryContext.Studies.Where(x => x.FullStudy.Study.ProtocolSection.ContactsLocationsModule.LocationList
-                    .Location.Any(y => y.LocationCountry.ToLower().Contains(searchDTO.Country.ToLower())));
-                else
-                    retVal = retVal.Where(x => x.FullStudy.Study.ProtocolSection.ContactsLocationsModule != null
-                    && x.FullStudy.Study.ProtocolSection.ContactsLocationsModule.LocationList != null
-                    && x.FullStudy.Study.ProtocolSection.ContactsLocationsModule.LocationList.Location
-                    .Any(y => y.LocationCountry.ToLower().Contains(searchDTO.Country.ToLower()))).ToList();
-            }
-
-            if (!String.IsNullOrEmpty(searchDTO.Sponsor))
-            {
-                if (retVal.Count() == 0)
-                    retVal = RepositoryContext.Studies.Where(x => (x.FullStudy.Study.ProtocolSection.IdentificationModule.Organization.OrgFullName.ToLower())
-                            .Contains(searchDTO.Sponsor.ToLower()));
-                else
-                    retVal = retVal.Where(x => (x.FullStudy.Study.ProtocolSection.IdentificationModule.Organization.OrgFullName.ToLower()).Contains(searchDTO.Sponsor.ToLower()));
-            }
-            
-
-            return retVal;
+            return RepositoryContext.Studies
+           .Where(x => x.FullStudy.Study.DerivedSection.ConditionBrowseModule.ConditionMeshList
+           .ConditionMesh.Any(y => y.ConditionMeshTerm.ToLower().Contains(filter.Condition.ToLower()))
+           && x.FullStudy.Study.ProtocolSection.ContactsLocationsModule.LocationList
+               .Location.Any(y => y.LocationCountry.ToLower().Contains(filter.Country.ToLower()))
+           && (x.FullStudy.Study.ProtocolSection.IdentificationModule.Organization.OrgFullName.ToLower())
+                           .Contains(filter.Sponsor.ToLower())).Count();
         }
+
+        public List<ResultDTO> SimpleSearch(PaginationFilter filter)
+        {
+
+            var retVal = RepositoryContext.Studies.AsNoTracking()
+            .Where(x => x.FullStudy.Study.DerivedSection.ConditionBrowseModule.ConditionMeshList
+            .ConditionMesh.Any(y => y.ConditionMeshTerm.ToLower().Contains(filter.Condition.ToLower())) 
+            && x.FullStudy.Study.ProtocolSection.ContactsLocationsModule.LocationList
+                .Location.Any(y => y.LocationCountry.ToLower().Contains(filter.Country.ToLower()))
+            && (x.FullStudy.Study.ProtocolSection.IdentificationModule.Organization.OrgFullName.ToLower())
+                            .Contains(filter.Sponsor.ToLower())).OrderBy(x => x.Id)
+            .Skip((filter.PageNumber - 1) * filter.PageSize)
+            .Take(filter.PageSize)
+            .Select(x => new ResultDTO
+            {
+                Id = x.Id,
+                BriefTitle = x.FullStudy.Study.ProtocolSection.IdentificationModule.BriefTitle,
+                OrgFullName = x.FullStudy.Study.ProtocolSection.IdentificationModule.Organization.OrgFullName,
+                Condition = x.FullStudy.Study.ProtocolSection.ConditionsModule.ConditionList.Condition,
+                BriefSummary = x.FullStudy.Study.ProtocolSection.DescriptionModule.BriefSummary,
+                EligibilityCriteria = x.FullStudy.Study.ProtocolSection.EligibilityModule.EligibilityCriteria,
+                OverallStatus = x.FullStudy.Study.ProtocolSection.StatusModule.OverallStatus,
+                LastUpdateSubmitDate = x.FullStudy.Study.ProtocolSection.StatusModule.LastUpdateSubmitDate.ToString()
+            });
+
+
+            return retVal.ToList();
+        }
+
+        public int[] SearchStudyIds(SearchDTO searchDTO)
+        {
+            return RepositoryContext.Studies.AsNoTracking()
+               .Where(x => x.FullStudy.Study.DerivedSection.ConditionBrowseModule.ConditionMeshList
+               .ConditionMesh.Any(y => y.ConditionMeshTerm.ToLower().Contains(searchDTO.Condition.ToLower()))
+               && x.FullStudy.Study.ProtocolSection.ContactsLocationsModule.LocationList
+                   .Location.Any(y => y.LocationCountry.ToLower().Contains(searchDTO.Country.ToLower()))
+               && (x.FullStudy.Study.ProtocolSection.IdentificationModule.Organization.OrgFullName.ToLower())
+                    .Contains(searchDTO.Sponsor.ToLower())).OrderBy(x => x.Id)
+                    .Select(x => x.Id).ToArray();
+        }
+
     }
 }

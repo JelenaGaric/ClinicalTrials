@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,6 +29,7 @@ namespace Model
 
     public class Organization : StudyStructureEntity
     {
+        [StringLength(200)]
         public string OrgFullName { get; set; }
         public string OrgClass { get; set; }
     }
@@ -159,6 +161,7 @@ namespace Model
         public string LocationFacility { get; set; }
         public string LocationCity { get; set; }
         public string LocationState { get; set; }
+        [StringLength(70)]
         public string LocationCountry { get; set; }
     }
 
@@ -247,6 +250,7 @@ namespace Model
     public class ConditionMesh : StudyStructureEntity
     {
         public string ConditionMeshId { get; set; }
+        [StringLength(120)]
         public string ConditionMeshTerm { get; set; }
     }
 

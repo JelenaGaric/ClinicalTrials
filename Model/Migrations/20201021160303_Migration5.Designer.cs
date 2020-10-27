@@ -10,8 +10,8 @@ using Model.Context;
 namespace Model.Migrations
 {
     [DbContext(typeof(ClinicalTrialsContext))]
-    [Migration("20201008131141_First")]
-    partial class First
+    [Migration("20201021160303_Migration5")]
+    partial class Migration5
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -210,7 +210,8 @@ namespace Model.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ConditionMeshTerm")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(120)")
+                        .HasMaxLength(120);
 
                     b.HasKey("Id");
 
@@ -733,7 +734,8 @@ namespace Model.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LocationCountry")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(70)")
+                        .HasMaxLength(70);
 
                     b.Property<string>("LocationFacility")
                         .HasColumnType("nvarchar(max)");
@@ -804,7 +806,8 @@ namespace Model.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("OrgFullName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
 
                     b.HasKey("Id");
 
@@ -953,6 +956,24 @@ namespace Model.Migrations
                     b.HasIndex("LeadSponsorId");
 
                     b.ToTable("SponsorCollaboratorsModule");
+                });
+
+            modelBuilder.Entity("Model.StatiscticsSearch", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Condition")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GetStatiscticsSearches");
                 });
 
             modelBuilder.Entity("Model.StatusModule", b =>
