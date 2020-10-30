@@ -15,33 +15,23 @@ export class TagService {
   constructor(private http: HttpClient) { }
   
   getAll() : Observable<any> {
-    return this.http.get<any>(GlobalVariable.baseUrl + 'api/Tags', {
-      headers: this.headerOptions
-    }).pipe(catchError(this.handleError.bind(this)));
+    return this.http.get<any>(GlobalVariable.baseUrl + 'api/Tags').pipe(catchError(this.handleError.bind(this)));
   }
 
   get(id: string) : Observable<any> {
-    return this.http.get<any>(GlobalVariable.baseUrl + 'api/Tags/' + id, {
-      headers: this.headerOptions
-    }).pipe(catchError(this.handleError.bind(this)));
+    return this.http.get<any>(GlobalVariable.baseUrl + 'api/Tags/' + id).pipe(catchError(this.handleError.bind(this)));
   }
 
   post(tag: TagDTO) : Observable<any> {
-    return this.http.post<any>(GlobalVariable.baseUrl + 'api/Tags', tag, {
-      headers: this.headerOptions
-    }).pipe(catchError(this.handleError.bind(this)));
+    return this.http.post<any>(GlobalVariable.baseUrl + 'api/Tags', tag).pipe(catchError(this.handleError.bind(this)));
   }
 
   delete(id: string) : Observable<any> {
-    return this.http.delete<any>(GlobalVariable.baseUrl + 'api/Tags/' + id, {
-      headers: this.headerOptions
-    }).pipe(catchError(this.handleError.bind(this)));
+    return this.http.delete<any>(GlobalVariable.baseUrl + 'api/Tags/' + id).pipe(catchError(this.handleError.bind(this)));
   }
 
   getAllTagLists(NCTId: string) : Observable<any> {
-    return this.http.get<TagListDTO>(GlobalVariable.baseUrl + 'api/TagLists/study/' + NCTId, {
-      headers: this.headerOptions
-    }).pipe(catchError(this.handleError.bind(this)));
+    return this.http.get<TagListDTO>(GlobalVariable.baseUrl + 'api/TagLists/study/' + NCTId).pipe(catchError(this.handleError.bind(this)));
   }
 
   attachTag(tagListDTO: TagListDTO){
@@ -52,9 +42,7 @@ export class TagService {
 
   deleteAttachedTag(tagListDTO: TagListDTO){
     return this.http.delete<any>(GlobalVariable.baseUrl + 'api/TagLists/' 
-      + tagListDTO.TagId + '/' + tagListDTO.NCTId + '/' + tagListDTO.Section, {
-      headers: this.headerOptions
-    }).pipe(catchError(this.handleError.bind(this)));
+      + tagListDTO.TagId + '/' + tagListDTO.NCTId + '/' + tagListDTO.Section).pipe(catchError(this.handleError.bind(this)));
   }
 
   handleError(errorResponse: HttpErrorResponse) {

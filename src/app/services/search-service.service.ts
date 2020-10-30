@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { SearchDTO } from '../DTO/searchDTO';
 import { throwError, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators'; 
 import { GlobalVariable } from '../global';
@@ -11,12 +10,17 @@ import { GlobalVariable } from '../global';
 export class SearchService {
   private headerOptions = new HttpHeaders({ 'Content-Type': 'application/json' });
 
+  private readonly searchIdsUri = "api/StudyStructures/searchIds";
+
+
   constructor(private http: HttpClient) { }
   
   search(searchUri: string) : any {
-    return this.http.get<any>(GlobalVariable.baseUrl + searchUri, {
-           headers: this.headerOptions
-    }).pipe(catchError(this.handleError.bind(this)));
+    return this.http.get<any>(GlobalVariable.baseUrl + searchUri).pipe(catchError(this.handleError.bind(this)));
+  }
+
+  getSearchIds(searchDTO: any) : any {
+    return this.http.post<any>(GlobalVariable.baseUrl + this.searchIdsUri, searchDTO).pipe(catchError(this.handleError.bind(this)));
   }
 
   handleError(errorResponse: HttpErrorResponse) {

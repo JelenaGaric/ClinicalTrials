@@ -7,13 +7,22 @@ import { GlobalVariable } from '../global';
 @Injectable({
   providedIn: 'root'
 })
-export class StudyService {
-  private headerOptions = new HttpHeaders({ 'Content-Type': 'application/json' });
+export class StatisticsService {
+  //private headerOptions = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+  private readonly searchStatisticsUri = "api/Statistics";
 
   constructor(private http: HttpClient) { }
   
-  get(id: string) : Observable<any> {
-    return this.http.get<any>(GlobalVariable.baseUrl + 'api/StudyStructures/'+id).pipe(catchError(this.handleError.bind(this)));
+
+  searchStatistics(searchDTO: any) : any {
+    return this.http.post<any>(GlobalVariable.baseUrl + this.searchStatisticsUri, searchDTO)
+        .pipe(catchError(this.handleError.bind(this)));
+  }
+
+  getChart(searchUri: string) : any {
+    return this.http.get<any>(GlobalVariable.baseUrl + this.searchStatisticsUri + searchUri)
+        .pipe(catchError(this.handleError.bind(this)));
   }
 
   handleError(errorResponse: HttpErrorResponse) {

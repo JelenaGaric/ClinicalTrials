@@ -11,6 +11,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { StudyViewComponent } from './study-view/study-view.component';
 import { DndModule } from 'ngx-drag-drop';
 import { AdvancedSearchComponent } from './advanced-search/advanced-search.component';
+import { StatisticsComponent } from './statistics/statistics.component';
+import { TestComponent } from './test/test.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { AdvancedSearchComponent } from './advanced-search/advanced-search.compo
     WelcomeComponent,
     SearchComponent,
     StudyViewComponent,
-    AdvancedSearchComponent
+    AdvancedSearchComponent,
+    StatisticsComponent,
+    TestComponent
   ],
   imports: [
     BrowserModule,

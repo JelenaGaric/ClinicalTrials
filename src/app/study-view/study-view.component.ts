@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StudyService } from '../services/study-service.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TagService } from '../services/tag-service.service';
 import { TagDTO } from '../DTO/tagDTO';
 import { DndDropEvent } from 'ngx-drag-drop';
@@ -29,6 +29,8 @@ export class StudyViewComponent implements OnInit {
 
   draggableTags: DraggableTag[];
 
+  searchIds : number[];
+
   droppedTagsOnStudy: any[];
   droppedTagsOnConditionList: any[];
   droppedTagsOnStudyType: any[];
@@ -38,34 +40,29 @@ export class StudyViewComponent implements OnInit {
   droppedTagsOnLocations:any[];
   droppedTagsOnStatus:any[];
 
-  constructor(private _studyService: StudyService, private _tagService: TagService, private _route: ActivatedRoute) { }
+  constructor(private _studyService: StudyService, private _tagService: TagService, private _route: ActivatedRoute, private _router: Router) { }
 
   ngOnInit() {
     this.tagToAdd = new TagDTO();
-    this.draggableTags = [];
-    this.droppedTagsOnStudy = [];
-    this.droppedTagsOnStudyType = [];
-    this.droppedTagsOnDescription = [];
-    this.droppedTagsOnConditionList = [];
-    this.droppedTagsOnIntervention = [];
-    this.droppedTagsOnCollaborator = [];
-    this.droppedTagsOnStatus = [];
-    this.droppedTagsOnLocations = [];
+    this.searchIds = [];
 
     this._route.params.subscribe((params) => {
+      this.initArrays();
+
       this.selectedId = params.id;
       this._studyService.get(this.selectedId)
         .subscribe( data => {
+
           this.study = data;
           console.log(this.study)
           this._tagService.getAll()
             .subscribe( data => {
-            for(let t of data){
-              this.makeTagDraggable(t);
-            }
-            this._tagService.getAllTagLists(this.study.fullStudy.study.protocolSection.identificationModule.nctId)
-              .subscribe( data => {
-                for(let tagList of data){
+              for(let t of data){
+                this.makeTagDraggable(t);
+              }
+            //this._tagService.getAllTagLists(this.study.nctId)
+            //  .subscribe( data => {
+                for(let tagList of this.study.tagLists){
                   switch(tagList.section){
                     case "study":
                       this.droppedTagsOnStudy.push(this.draggableTags.find(x => x.tag.id === tagList.tagId).tag);
@@ -98,10 +95,45 @@ export class StudyViewComponent implements OnInit {
               });
             });
         });
-    });
+    //});
+    this.searchIds = JSON.parse(window.localStorage.getItem("SearchIds"));
+    
+  }
+
+  initArrays(){
+    this.droppedTagsOnStudy = [];
+    this.droppedTagsOnStudyType = [];
+    this.droppedTagsOnDescription = [];
+    this.droppedTagsOnConditionList = [];
+    this.droppedTagsOnIntervention = [];
+    this.droppedTagsOnCollaborator = [];
+    this.droppedTagsOnStatus = [];
+    this.droppedTagsOnLocations = [];
+    this.draggableTags = [];
+  }
+
+  nextStudy(){
+    const currentIndex = this.searchIds.indexOf(Number(this.selectedId));
+    const nextIndex = (currentIndex + 1) % this.searchIds.length;
+
+    if(this.searchIds[nextIndex] !== undefined){
+      this.initArrays();
+      this._router.navigate(["/study/" + this.searchIds[nextIndex]]);
+    }
+  }
+
+  previousStudy(){
+    const currentIndex = this.searchIds.indexOf(Number(this.selectedId));
+    const previousIndex = (currentIndex - 1) % this.searchIds.length;
+    
+    if(this.searchIds[previousIndex] !== undefined){
+      this.initArrays();
+      this._router.navigate(["/study/" + this.searchIds[previousIndex]]);
+    }
   }
 
   makeTagDraggable(t: any){
+
     let draggableTag = {
       tag: t,
       effectAllowed: "all",
@@ -146,7 +178,7 @@ export class StudyViewComponent implements OnInit {
   deleteAttachedTag(tagId: string, droppedTagsName:string){
     let tagToDelete;
     let tagListDTO = new TagListDTO();
-    tagListDTO.NCTId = this.study.fullStudy.study.protocolSection.identificationModule.nctId;
+    tagListDTO.NCTId = this.study.nctId;
     tagListDTO.TagId = tagId;
 
     switch(droppedTagsName){
@@ -232,35 +264,60 @@ export class StudyViewComponent implements OnInit {
   }
   
   onDrop(event:DndDropEvent) {
+    console.log(event)
     let tagListDTO: TagListDTO = new TagListDTO();
-      tagListDTO.NCTId = this.study.fullStudy.study.protocolSection.identificationModule.nctId;
+      tagListDTO.NCTId = this.study.nctId;
       tagListDTO.TagId = event.data.id;
       tagListDTO.Section = event.event.toElement.id;
 
     switch(event.event.toElement.id) {    
       case "studyTitle":
+        if(this.droppedTagsOnStudy.find(x => x.id === event.data.id) !== undefined){
+          return;
+        }
         this.droppedTagsOnStudy.push(event.data);
         tagListDTO.Section = "study";
         break;
       case "conditionList":
+        if(this.droppedTagsOnConditionList.find(x => x.id === event.data.id) !== undefined){
+          return;
+        }
         this.droppedTagsOnConditionList.push(event.data);
         break;
       case "studyType":
+        if(this.droppedTagsOnStudyType.find(x => x.id === event.data.id) !== undefined){
+          return;
+        }
         this.droppedTagsOnStudyType.push(event.data);
         break;
         case "intervention":
+          if(this.droppedTagsOnIntervention.find(x => x.id === event.data.id) !== undefined){
+            return;
+          }
           this.droppedTagsOnIntervention.push(event.data);
           break;
         case "description":
+          if(this.droppedTagsOnDescription.find(x => x.id === event.data.id) !== undefined){
+            return;
+          }
           this.droppedTagsOnDescription.push(event.data);
           break;
         case "status":
+          if(this.droppedTagsOnStatus.find(x => x.id === event.data.id) !== undefined){
+            return;
+          }
           this.droppedTagsOnStatus.push(event.data);
           break;
         case "locations":
+          if(this.droppedTagsOnLocations.find(x => x.id === event.data.id) !== undefined){
+            return;
+          }
           this.droppedTagsOnLocations.push(event.data);
           break;
         case "collaborator":
+          if(this.droppedTagsOnCollaborator.find(x => x.id === event.data.id) !== undefined){
+            return;
+          }
           this.droppedTagsOnCollaborator.push(event.data);
           break;
       default:

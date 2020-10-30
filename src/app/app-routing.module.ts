@@ -4,9 +4,11 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { SearchComponent } from './search/search.component';
 import { StudyViewComponent } from './study-view/study-view.component';
 import { AdvancedSearchComponent } from './advanced-search/advanced-search.component';
+import { StatisticsComponent } from './statistics/statistics.component';
+import { TestComponent } from './test/test.component';
 
 const routes: Routes = [
-    { path: "", component: WelcomeComponent, pathMatch: "full" },
+    { path: "", component: SearchComponent, pathMatch: "full" },
     { path: "search",
     children: [
       {
@@ -16,11 +18,11 @@ const routes: Routes = [
     ],
      component: SearchComponent, 
      pathMatch: "full" },
-    //{ path: "search?condition=:condition&Country=:country&Sponsor=:sponsor&pageNumber=:pageNumber&pageSize=:pageSize", component: SearchComponent},
-    { path: "advanced-search", component: AdvancedSearchComponent, pathMatch: "full" },
-    { path: 'study/:id', component: StudyViewComponent },
-    { path: 'search/:condition/:nesto', component: SearchComponent}
-    //{ path: "**", redirectTo: '/' }
+     { path: "advanced-search", component: AdvancedSearchComponent, pathMatch: "full" },
+     { path: "statistics", component: StatisticsComponent, pathMatch: "full" },
+     { path: 'study/:id', component: StudyViewComponent },
+     { path: 'test', component: TestComponent },
+    { path: "**", redirectTo: '/search' }
 ];
 
 @NgModule({  
