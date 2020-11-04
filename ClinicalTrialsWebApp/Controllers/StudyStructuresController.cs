@@ -110,22 +110,5 @@ namespace ClinicalTrialsWebApp
             }
         }
 
-        [HttpPost]
-        [Route("statistics")]
-        public ActionResult MakeStatistics(SearchDTO searchDTO)
-        {
-            try
-            {
-                _repoWrapper.StatisticsSearch.Create(new StatisticsSearch { Condition = searchDTO.Condition, DateCreated = DateTime.Now });
-                _repoWrapper.Save();
-                var retVal = _repoWrapper.StatisticsSearch.RunStatistics();
-                return Ok();
-            }
-            catch (Exception e)
-            {
-                _logger.LogError($"Something went wrong inside MakeStatistics action: {e.Message}");
-                return StatusCode(404, e.Message);
-            }
-        }
     }
 }

@@ -9,7 +9,14 @@ namespace ClinicalTrialsWebApp.Repository
     {
         Task<IEnumerable<StatisticsSearch>> GetAllStatisticsSearchesAsync();
         Task<StatisticsSearch> GetStatisticsSearchByIdAsync(int Id);
-        string RunStatistics();
+        string TrialsByYearsStatistics();
+        string StudyTypeStatistics();
+        string StatusStatistics();
+        string PhaseListStatistics();
+        string LocationStatistics();
+        string SponsorStatistics();
+        string DurationStatistics();
+
     }
 }
 

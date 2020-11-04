@@ -29,17 +29,89 @@ namespace ClinicalTrialsWebApp.Repository
                  .FirstOrDefaultAsync();
         }
 
-        public string RunStatistics()
+        public string TrialsByYearsStatistics()
         {
-            SqlParameter parm = new SqlParameter()
-            {
-                ParameterName = "retVal",
-                DbType = DbType.String,
-                Size = 100000,
-                Direction = ParameterDirection.Output
-            };
-            //SqlCommand sqlCommand = 
 
+            using (var command = RepositoryContext.Database.GetDbConnection().CreateCommand())
+            {
+                Console.WriteLine(RepositoryContext.Database.GetDbConnection());
+                command.CommandText = "SELECT * from master.dbo.TRIALS_BY_YEAR_WITH_MESH_TERM ORDER BY NUM DESC FOR JSON AUTO;";
+                command.CommandType = CommandType.Text;
+
+                RepositoryContext.Database.OpenConnection();
+                command.CommandTimeout = 120;
+                command.Prepare();
+
+                using (var result = command.ExecuteReader())
+                {
+                    string retVal = "";
+                    while (result.Read())
+                    {
+                        retVal = result.GetString(0);
+                    }
+
+                    return retVal;
+                }
+            }
+
+        }
+
+        public string StudyTypeStatistics()
+        {
+
+            using (var command = RepositoryContext.Database.GetDbConnection().CreateCommand())
+            {
+                Console.WriteLine(RepositoryContext.Database.GetDbConnection());
+                command.CommandText = "SELECT * FROM master.dbo.STUDY_TYPE_NUM_WITH_MESH_TERM ORDER BY NUM DESC FOR JSON AUTO";
+                command.CommandType = CommandType.Text;
+
+                RepositoryContext.Database.OpenConnection();
+                command.CommandTimeout = 120;
+                command.Prepare();
+
+                using (var result = command.ExecuteReader())
+                {
+                    string retVal = "";
+                    while (result.Read())
+                    {
+                        retVal = result.GetString(0);
+                    }
+
+                    return retVal;
+                }
+            }
+
+        }
+
+        public string StatusStatistics()
+        {
+
+            using (var command = RepositoryContext.Database.GetDbConnection().CreateCommand())
+            {
+                Console.WriteLine(RepositoryContext.Database.GetDbConnection());
+                command.CommandText = "SELECT * FROM master.dbo.OVERALL_STATUS_WITH_MESH_TERM ORDER BY NUM DESC FOR JSON AUTO;";
+                command.CommandType = CommandType.Text;
+
+                RepositoryContext.Database.OpenConnection();
+                command.CommandTimeout = 120;
+                command.Prepare();
+
+                using (var result = command.ExecuteReader())
+                {
+                    string retVal = "";
+                    while (result.Read())
+                    {
+                        retVal = result.GetString(0);
+                    }
+
+                    return retVal;
+                }
+            }
+
+        }
+
+        public string PhaseListStatistics()
+        {
           
             using (var command = RepositoryContext.Database.GetDbConnection().CreateCommand())
             {
@@ -63,11 +135,84 @@ namespace ClinicalTrialsWebApp.Repository
                 }
             }
             
+        }
 
-            //var retVal = RepositoryContext.Database.ExecuteSqlCommand("SELECT [Condition] FROM [proba].[dbo].[StatisticsSearches] WHERE id = ( SELECT MAX( id ) FROM [proba].[dbo].[StatisticsSearches])", parm);
+        public string LocationStatistics()
+        {
 
-                return "ok";
-            
+            using (var command = RepositoryContext.Database.GetDbConnection().CreateCommand())
+            {
+                Console.WriteLine(RepositoryContext.Database.GetDbConnection());
+                command.CommandText = "SELECT * FROM master.dbo.LOCATION_WITH_MESH_TERM ORDER BY NUM DESC FOR JSON AUTO;";
+                command.CommandType = CommandType.Text;
+
+                RepositoryContext.Database.OpenConnection();
+                command.CommandTimeout = 120;
+                command.Prepare();
+
+                using (var result = command.ExecuteReader())
+                {
+                    string retVal = "";
+                    while (result.Read())
+                    {
+                        retVal = result.GetString(0);
+                    }
+
+                    return retVal;
+                }
+            }
+        }
+
+        public string SponsorStatistics()
+        {
+
+            using (var command = RepositoryContext.Database.GetDbConnection().CreateCommand())
+            {
+                Console.WriteLine(RepositoryContext.Database.GetDbConnection());
+                command.CommandText = "SELECT * FROM master.dbo.SPONSOR_WITH_MESH_TERM ORDER BY NUM DESC FOR JSON AUTO;";
+                command.CommandType = CommandType.Text;
+
+                RepositoryContext.Database.OpenConnection();
+                command.CommandTimeout = 120;
+                command.Prepare();
+
+                using (var result = command.ExecuteReader())
+                {
+                    string retVal = "";
+                    while (result.Read())
+                    {
+                        retVal = result.GetString(0);
+                    }
+
+                    return retVal;
+                }
+            }
+        }
+
+        public string DurationStatistics()
+        {
+
+            using (var command = RepositoryContext.Database.GetDbConnection().CreateCommand())
+            {
+                Console.WriteLine(RepositoryContext.Database.GetDbConnection());
+                command.CommandText = "SELECT * FROM master.dbo.DURATION_WITH_MESH_TERM ORDER BY NUM DESC FOR JSON AUTO;";
+                command.CommandType = CommandType.Text;
+
+                RepositoryContext.Database.OpenConnection();
+                command.CommandTimeout = 120;
+                command.Prepare();
+
+                using (var result = command.ExecuteReader())
+                {
+                    string retVal = "";
+                    while (result.Read())
+                    {
+                        retVal = result.GetString(0);
+                    }
+
+                    return retVal;
+                }
+            }
         }
     }
 }
