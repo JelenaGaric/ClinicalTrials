@@ -125,7 +125,7 @@ namespace ClinicalTrialsWeb
                     {
                         tableName = "Studies";
                     }
-                    else if (tableName.Equals("Tag") || tableName.Equals("TagList") || tableName.Equals("__EFMigrationsHistory"))
+                    else if (tableName.Equals("Tag") || tableName.Equals("TagList") || tableName.Equals("__EFMigrationsHistory") || tableName.Equals("StatisticsSearch"))
                     {
                         continue;
                     }
@@ -170,7 +170,7 @@ namespace ClinicalTrialsWeb
                      Console.WriteLine(e.Message);
                  }
 
-                 /*DeleteOldDb();
+                 DeleteOldDb();
 
                  context.ChangeTracker.AutoDetectChangesEnabled = false;
 
@@ -204,7 +204,7 @@ namespace ClinicalTrialsWeb
                          }
                      }
                  }
-                 context.SaveChanges();*/
+                 context.SaveChanges();
             }
             finally
             {

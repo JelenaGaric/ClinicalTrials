@@ -108,6 +108,23 @@ namespace ClinicalTrialsWebApp
         }
 
         [HttpGet]
+        [Route("country")]
+        public ActionResult Country()
+        {
+            try
+            {
+                var retVal = _repoWrapper.StatisticsSearch.CountryStatistics();
+                return Ok(retVal);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Something went wrong inside Country action: {e.Message}");
+                return StatusCode(404, e.Message);
+            }
+        }
+
+
+        [HttpGet]
         [Route("location")]
         public ActionResult Location()
         {
@@ -154,5 +171,22 @@ namespace ClinicalTrialsWebApp
                 return StatusCode(404, e.Message);
             }
         }
+
+        [HttpGet]
+        [Route("locationCities")]
+        public ActionResult GetLocationCities()
+        {
+            try
+            {
+                var retVal = _repoWrapper.StatisticsSearch.GetLocationCitiesAsync();
+                return Ok(retVal);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Something went wrong inside GetLocationCities action: {e.Message}");
+                return StatusCode(404, e.Message);
+            }
+        }
+
     }
 }

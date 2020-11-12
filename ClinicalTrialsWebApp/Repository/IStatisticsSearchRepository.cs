@@ -13,9 +13,11 @@ namespace ClinicalTrialsWebApp.Repository
         string StudyTypeStatistics();
         string StatusStatistics();
         string PhaseListStatistics();
+        string CountryStatistics();
         string LocationStatistics();
         string SponsorStatistics();
         string DurationStatistics();
+        Task<string> GetLocationCitiesAsync();
 
     }
 }
