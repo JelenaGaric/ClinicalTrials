@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Model
 {
     // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse); 
-    /*
+    
     public class OrgStudyIdInfo : StudyStructureEntity
     {
         public string OrgStudyId { get; set; }
@@ -40,11 +40,20 @@ namespace Model
         public virtual SecondaryIdInfoList SecondaryIdInfoList { get; set; }
         public virtual Organization Organization { get; set; }
         public string BriefTitle { get; set; }
-    }
+        public string OfficialTitle { get; set; }
+        public string Acronym { get; set; }
+        public NCTIdAliasList NCTIdAliasList { get; set; }
 
+    }
+    public class NCTIdAliasList
+    {
+        public List<string> NCTIdAlias { get; set; }
+    }
     public class ExpandedAccessInfo : StudyStructureEntity
     {
         public string HasExpandedAccess { get; set; }
+        public string ExpandedAccessNCTId { get; set; }
+        public string ExpandedAccessStatusForNCTId { get; set; }
     }
 
     public class StudyFirstPostDateStruct : StudyStructureEntity
@@ -71,6 +80,21 @@ namespace Model
         [JsonConverter(typeof(MyDateTimeConverter))]
         public DateTime? LastUpdateSubmitDate { get; set; }
         public virtual LastUpdatePostDateStruct LastUpdatePostDateStruct { get; set; }
+
+        public string LastKnownStatus { get; set; }
+        public string DelayedPosting { get; set; }
+        public string WhyStopped { get; set; }
+        public StartDateStruct StartDateStruct { get; set; }
+        public PrimaryCompletionDateStruct PrimaryCompletionDateStruct { get; set; }
+        public CompletionDateStruct CompletionDateStruct { get; set; }
+        public string DispFirstSubmitDate { get; set; }
+        public string DispFirstSubmitQCDate { get; set; }
+        public DispFirstPostDateStruct DispFirstPostDateStruct { get; set; }
+        [JsonConverter(typeof(MyDateTimeConverter))]
+        public DateTime? ResultsFirstSubmitDate { get; set; }
+        public string ResultsFirstSubmitQCDate { get; set; }
+        public ResultsFirstPostDateStruct ResultsFirstPostDateStruct { get; set; }
+
     }
 
     public class LeadSponsor : StudyStructureEntity
@@ -79,10 +103,10 @@ namespace Model
         public string LeadSponsorClass { get; set; }
     }
 
-    public class SponsorCollaboratorsModule : StudyStructureEntity
+    /*public class SponsorCollaboratorsModule : StudyStructureEntity
     {
         public virtual LeadSponsor LeadSponsor { get; set; }
-    }
+    }*/
 
     public class DescriptionModule : StudyStructureEntity
     {
@@ -98,6 +122,8 @@ namespace Model
     public class ConditionsModule : StudyStructureEntity
     {
         public virtual ConditionList ConditionList { get; set; }
+        public KeywordList KeywordList { get; set; }
+
     }
 
     public class PhaseList : StudyStructureEntity
@@ -105,15 +131,26 @@ namespace Model
         public List<string> Phase { get; set; }
     }
 
+    public class DesignWhoMaskedList
+    {
+        public List<string> DesignWhoMasked { get; set; }
+    }
+
     public class DesignMaskingInfo : StudyStructureEntity
     {
         public string DesignMasking { get; set; }
+        public string DesignMaskingDescription { get; set; }
+        public DesignWhoMaskedList DesignWhoMaskedList { get; set; }
     }
 
     public class DesignInfo : StudyStructureEntity
     {
+        public string DesignAllocation { get; set; }
         public string DesignInterventionModel { get; set; }
+        public string DesignInterventionModelDescription { get; set; }
         public string DesignPrimaryPurpose { get; set; }
+        public virtual DesignObservationalModelList DesignObservationalModelList { get; set; }
+        public virtual DesignTimePerspectiveList DesignTimePerspectiveList { get; set; }
         public virtual DesignMaskingInfo DesignMaskingInfo { get; set; }
     }
 
@@ -122,6 +159,13 @@ namespace Model
         public string StudyType { get; set; }
         public virtual PhaseList PhaseList { get; set; }
         public virtual DesignInfo DesignInfo { get; set; }
+        public string PatientRegistry { get; set; }
+        public string TargetDuration { get; set; }
+        public BioSpec BioSpec { get; set; }
+        public EnrollmentInfo EnrollmentInfo { get; set; }
+        public ExpandedAccessTypes ExpandedAccessTypes { get; set; }
+
+
     }
 
     public class Intervention : StudyStructureEntity
@@ -134,10 +178,16 @@ namespace Model
     {
         public virtual List<Intervention> Intervention { get; set; }
     }
+    public class ArmGroupList : StudyStructureEntity
+    {
+        public virtual List<ArmGroup> ArmGroup { get; set; }
+    }
 
     public class ArmsInterventionsModule : StudyStructureEntity
     {
         public virtual InterventionList InterventionList { get; set; }
+        public ArmGroupList ArmGroupList { get; set; }
+
     }
 
     public class StdAgeList : StudyStructureEntity
@@ -153,6 +203,14 @@ namespace Model
         public string MinimumAge { get; set; }
         public string MaximumAge { get; set; }
         public virtual StdAgeList StdAgeList { get; set; }
+        public string GenderBased { get; set; }
+        public string GenderDescription { get; set; }
+        public string StudyPopulation { get; set; }
+        public string SamplingMethod { get; set; }
+    }
+    public class LocationContactList : StudyStructureEntity
+    {
+        public virtual List<LocationContact> LocationContact { get; set; }
     }
 
     public class Location : StudyStructureEntity
@@ -162,6 +220,10 @@ namespace Model
         public string LocationState { get; set; }
         [StringLength(70)]
         public string LocationCountry { get; set; }
+        public string LocationZip { get; set; }
+        public string LocationStatus { get; set; }
+        public virtual LocationContactList LocationContactList { get; set; }
+
     }
 
     public class LocationList : StudyStructureEntity
@@ -172,6 +234,8 @@ namespace Model
     public class ContactsLocationsModule : StudyStructureEntity
     {
         public virtual LocationList LocationList { get; set; }
+        public virtual CentralContactList CentralContactList { get; set; }
+        public virtual OverallOfficialList OverallOfficialList { get; set; }
     }
 
     public class ProtocolSection : StudyStructureEntity
@@ -179,17 +243,29 @@ namespace Model
         public virtual IdentificationModule IdentificationModule { get; set; }
         public virtual StatusModule StatusModule { get; set; }
         public virtual SponsorCollaboratorsModule SponsorCollaboratorsModule { get; set; }
+        public virtual OversightModule OversightModule { get; set; }
         public virtual DescriptionModule DescriptionModule { get; set; }
         public virtual ConditionsModule ConditionsModule { get; set; }
         public virtual DesignModule DesignModule { get; set; }
         public virtual ArmsInterventionsModule ArmsInterventionsModule { get; set; }
+        public virtual OutcomesModule OutcomesModule { get; set; }
         public virtual EligibilityModule EligibilityModule { get; set; }
         public virtual ContactsLocationsModule ContactsLocationsModule { get; set; }
+        public virtual ReferencesModule ReferencesModule { get; set; }
+        public virtual IPDSharingStatementModule IPDSharingStatementModule { get; set; }
+        
+    }
+
+    public class RemovedCountryList : StudyStructureEntity
+    {
+        public List<string> RemovedCountry { get; set; }
     }
 
     public class MiscInfoModule : StudyStructureEntity
     {
         public string VersionHolder { get; set; }
+        public virtual RemovedCountryList RemovedCountryList { get; set; }
+
     }
 
     public class InterventionMesh : StudyStructureEntity
@@ -310,8 +386,12 @@ namespace Model
 
     public class Study : StudyStructureEntity
     {
-        public virtual ProtocolSection ProtocolSection { get; set; }
-        public virtual DerivedSection DerivedSection { get; set; }
+        public string type { get; set; }
+        public ProtocolSection ProtocolSection { get; set; }
+        public ResultsSection ResultsSection { get; set; }
+        public AnnotationSection AnnotationSection { get; set; }
+        public DocumentSection DocumentSection { get; set; }
+        public DerivedSection DerivedSection { get; set; }
     }
 
     public class FullStudy : StudyStructureEntity
@@ -324,8 +404,5 @@ namespace Model
     {
         public virtual FullStudy FullStudy { get; set; }
     }
-
-    */
-
-
+    
 }

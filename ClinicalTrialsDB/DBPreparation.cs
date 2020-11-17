@@ -257,7 +257,7 @@ namespace ClinicalTrialsWeb
                             String json = reader.ReadToEnd();
                             Root item = JsonConvert.DeserializeObject<Root>(json);
                             ++count;
-                            Console.WriteLine(item.StudyStructure.ElmtDefs.Study.ProtocolSection.IdentificationModule.NCTId);
+                            Console.WriteLine(item.FullStudy.Study.ProtocolSection.IdentificationModule.NCTId);
 
                         }
                         Console.WriteLine(entry.FullName + " - " + count);
