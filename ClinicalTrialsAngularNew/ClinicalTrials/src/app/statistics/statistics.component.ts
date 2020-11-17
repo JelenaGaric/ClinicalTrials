@@ -25,7 +25,6 @@ export class StatisticsComponent implements OnInit {
   title = 'My first AGM project';
   lat = 51.678418;
   lng = 7.809007;
-  
 
   private trialsByYearData = [];
   private studyTypeData = [];
@@ -34,7 +33,6 @@ export class StatisticsComponent implements OnInit {
   private locationData = [];
   private sponsorData = [];
   private durationData = [];
-
 
   private svg;
   private margin = 50;
@@ -48,6 +46,8 @@ export class StatisticsComponent implements OnInit {
   maxWidth: number;
 
   locationDTO: LocationDTO;
+
+  showOverallStats =  false;
 
   ngOnInit(): void {
     this.locationDTO = new LocationDTO();
@@ -65,7 +65,10 @@ export class StatisticsComponent implements OnInit {
 
   onSubmit() {
     
-    if (this.svg != undefined) {
+    this.searchDTO = this.searchForm.value;
+    if(this.searchDTO.Condition === "")
+      return;
+    
       d3.select("figure#trialsByYear").select("svg").remove();
       d3.select("figure#studyType").select("svg").remove();
       d3.select("figure#status").select("svg").remove();
@@ -73,13 +76,15 @@ export class StatisticsComponent implements OnInit {
       d3.select("figure#location").select("svg").remove();
       d3.select("figure#sponsor").select("svg").remove();
       d3.select("figure#duration").select("svg").remove();
-    }
-
-    this.searchDTO = this.searchForm.value;
-
-    this._searchService.searchStatistics(this.searchDTO).subscribe(response => {
+      d3.select("figure#sponsor1").select("svg").remove();
+      //clear map too
+    
+ 
+    this._searchService.searchStatistics(this.searchDTO).subscribe(response => {   
       this._searchService.getChart('/sponsor').subscribe(data => {
-        this.createSponsorChart(data);
+        if(data != null)
+          this.createSponsorChart(data);
+          this.createSponsorBubbleChart(data);
       });
       //will convert response from any[] to locationDTO
       this._searchService.getChart('/location').subscribe(data => {
@@ -92,11 +97,12 @@ export class StatisticsComponent implements OnInit {
         this.createGoogleMap();
       });
       this._searchService.getChart('/country').subscribe(data => {
-        this.createLocationChart(data);
+        if(data != null)
+          this.createLocationChart(data);
       });
 
       this._searchService.getChart('/trialsByYear').subscribe(data => {
-        if (data != null) {
+        if(data != null) {
           this.trialsByYearData = data;
           //this.createSvg("trialsByYear");
           this.createLineChart(this.trialsByYearData);
@@ -121,37 +127,290 @@ export class StatisticsComponent implements OnInit {
           });
         }
       });
-      this._searchService.getChart('/sponsor').subscribe(data => {
-        if (data != null) {
-          this.sponsorData = data;
-        }
-      });
       this._searchService.getChart('/duration').subscribe(data => {
         if (data != null) {
-          this.durationData = data;
+          this.createDurationChart(data);
         }
       });
     });
+    
+ 
+  }
+
+  private createSponsorBubbleChart(data: any[]){
+    var margin = {top: 10, right: 20, bottom: 30, left: 100},
+    width = 500 - margin.left - margin.right,
+    height = 420 - margin.top - margin.bottom;
+
+  // append the svg object to the body of the page
+  var svg = d3.select("figure#sponsor1")
+    .append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+      .attr("transform",
+            "translate(" + margin.left + "," + margin.top + ")");
+
+    var maxNum = d3.max(data, function (d) { return d.NUM });
+
+    // Add X axis
+    var x = d3.scaleLinear()
+      .domain([0, d3.max(data, function (d) { return d.NUM }) + maxNum/5])
+      .range([ 0, width ]);
+    svg.append("g")
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(x));
+      
+    // Add Y axis
+    var y = d3.scaleLinear()
+    //d3.scaleLog().base(Math.E).domain([Math.exp(0), Math.exp(5)])
+      .domain([0, d3.max(data, function (d) { return d.NUM }) + maxNum/5])
+      .range([ height, 0 ]);
+    svg.append("g")
+      .call(d3.axisLeft(y));
+
+    // Add a scale for bubble size
+    var z = d3.scaleLinear()
+      .domain([0, d3.max(data, function (d) { return d.NUM ; })])
+      .range([ 4, 70]);
+
+    // Add a scale for bubble color
+    var myColor = d3.scaleOrdinal()
+    .domain(data.map(d => d.LeadSponsorName))
+      .range(d3.schemeSet2);
+
+    var div = d3.select("body").append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0);
+
+    // Add dots
+    svg.append('g')
+      .selectAll("dot")
+      .data(data)
+      .enter()
+      .append("circle")
+        .attr("cx",  function (d) { return x(d.NUM); } ) //function (d) { return x(d.NUM); } )
+        .attr("cy",  function (d) { return y(d.NUM) /*y(Math.log(data.indexOf(d))); */} )
+        .attr("r", function (d) { return z(d.NUM); } )
+        .style("fill", function (d) { return myColor(d.LeadSponsorName); } as any )
+        .style("opacity", "0.7")
+        .attr("stroke", "white")
+        .style("stroke-width", "2px")
+        .on("mouseover", function (d) {
+          d3.select(this)
+            .style("cursor", "pointer");
+          div.transition()
+            .duration(200)
+            .style("opacity", .9);
+          div.html("Number of trials: " + d.target.__data__.NUM + "<br/>" + "Sponsor: " + d.target.__data__.LeadSponsorName)
+            .style("left", (d.pageX) + "px")
+            .style("top", (d.pageY) + "px")
+            .style("position", "absolete")
+            .style("background", "#1d2b29")
+            .style("color", "#ffffff")
+            .style("padding", "2px")
+            .style("border-radius", "8px")
+            .style("font", " 12px")
+            .style("text-align", "center");
+        })
+        .on("mouseout", function (d) {
+          d3.select(this)
+            .style("cursor", "default");
+          div.transition()
+            .duration(500)
+            .style("opacity", 0);
+        });
+  }
+
+  private createDurationChart(data: any[]){
+    
+    /*var myColor = d3.scaleOrdinal()
+    .domain(data.map(d => d.StudyType))
+     .range(d3.schemeSet2);*/
+    // set the color scale
+    var myColor = d3.scaleOrdinal()
+    .domain(data.map(d => d.StudyType))
+    .range(["#04BF9D", "#3E372A", "#2CB199"]);
+
+    var newMargin = this.margin + 45;
+
+    const margin = { top: 40, right: 150, bottom: 60, left: 30 },
+    width = 600 - margin.left - margin.right,
+    height = 420 - margin.top - margin.bottom;
+    const svg = d3
+    .select("figure#duration")
+    .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + newMargin + "," + margin.top + ")");
+
+    const x = d3
+    .scaleBand()
+    .domain(data.map(d => d.StudyType))
+    .range([0, width]);
+    // Add X axis
+    svg
+    .append("g")
+    .attr("transform", "translate(0," + height + ")")
+    .call(d3.axisBottom(x));
+
+    const yMax = d3.max(data, d => d.NUM) + d3.max(data, d => d.NUM)/10
+    // Add Y scale
+    const y = d3
+    .scaleLinear()
+    .domain([0, yMax])
+    .range([height, 0]);
+    // Add Y axis
+    svg.append("g").call(d3.axisLeft(y));
+    
+    svg.append("text")
+    .attr("text-anchor", "end")
+    .attr("x", 0)
+    .attr("y", -20 )
+    .text("Number of trials")
+    .attr("text-anchor", "start")
+
+    var div = d3.select("body").append("div")
+      .attr("class", "tooltip")
+      .style("opacity", 0);
+
+      
+    var z = d3.scaleSqrt()
+    .domain([200000, 1310000000])
+    .range([ 2, 30]);
+
+    // Add bubbles
+    svg
+    .append("g")
+    .selectAll("bubble")
+    .data(data)
+    .enter()
+    .append("circle")
+    .attr("cx", d => x(d.StudyType) + 50)
+    .attr("cy", d => y(d.NUM))
+    .attr("r", function(d){ return z(d.AvgDurationInDays * 1000000) })
+    //.attr("r", d => d.AvgDurationInDays/90)
+    .style("fill",  function (d) { return myColor(d.StudyType); } as any )
+    .style("opacity", "0.7")
+    .attr("stroke", "white")
+    .on("mouseover", function (d) {
+      d3.select(this)
+        .style("cursor", "pointer");
+      div.transition()
+        .duration(200)
+        .style("opacity", .9);
+      div.html("Number of trials: " + d.target.__data__.NUM + "<br/>" + "Average duration of trial (days): " + d.target.__data__.AvgDurationInDays)
+        .style("left", (d.pageX) + "px")
+        .style("top", (d.pageY) + "px")
+        .style("position", "absolete")
+        .style("background", "#1d2b29")
+        .style("color", "#ffffff")
+        .style("padding", "2px")
+        .style("border-radius", "8px")
+        .style("font", " 12px")
+        .style("text-align", "center");
+    })
+    .on("mouseout", function (d) {
+      d3.select(this)
+        .style("cursor", "default");
+      div.transition()
+        .duration(500)
+        .style("opacity", 0);
+    });
+
+     // ---------------------------//
+    //       LEGEND              //
+    // ---------------------------//
+
+    // Add one dot in the legend for each name.
+    var size = 20
+    svg.selectAll("myrect")
+      .data(data)
+      .enter()
+      .append("circle")
+        .attr("cx", 320)
+        .attr("cy", function(d,i){ return 10 + i*(size+5)}) // 100 is where the first dot appears. 25 is the distance between dots
+        .attr("r", 7)
+        .style("fill", function(d){ return myColor(d.StudyType)} as any);
+
+    // Add labels beside legend dots
+    svg.selectAll("mylabels")
+      .data(data)
+      .enter()
+      .append("text")
+        .attr("x", 320 + size*.8)
+        .attr("y", function(d,i){ return i * (size + 5) + (size/2)}) // 100 is where the first dot appears. 25 is the distance between dots
+        .style("fill", function(d){ return myColor(d)} as any)
+        .text(function(d){ return d.StudyType})
+        .attr("text-anchor", "left")
+        .style("alignment-baseline", "middle");
+
+    const durationMax = d3.max(data, d => d.AvgDurationInDays);
+    console.log(durationMax)
+    const durationRounded = Math.round(durationMax / 1000) * 1000;
+
+    // Add legend: circles
+    var valuesToShow = [10000 * durationRounded, 100000 * durationRounded, 1000000 * durationRounded]
+    var xCircle = 390
+    var xLabel = 440
+    svg
+      .selectAll("legend")
+      .data(valuesToShow)
+      .enter()
+      .append("circle")
+        .attr("cx", xCircle)
+        .attr("cy", function(d){ return height - 100 - z(d) } )
+        .attr("r", function(d){ return z(d) })
+        .style("fill", "none")
+        .attr("stroke", "black")
+
+    // Add legend: segments
+    svg
+      .selectAll("legend")
+      .data(valuesToShow)
+      .enter()
+      .append("line")
+        .attr('x1', function(d){ return xCircle + z(d) } )
+        .attr('x2', xLabel)
+        .attr('y1', function(d){ return height - 100 - z(d) } )
+        .attr('y2', function(d){ return height - 100 - z(d) } )
+        .attr('stroke', 'black')
+        .style('stroke-dasharray', ('2,2'))
+     
+   
+    // Add legend: labels
+    svg
+      .selectAll("legend")
+      .data(valuesToShow)
+      .enter()
+      .append("text")
+        .attr('x', xLabel)
+        .attr('y', function(d){ return height - 100 - z(d) } )
+        .text( function(d){ return d/1000000 } )
+        .style("font-size", 10)
+        .attr('alignment-baseline', 'left')
+
+    // Legend title
+    svg.append("text")
+      .attr('x', xCircle - 20)
+      .attr("y", height - 100 +30)
+      //.text("Average duration (days)")
+      .text("Average")
+      .append('svg:tspan')
+      .attr('x', xCircle - 20)
+      .attr('dy', 20)
+      .text("duration")
+      .append('svg:tspan')
+      .attr('x', xCircle + 10)
+      .attr('dy', 20)
+      .text("(days)")
+      .attr("text-anchor", "middle")
 
   }
 
   private createSponsorChart(data: any[]){
     
-    /*var newData = [];
-    if(data.length >= 15){
-      data.sort((a, b) => (a.NUM > b.NUM) ? -1 : 1)
-    
-      var sum = 0;
-      data.forEach(function (value, i) {
-        if(i > 15){
-          sum += value.NUM;
-        } else {
-          newData.push(value);
-        }
-      });
-      newData.push({LeadSponsorName:"Other", NUM: sum})
-    }*/
-
     const svg = d3.select("figure#sponsor").append("svg")
       .attr("width", this.width + (this.margin * 2))
       .attr("height", this.height + (this.margin * 2))
@@ -162,7 +421,7 @@ export class StatisticsComponent implements OnInit {
 
     // set the color scale
     var color = d3.scaleOrdinal()
-      .domain(data.map(d => d.StudyType))
+      .domain(data.map(d => d.LeadSponsorName))
       .range(["#04BF9D", "#3E372A", "#2CB199", "#7D735F", "#34a892", "#20b196", "#493832", "#20d5b4", "#765b51", "#e8e0de", "#304c29", "#17deb9"]);
     //.range(d3.schemeDark2);
 
@@ -425,8 +684,6 @@ export class StatisticsComponent implements OnInit {
       .range([0, this.height])
       .domain(data.map(d => d.OverallStatus));
 
-    //svg.attr("transform", "translate(" + Math.max(this.margin, maxWidth) + "," + this.margin + ")");
-
     // Draw the Y-axis on the DOM
     svg.append("g")
       .attr("transform", "translate(" + Math.max(this.margin, maxWidth) + ")")
@@ -495,6 +752,22 @@ export class StatisticsComponent implements OnInit {
   }
 
   private createLocationChart(data: any[]) {
+  
+    var newData = [];
+
+    if(data.length >= 15){
+      data.sort((a, b) => (a.NUM > b.NUM) ? -1 : 1)
+      var sum = 0;
+      data.forEach(function (value, i) {
+        if(i > 15){
+          sum += value.NUM;
+        } else {
+          newData.push(value);
+        }
+      });
+      newData.push({LocationCountry:"Other countries", NUM: sum})
+    }
+
     const svg = d3.select("figure#location")
       .append("svg")
       .attr("width", this.width + (this.margin * 2))
@@ -504,17 +777,17 @@ export class StatisticsComponent implements OnInit {
 
     // Create the Y-axis band scale
     const x = d3.scaleLinear()
-      .domain([0, d3.max(data, function (d) { return d.NUM + 10; })])
+      .domain([0, d3.max(newData, function (d) { return d.NUM + 10; })])
       .range([0, this.width]);
 
     //Define the chart colors
     let colors = d3.scaleOrdinal()
-      .domain(data.map(d => d.OverallStatus))
+      .domain(newData.map(d => d.OverallStatus))
       .range(["#34a892", "#20b196", "#493832", "#20d5b4", "#765b51", "#e8e0de", "#304c29", "#17deb9"]);
 
 
     // Define max label for translating the chart
-    var maxLabel = d3.max(data, function (d) { return d.LocationCountry; }), maxWidth;
+    var maxLabel = d3.max(newData, function (d) { return d.LocationCountry; }), maxWidth;
 
     svg.append("text").text(maxLabel)
       .each(function () { maxWidth = this.getBBox().width; })
@@ -533,7 +806,7 @@ export class StatisticsComponent implements OnInit {
 
     const y = d3.scaleBand()
       .range([0, this.height])
-      .domain(data.map(d => d.LocationCountry));
+      .domain(newData.map(d => d.LocationCountry));
 
     //svg.attr("transform", "translate(" + Math.max(this.margin, maxWidth) + "," + this.margin + ")");
 
@@ -551,7 +824,7 @@ export class StatisticsComponent implements OnInit {
       .style("opacity", 0);
 
     var bars = svg.selectAll(".bar")
-      .data(data)
+      .data(newData)
       .enter()
       .append("g")
 
@@ -953,5 +1226,9 @@ export class StatisticsComponent implements OnInit {
       .attr("stroke-linejoin", "round");
   }
 
+  toggleOverallStats(event){
+    event.preventDefault();
+    this.showOverallStats = !this.showOverallStats;
+  }
 
 }

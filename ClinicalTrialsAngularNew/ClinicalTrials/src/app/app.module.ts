@@ -7,11 +7,16 @@ import { StatisticsComponent } from './statistics/statistics.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StatisticsService } from './services/statistics-service';
 import { HttpClientModule } from '@angular/common/http';
+import { SearchComponent } from './search/search.component';
+import { StudyViewComponent } from './study-view/study-view.component';
+import { DndModule } from 'ngx-drag-drop';
 
 @NgModule({
   declarations: [
     AppComponent,
-    StatisticsComponent
+    StatisticsComponent,
+    SearchComponent,
+    StudyViewComponent
   ],
   imports: [
     BrowserModule,
@@ -19,6 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    DndModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBjC5xykhdXPNmyv3ffc7JXWzzrHteQlrA'
     })

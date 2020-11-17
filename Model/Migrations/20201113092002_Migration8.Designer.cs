@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Model.Context;
 
 namespace Model.Migrations
 {
     [DbContext(typeof(ClinicalTrialsContext))]
-    partial class ClinicalTrialsContextModelSnapshot : ModelSnapshot
+    [Migration("20201113092002_Migration8")]
+    partial class Migration8
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,27 +36,6 @@ namespace Model.Migrations
                     b.HasIndex("InterventionListId");
 
                     b.ToTable("ArmsInterventionsModule");
-                });
-
-            modelBuilder.Entity("Model.CityCoordinates", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("LocationCity")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("lat")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("lng")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CityCoordinates");
                 });
 
             modelBuilder.Entity("Model.ConditionAncestor", b =>

@@ -63,80 +63,185 @@ namespace ClinicalTrialsWebApp.Repository
         //first reading coordinates from created xlxs file and then returning them paired with the location city
         public string LocationStatistics()
         {
-        //return ExecuteCommand("SELECT * FROM LOCATION_WITH_MESH_TERM ORDER BY NUM DESC FOR JSON AUTO;");
-        string sql = "SELECT * FROM LOCATION_WITH_MESH_TERM ORDER BY NUM DESC;";
+            //return ExecuteCommand("SELECT * FROM LOCATION_WITH_MESH_TERM ORDER BY NUM DESC FOR JSON AUTO;");
+            string sql = "SELECT * FROM LOCATION_WITH_MESH_TERM ORDER BY NUM DESC;";
+
+            SqlConnection con = new SqlConnection(RepositoryContext.Database.GetDbConnection().ConnectionString);
+
+            con.Open();
             
-        SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-SUEUN9H\SQLEXPRESS;Initial Catalog=ClinicalTrials;Integrated Security=True");
-        con.Open();
+            SqlCommand objCMD = new SqlCommand(sql, con);
             
-        SqlCommand objCMD = new SqlCommand(sql, con);
+            SqlDataAdapter myAdapter = new SqlDataAdapter();
+            myAdapter.SelectCommand = objCMD;
+
+            DataSet myDataSet = new DataSet();
+            myAdapter.Fill(myDataSet);
+            DataTable dt = myDataSet.Tables[0];
+
             
-        SqlDataAdapter myAdapter = new SqlDataAdapter();
-        myAdapter.SelectCommand = objCMD;
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "..\\coordinates1.xlsx");
+            string backupPath = Path.Combine(Directory.GetCurrentDirectory(), "..\\worldcities.xlsx");
 
-        DataSet myDataSet = new DataSet();
-        myAdapter.Fill(myDataSet);
-        DataTable dt = myDataSet.Tables[0];
-
-
-        string path = @"C:\Users\Dedo iz Njemačke\source\repos\ClinicalTrials\ClinicalTrialsWebApp\coordinates.xlsx";
-
-        using (var stream = File.Open(path, FileMode.Open, FileAccess.Read))
-        {
-            // Auto-detect format, supports:
-            //  - Binary Excel files (2.0-2003 format; *.xls)
-            //  - OpenXml Excel files (2007 format; *.xlsx, *.xlsb)
-            using (var reader = ExcelReaderFactory.CreateReader(stream))
+            dt = ExtractCoordinatesFromFile(dt, path, backupPath);
+            /*
+            try
             {
-                // Choose one of either 1 or 2:
+                dt = ExtractCoordinatesFromFile(dt, path, backupPath);
+            } catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                dt = ExtractCoordinatesFromFile(dt, backupPath, backupPath);
+            }
 
-                /* 1. Use the reader methods
-                do
+            return DataTableToJSONWithJSONNet(dt);*/
+            return "ok";
+        }
+
+        public DataTable ExtractCoordinatesFromFile(DataTable dt, string path, string backupPath)
+        {
+            using (var stream = File.Open(path, FileMode.Open, FileAccess.Read))
+            {
+                // Auto-detect format, supports:
+                //  - Binary Excel files (2.0-2003 format; *.xls)
+                //  - OpenXml Excel files (2007 format; *.xlsx, *.xlsb)
+                using (var reader = ExcelReaderFactory.CreateReader(stream))
                 {
-                    while (reader.Read())
-                    {
-                        reader.GetString(0);
-                        Console.WriteLine(reader.GetString(0));
-                    }
-                } while (reader.NextResult());*/
 
-                // 2. Use the AsDataSet extension method
-                var result = reader.AsDataSet();
-                // The result of each spreadsheet is in result.Tables
+                    var result = reader.AsDataSet();
+                    // The result of each spreadsheet is in result.Tables
 
-                DataTable myDataTable = result.Tables[0];
-                string columnName = "Column0";
+                    DataTable myDataTable = result.Tables[0];
+                    myDataTable.Rows[0].Delete();
+                    myDataTable.TableName = "CityCoordinates";
+                    //add new coordinates column to return dataset value
+                   
+                    /*DataColumn coordinatesColumn = new DataColumn();
+                     string columnName = "Column0";
 
+                    coordinatesColumn.DataType = Type.GetType("System.String");
+                    coordinatesColumn.ColumnName = "Coordinates";
+                    dt.Columns.Add(coordinatesColumn);*/
+                    
 
-                //add new coordinates column to return dataset value
-                DataColumn coordinatesColumn = new DataColumn();
-                coordinatesColumn.DataType = Type.GetType("System.String");
-                coordinatesColumn.ColumnName = "Coordinates";
-                dt.Columns.Add(coordinatesColumn);
-
-                foreach (DataRow row in dt.Rows)
-                {
-                    //read the coordinates for the given city from xlsx file
-                    try
+                    /*foreach (DataRow row in dt.Rows)
                     {
                         var r = myDataTable.Select(string.Format("{0} LIKE '%{1}%'", columnName, row["LocationCity"]));
+                        // if there are more similiar occurences select only one exact
+                        if (r.Length > 1)
+                        {
+                            r = myDataTable.Select(string.Format("{0} = '{1}'", columnName, row["LocationCity"]));
+                        }
                         //set the read coordinates value from xlsx file to return dataset value 
-                        row["Coordinates"] = r[0]["Column1"];
-                    } catch(Exception e)
-                    {
-                        Console.WriteLine($"Something went wrong inside LocationStatistics Repository action: {e.Message}");
-                        continue;
-                    }
-                        
+                        string locationCity = (string)r[0]["Column0"];
+
+                        double lat = (double)r[0]["Column1"];
+
+                        double lng = (double)r[0]["Column2"];
+
+                        CityCoordinates city = new CityCoordinates();
+                        city.LocationCity = locationCity;
+                        city.lat = lat;
+                        city.lng = lng;
+                        //read the coordinates for the given city from xlsx file
+                        /*try
+                        {
+                            var r = myDataTable.Select(string.Format("{0} LIKE '%{1}%'", columnName, row["LocationCity"]));
+                            //set the read coordinates value from xlsx file to return dataset value 
+                            row["Coordinates"] = r[0]["Column1"];
+                        }
+                        catch (Exception e)
+                        {
+                            if (backupPath != null)
+                            {
+                                using (var stream1 = File.Open(backupPath, FileMode.Open, FileAccess.Read))
+                                {
+                                    using (var reader1 = ExcelReaderFactory.CreateReader(stream1))
+                                    {
+                                        try
+                                        {
+
+                                            var result1 = reader1.AsDataSet();
+                                            DataTable myDataTable1 = result1.Tables[0];
+                                            string lat = (from DataRow dr in myDataTable1.Rows
+                                                          where (string)dr[columnName] == row["LocationCity"]
+                                                          select (string)dr["Column2"]).FirstOrDefault();
+                                            string lng = (from DataRow dr in myDataTable1.Rows
+                                                          where (string)dr[columnName] == row["LocationCity"]
+                                                          select (string)dr["Column3"]).FirstOrDefault();
+                                            //var r1 = myDataTable1.Select(string.Format("{0} LIKE '%{1}%'", columnName, row["LocationCity"]));
+                                            if (lat == null || lng == null)
+                                                continue;
+                                            else
+                                                row["Coordinates"] = "{" + lat + "," + lng + "}";
+                                        } catch (Exception ex)
+                                        {
+                                            Console.WriteLine(ex.Message);
+                                            continue;
+                                        }
+                                    }
+                                }
+                            } else
+                            {
+                                Console.WriteLine($"Something went wrong inside LocationStatistics Repository action: {e.Message}");
+                                continue;
+                            }
+                        }
+
+                    }*/
+
+                    return dt;
+
                 }
-
-
             }
         }
 
-        return DataTableToJSONWithJSONNet(dt);
+        public void fillCityCoordinatesTable(string path)
+        {
+            using (var stream = File.Open(path, FileMode.Open, FileAccess.Read))
+            {
+               using (var reader = ExcelReaderFactory.CreateReader(stream))
+                {
 
+                    var result = reader.AsDataSet();
+
+                    DataTable myDataTable = result.Tables[0];
+                    myDataTable.Rows[0].Delete();
+                    myDataTable.TableName = "CityCoordinates";
+
+                    SqlConnection con = new SqlConnection(RepositoryContext.Database.GetDbConnection().ConnectionString);
+                    con.Open();
+
+                    SqlBulkCopy bulkCopy = new SqlBulkCopy(con);
+                    bulkCopy.DestinationTableName = myDataTable.TableName;
+                    // Set up the column mappings by name.
+                    SqlBulkCopyColumnMapping locationCity =
+                        new SqlBulkCopyColumnMapping("Column0", "LocationCity");
+                    bulkCopy.ColumnMappings.Add(locationCity);
+
+                    SqlBulkCopyColumnMapping mapName =
+                        new SqlBulkCopyColumnMapping("Column1", "lat");
+                    bulkCopy.ColumnMappings.Add(mapName);
+
+                    SqlBulkCopyColumnMapping lng =
+                        new SqlBulkCopyColumnMapping("Column2", "lng");
+                    bulkCopy.ColumnMappings.Add(lng);
+                    try
+                    {
+                        bulkCopy.WriteToServer(myDataTable);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
+
+                    con.Close();
+
+                    Console.WriteLine("inserted dt");
+                }
+            }
         }
+
         public string DataTableToJSONWithJSONNet(DataTable table)
         {
             string JSONString = string.Empty;

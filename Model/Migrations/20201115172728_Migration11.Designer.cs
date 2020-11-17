@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Model.Context;
 
 namespace Model.Migrations
 {
     [DbContext(typeof(ClinicalTrialsContext))]
-    partial class ClinicalTrialsContextModelSnapshot : ModelSnapshot
+    [Migration("20201115172728_Migration11")]
+    partial class Migration11
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,11 +48,11 @@ namespace Model.Migrations
                     b.Property<string>("LocationCity")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("lat")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<double>("lat")
+                        .HasColumnType("float");
 
-                    b.Property<string>("lng")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<double>("lng")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 

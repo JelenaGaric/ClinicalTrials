@@ -17,6 +17,8 @@ namespace Model.Context
         public DbSet<TagList> TagLists { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<StatisticsSearch> StatisticsSearches { get; set; }
+        public DbSet<CityCoordinates> CityCoordinates { get; set; }
+
         public IConfiguration Configuration { get; }
         public string ConnectionString { get; }
         public ClinicalTrialsContext(IConfiguration configuration)
@@ -63,7 +65,7 @@ namespace Model.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ConditionList>()
+           /* modelBuilder.Entity<ConditionList>()
             .Property(e => e.Condition)
             .HasConversion(
                  v => JsonConvert.SerializeObject(v),
@@ -79,7 +81,7 @@ namespace Model.Context
             .Property(e => e.StdAge)
             .HasConversion(
                  v => JsonConvert.SerializeObject(v),
-                 v => JsonConvert.DeserializeObject<List<string>>(v));
+                 v => JsonConvert.DeserializeObject<List<string>>(v));*/
         }
     }
 }

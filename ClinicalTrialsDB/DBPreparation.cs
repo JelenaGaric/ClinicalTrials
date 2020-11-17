@@ -13,6 +13,8 @@ using System.Data.SqlClient;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using CsvHelper;
+using System.Text;
 
 namespace ClinicalTrialsWeb
 {
@@ -150,7 +152,129 @@ namespace ClinicalTrialsWeb
 
             }
         }
-        
+
+        public static DataTable jsonStringToTable(string jsonContent)
+        {
+            DataTable dt = JsonConvert.DeserializeObject<DataTable>(jsonContent);
+            return dt;
+        }
+
+        public static string jsonToCSV(string jsonContent, string delimiter)
+        {
+            StringWriter csvString = new StringWriter();
+            using (var csv = new CsvWriter(csvString, System.Globalization.CultureInfo.CurrentCulture))
+            {
+                //csv.Configuration.SkipEmptyRecords = true;
+                //csv.Configuration.WillThrowOnMissingField = false;
+                csv.Configuration.Delimiter = delimiter;
+
+                using (var dt = jsonStringToTable(jsonContent))
+                {
+                    foreach (DataColumn column in dt.Columns)
+                    {
+                        csv.WriteField(column.ColumnName);
+                    }
+                    csv.NextRecord();
+
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        for (var i = 0; i < dt.Columns.Count; i++)
+                        {
+                            csv.WriteField(row[i]);
+                        }
+                        csv.NextRecord();
+                    }
+                }
+            }
+            return csvString.ToString();
+        }
+
+        public static void WriteToCSV()
+        {
+            int count = 0;
+
+            /*using (var mem = new MemoryStream())
+            using (var writer = new StreamWriter(mem))
+            using (var csvWriter = new CsvWriter(writer, System.Globalization.CultureInfo.CurrentCulture))
+            {
+                csvWriter.Configuration.Delimiter = ",";
+                csvWriter.Configuration.HasHeaderRecord = true;
+                csvWriter.Configuration.AutoMap<Root>();
+
+                csvWriter.WriteHeader<Root>();
+
+                using (ZipArchive archive = ZipFile.Open(zipPath, ZipArchiveMode.Read))
+                {
+                    Console.WriteLine("Reading from zip in progress...");
+
+                    int countZip = 0;
+
+                    foreach (ZipArchiveEntry entry in archive.Entries)
+                    {
+                        //if (countZip <= numFiles){
+                        if (entry.FullName.EndsWith(".json", StringComparison.OrdinalIgnoreCase))
+                        {
+
+                            using (StreamReader reader = new StreamReader(entry.Open()))
+                            {
+                                String json = reader.ReadToEnd();
+                                Root item = JsonConvert.DeserializeObject<Root>(json);
+                                ++count;
+                                //Console.WriteLine(item.FullStudy.Study.ProtocolSection.IdentificationModule.NCTId);
+                                csvWriter.WriteRecord<Root>(item);
+
+                            }
+                            Console.WriteLine(entry.FullName + " - " + count);
+
+                            countZip++;
+
+                            if (countZip > 10)
+                                break;
+                        }
+                    }
+                }
+
+
+
+            writer.Flush();
+                 var result = Encoding.UTF8.GetString(mem.ToArray());
+                 Console.WriteLine(result);
+             }*/
+            using (ZipArchive archive = ZipFile.Open(zipPath, ZipArchiveMode.Read))
+            {
+                Console.WriteLine("Reading from zip in progress...");
+
+                int countZip = 0;
+
+                foreach (ZipArchiveEntry entry in archive.Entries)
+                {
+                    //if (countZip <= numFiles){
+                    if (entry.FullName.EndsWith(".json", StringComparison.OrdinalIgnoreCase))
+                    {
+
+                        using (StreamReader reader = new StreamReader(entry.Open()))
+                        {
+                            String json = reader.ReadToEnd();
+                            Root item = JsonConvert.DeserializeObject<Root>(json);
+                            ++count;
+                            Console.WriteLine(item.StudyStructure.ElmtDefs.Study.ProtocolSection.IdentificationModule.NCTId);
+
+                        }
+                        Console.WriteLine(entry.FullName + " - " + count);
+
+                        countZip++;
+
+                        if (countZip > 10)
+                            break;
+                    }
+                }
+            
+            }
+
+            Console.WriteLine("finished");
+           
+        }
+
         public static void WriteToDB()
         {
             //SetConnectionString();

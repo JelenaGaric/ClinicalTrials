@@ -35,3 +35,8 @@ figure{
   width: 100%;
   margin: 50px;
 }
+
+.stats-btn{
+  margin-bottom:500px;
+  float: right;
+}

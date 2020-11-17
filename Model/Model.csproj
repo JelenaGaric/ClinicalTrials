@@ -37,6 +37,9 @@
     <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Core.4.4.0\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
+    <Reference Include="CsvHelper, Version=16.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
+      <HintPath>..\packages\CsvHelper.16.0.0\lib\net47\CsvHelper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework.Core, Version=7.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.Core.7.0.0-rc1-final\lib\net451\EntityFramework.Core.dll</HintPath>
     </Reference>
@@ -335,7 +338,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CityCoordinates.cs" />
     <Compile Include="Context\ClinicalTrialsContext.cs" />
+    <Compile Include="FullModel.cs" />
     <Compile Include="Migrations\20201021160303_Migration5.cs" />
     <Compile Include="Migrations\20201021160303_Migration5.designer.cs">
       <DependentUpon>20201021160303_Migration5.cs</DependentUpon>
@@ -347,6 +352,30 @@
     <Compile Include="Migrations\20201021161109_Migration7.cs" />
     <Compile Include="Migrations\20201021161109_Migration7.designer.cs">
       <DependentUpon>20201021161109_Migration7.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20201113092002_Migration8.cs" />
+    <Compile Include="Migrations\20201113092002_Migration8.designer.cs">
+      <DependentUpon>20201113092002_Migration8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20201115164639_Migration9.cs" />
+    <Compile Include="Migrations\20201115164639_Migration9.designer.cs">
+      <DependentUpon>20201115164639_Migration9.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20201115165506_Migration10.cs" />
+    <Compile Include="Migrations\20201115165506_Migration10.designer.cs">
+      <DependentUpon>20201115165506_Migration10.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20201115172728_Migration11.cs" />
+    <Compile Include="Migrations\20201115172728_Migration11.designer.cs">
+      <DependentUpon>20201115172728_Migration11.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20201115174236_Migration12.cs" />
+    <Compile Include="Migrations\20201115174236_Migration12.designer.cs">
+      <DependentUpon>20201115174236_Migration12.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20201115175842_Migration13.cs" />
+    <Compile Include="Migrations\20201115175842_Migration13.designer.cs">
+      <DependentUpon>20201115175842_Migration13.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\ClinicalTrialsContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
