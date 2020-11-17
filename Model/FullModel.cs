@@ -3019,20 +3019,15 @@ namespace Model
         public DerivedSection DerivedSection { get; set; }
     }
 
-    public class ElmtDefs
+    public class FullStudy
     {
-        public Study Study { get; set; }
-    }
-
-    public class StudyStructure
-    {
-        public string APIVrs { get; set; }
-        public ElmtDefs ElmtDefs { get; set; }
+        public int Rank { get; set; }
+        public virtual Study Study { get; set; }
     }
 
     public class Root
     {
-        public StudyStructure StudyStructure { get; set; }
+        public virtual FullStudy FullStudy { get; set; }
     }
 
 
