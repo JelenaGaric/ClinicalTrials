@@ -26,70 +26,29 @@ namespace CsvExporter
 
         static void Main(string[] args)
         {
-            string[] directories = Directory.GetDirectories(@"D:\tmpp");
-
-
-            using (var writer = new StreamWriter(@"D:\test.csv"))
+            int i = 0;
+            string[] directories = Directory.GetDirectories(@"C:\GitCode\ClinicalTrials\Дата");
+            using (var writer = new StreamWriter(@"C:\GitCode\ClinicalTirialsOut\test.csv"))
             {
                 using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
                 {
                     csv.WriteHeader<StudyCsv>();
                     csv.NextRecord();
-
                     foreach (string dir in directories)
                     {
                         string[] fileEntries = Directory.GetFiles(dir);
                         foreach (string fileName in fileEntries)
                         {
                             Root root = JsonConvert.DeserializeObject<Root>(File.ReadAllText(fileName));
-                            //csvs.Add(MakeCsvClass(root));
                             csv.WriteRecord(MakeCsvClass(root));
                             csv.NextRecord();
+                            i++;
                         }
-
-                        //Console.WriteLine("Written study: " + root.FullStudy.Study.ProtocolSection.IdentificationModule?.NCTId);
+                        //csv.Flush();
+                        Console.WriteLine(i);
                     }
-                    csv.Flush();
                 }
             }
-            /*
-            string[] directories = Directory.GetDirectories(@"D:\proba");
-
-            foreach (string dir in directories)
-            {
-                string[] fileEntries = Directory.GetFiles(dir);
-                foreach (string fileName in fileEntries)
-                {
-                    Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(File.ReadAllText(fileName));
-                    studies.Add(myDeserializedClass);
-                }
-            }
-            Console.WriteLine("as");
-
-            List<StudyCsv> csvs = new List<StudyCsv>();
-            foreach (Root r in studies)
-            {
-                StudyCsv csv = new StudyCsv();
-                var protocol = r.FullStudy?.Study?.ProtocolSection;
-
-                csv.NCTId = "" + protocol?.IdentificationModule?.NCTId;
-                csv.BriefTitle = "" + protocol?.IdentificationModule?.BriefTitle;
-                csvs.Add(csv);
-            }
-
-            using (var writer = new StreamWriter(@"D:\test.csv"))
-            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
-            {
-                csv.WriteHeader(typeof(StudyCsv));
-                foreach (StudyCsv s in csvs)
-                {
-                    csv.WriteRecord(Environment.NewLine);
-                    csv.WriteRecord(s);
-                    csv.Flush();
-
-                }
-
-            }*/
         }
 
         public static StudyCsv MakeCsvClass(Root r)
@@ -98,82 +57,89 @@ namespace CsvExporter
             csv.Rank = "" + r.FullStudy?.Rank;
             var protocol = r.FullStudy?.Study?.ProtocolSection;
 
-            csv.NCTId = "" + protocol?.IdentificationModule?.NCTId;
-            csv.BriefTitle = "" + protocol?.IdentificationModule?.BriefTitle;
-            csv.OfficialTitle = "" + protocol?.IdentificationModule?.OfficialTitle;
-            csv.Acronym = "" + protocol?.IdentificationModule?.Acronym;
-            csv.OrgStudyId = "" + protocol?.IdentificationModule?.OrgStudyIdInfo?.OrgStudyId;
-            csv.OrgFullName = "" + protocol?.IdentificationModule?.Organization?.OrgFullName;
-            csv.OrgClass = "" + protocol?.IdentificationModule?.Organization?.OrgClass;
+            var idModule = protocol?.IdentificationModule;
 
-            csv.OversightHasDMC = "" + protocol?.OversightModule?.OversightHasDMC;
-            csv.IsFDARegulatedDevice = "" + protocol?.OversightModule?.IsFDARegulatedDevice;
-            csv.IsPPSD = "" + protocol?.OversightModule?.IsPPSD;
-            csv.IsUSExport = "" + protocol?.OversightModule?.IsUSExport;
-            csv.IsUnapprovedDevice = "" + protocol?.OversightModule?.IsUnapprovedDevice;
-            csv.IsFDARegulatedDrug = "" + protocol?.OversightModule?.IsFDARegulatedDrug;
+            csv.NCTId = "" + idModule?.NCTId;
+            csv.BriefTitle = "" + idModule?.BriefTitle?.Replace("\n", ";");
+            csv.OfficialTitle = "" + idModule?.OfficialTitle?.Replace("\n", ";");
+            csv.Acronym = "" + idModule?.Acronym?.Replace("\n", ";");
+            csv.OrgStudyId = "" + idModule?.OrgStudyIdInfo?.OrgStudyId?.Replace("\n", ";");
+            csv.OrgFullName = "" + idModule?.Organization?.OrgFullName?.Replace("\n", ";");
+            csv.OrgClass = "" + idModule?.Organization?.OrgClass?.Replace("\n", ";");
 
-            csv.LeadSponsorName = "" + protocol?.SponsorCollaboratorsModule.LeadSponsor.LeadSponsorClass;
-            csv.LeadSponsorClass = "" + protocol?.SponsorCollaboratorsModule.LeadSponsor.LeadSponsorClass;
+            var oversightModule = protocol?.OversightModule;
+            csv.OversightHasDMC = "" + oversightModule?.OversightHasDMC?.Replace("\n", ";");
+            csv.IsFDARegulatedDevice = "" + oversightModule?.IsFDARegulatedDevice?.Replace("\n", ";");
+            csv.IsPPSD = "" + oversightModule?.IsPPSD?.Replace("\n", ";");
+            csv.IsUSExport = "" + oversightModule?.IsUSExport?.Replace("\n", ";");
+            csv.IsUnapprovedDevice = "" + oversightModule?.IsUnapprovedDevice?.Replace("\n", ";");
+            csv.IsFDARegulatedDrug = "" + oversightModule?.IsFDARegulatedDrug?.Replace("\n", ";");
 
-            csv.OverallStatus = "" + protocol?.StatusModule.OverallStatus;
-            csv.LastKnownStatus = "" + protocol?.StatusModule.LastKnownStatus;
-            csv.WhyStopped = "" + protocol?.StatusModule.WhyStopped;
+            csv.LeadSponsorName = "" + protocol?.SponsorCollaboratorsModule.LeadSponsor.LeadSponsorClass?.Replace("\n", ";");
+            csv.LeadSponsorClass = "" + protocol?.SponsorCollaboratorsModule.LeadSponsor.LeadSponsorClass?.Replace("\n", ";");
 
-            csv.StudyType = "" + protocol?.DesignModule?.StudyType;
-            csv.EnrollmentType = "" + protocol?.DesignModule?.EnrollmentInfo?.EnrollmentType;
-            csv.EnrollmentCount = "" + protocol?.DesignModule?.EnrollmentInfo?.EnrollmentCount;
-            //csv.Phase = "" + protocol?.DesignModule?.PhaseList.Phase;
-            csv.HasExpandedAccess = "" + protocol?.StatusModule.ExpandedAccessInfo?.HasExpandedAccess;
-            csv.ExpAccTypeIndividual = "" + protocol?.DesignModule?.ExpandedAccessTypes?.ExpAccTypeIndividual;
-            csv.ExpAccTypeTreatment = "" + protocol?.DesignModule?.ExpandedAccessTypes?.ExpAccTypeTreatment;
-            csv.ExpAccTypeIntermediate = "" + protocol?.DesignModule?.ExpandedAccessTypes?.ExpAccTypeIntermediate;
-            csv.DesignAllocation = "" + protocol?.DesignModule?.DesignInfo?.DesignAllocation;
-            csv.DesignInterventionModel = "" + protocol?.DesignModule?.DesignInfo?.DesignInterventionModel;
-            csv.DesignInterventionModelDescription = "" + protocol?.DesignModule?.DesignInfo?.DesignInterventionModelDescription;
-            csv.DesignPrimaryPurpose = "" + protocol?.DesignModule?.DesignInfo?.DesignPrimaryPurpose;
-            csv.DesignMasking = "" + protocol?.DesignModule?.DesignInfo?.DesignMaskingInfo?.DesignMasking;
-            csv.DesignMaskingDescription = "" + protocol?.DesignModule?.DesignInfo?.DesignMaskingInfo?.DesignMaskingDescription;
-            csv.TargetDuration = "" + protocol?.DesignModule?.TargetDuration;
-            csv.BioSpecRetention = "" + protocol?.DesignModule?.BioSpec?.BioSpecRetention;
-            csv.BioSpecDescription = "" + protocol?.DesignModule?.BioSpec?.BioSpecDescription;
-            csv.PatientRegistry = "" + protocol?.DesignModule?.PatientRegistry;
+            
 
-            csv.IPDSharing = "" + protocol?.IPDSharingStatementModule?.IPDSharing;
-            csv.IPDSharingDescription = "" + protocol?.IPDSharingStatementModule?.IPDSharingDescription;
+            var desModule = protocol?.DesignModule;
+            csv.StudyType = "" + desModule?.StudyType?.Replace("\n", ";");
+            csv.EnrollmentType = "" + desModule?.EnrollmentInfo?.EnrollmentType?.Replace("\n", ";");
+            csv.EnrollmentCount = "" + desModule?.EnrollmentInfo?.EnrollmentCount?.Replace("\n", ";");
+            //csv.Phase = "" + desModule?.PhaseList.Phase?.Replace("\n", ";");
+            
+            csv.ExpAccTypeIndividual = "" + desModule?.ExpandedAccessTypes?.ExpAccTypeIndividual?.Replace("\n", ";");
+            csv.ExpAccTypeTreatment = "" + desModule?.ExpandedAccessTypes?.ExpAccTypeTreatment?.Replace("\n", ";");
+            csv.ExpAccTypeIntermediate = "" + desModule?.ExpandedAccessTypes?.ExpAccTypeIntermediate?.Replace("\n", ";");
+            csv.DesignAllocation = "" + desModule?.DesignInfo?.DesignAllocation?.Replace("\n", ";");
+            csv.DesignInterventionModel = "" + desModule?.DesignInfo?.DesignInterventionModel?.Replace("\n", ";");
+            csv.DesignInterventionModelDescription = "" + desModule?.DesignInfo?.DesignInterventionModelDescription?.Replace("\n", ";");
+            csv.DesignPrimaryPurpose = "" + desModule?.DesignInfo?.DesignPrimaryPurpose?.Replace("\n", ";");
+            csv.DesignMasking = "" + desModule?.DesignInfo?.DesignMaskingInfo?.DesignMasking?.Replace("\n", ";");
+            csv.DesignMaskingDescription = "" + desModule?.DesignInfo?.DesignMaskingInfo?.DesignMaskingDescription?.Replace("\n", ";");
+            csv.TargetDuration = "" + desModule?.TargetDuration?.Replace("\n", ";");
+            csv.BioSpecRetention = "" + desModule?.BioSpec?.BioSpecRetention?.Replace("\n", ";");
+            csv.BioSpecDescription = "" + desModule?.BioSpec?.BioSpecDescription?.Replace("\n", ";");
+            csv.PatientRegistry = "" + desModule?.PatientRegistry?.Replace("\n", ";");
 
-            csv.StudyFirstPostDate = "" + protocol?.StatusModule?.StudyFirstPostDateStruct?.StudyFirstPostDate;
-            csv.StudyFirstPostDateType = "" + protocol?.StatusModule?.StudyFirstPostDateStruct?.StudyFirstPostDateType;
-            csv.StudyFirstSubmitDate = "" + protocol?.StatusModule?.StudyFirstSubmitDate;
-            csv.StudyFirstSubmitQCDate = "" + protocol?.StatusModule?.StudyFirstSubmitQCDate;
+            csv.IPDSharing = "" + protocol?.IPDSharingStatementModule?.IPDSharing?.Replace("\n", ";");
+            csv.IPDSharingDescription = "" + protocol?.IPDSharingStatementModule?.IPDSharingDescription?.Replace("\n", ";");
 
-            csv.ResultsFirstPostDate = "" + protocol?.StatusModule.ResultsFirstPostDateStruct?.ResultsFirstPostDate;
-            csv.ResultsFirstPostDateType = "" + protocol?.StatusModule.ResultsFirstPostDateStruct?.ResultsFirstPostDateType;
-            csv.ResultsFirstSubmitDate = "" + protocol?.StatusModule?.ResultsFirstSubmitDate;
-            csv.ResultsFirstSubmitQCDate = "" + protocol?.StatusModule?.ResultsFirstSubmitQCDate;
+            var staModule = protocol?.StatusModule;
 
-            csv.DispFirstPostDate = "" + protocol?.StatusModule?.DispFirstPostDateStruct?.DispFirstPostDate;
-            csv.DispFirstPostDateType = "" + protocol?.StatusModule?.DispFirstPostDateStruct?.DispFirstPostDateType;
-            csv.DispFirstSubmitDate = "" + protocol?.StatusModule?.DispFirstSubmitDate;
-            csv.DispFirstSubmitQCDate = "" + protocol?.StatusModule?.DispFirstSubmitQCDate;
+            csv.OverallStatus = "" + staModule.OverallStatus?.Replace("\n", ";");
+            csv.LastKnownStatus = "" + staModule.LastKnownStatus?.Replace("\n", ";");
+            csv.WhyStopped = "" + staModule.WhyStopped?.Replace("\n", ";");
+            csv.HasExpandedAccess = "" + staModule.ExpandedAccessInfo?.HasExpandedAccess?.Replace("\n", ";");
+            csv.StudyFirstPostDate = "" + staModule?.StudyFirstPostDateStruct?.StudyFirstPostDate?.Replace("\n", ";");
+            csv.StudyFirstPostDateType = "" + staModule?.StudyFirstPostDateStruct?.StudyFirstPostDateType?.Replace("\n", ";");
+            csv.StudyFirstSubmitDate = "" + staModule?.StudyFirstSubmitDate;
+            csv.StudyFirstSubmitQCDate = "" + staModule?.StudyFirstSubmitQCDate?.Replace("\n", ";");
 
-            csv.LastUpdatePostDate = "" + protocol?.StatusModule?.LastUpdatePostDateStruct?.LastUpdatePostDate;
-            csv.LastUpdatePostDateType = "" + protocol?.StatusModule?.LastUpdatePostDateStruct?.LastUpdatePostDateType;
-            csv.LastUpdateSubmitDate = "" + protocol?.StatusModule?.LastUpdateSubmitDate;
+            csv.ResultsFirstPostDate = "" + staModule.ResultsFirstPostDateStruct?.ResultsFirstPostDate?.Replace("\n", ";");
+            csv.ResultsFirstPostDateType = "" + staModule.ResultsFirstPostDateStruct?.ResultsFirstPostDateType?.Replace("\n", ";");
+            csv.ResultsFirstSubmitDate = "" + staModule?.ResultsFirstSubmitDate;
+            csv.ResultsFirstSubmitQCDate = "" + staModule?.ResultsFirstSubmitQCDate?.Replace("\n", ";");
 
-            csv.StartDate = "" + protocol?.StatusModule?.StartDateStruct?.StartDate;
-            csv.StartDateType = "" + protocol?.StatusModule?.StartDateStruct?.StartDateType;
+            csv.DispFirstPostDate = "" + staModule?.DispFirstPostDateStruct?.DispFirstPostDate?.Replace("\n", ";");
+            csv.DispFirstPostDateType = "" + staModule?.DispFirstPostDateStruct?.DispFirstPostDateType?.Replace("\n", ";");
+            csv.DispFirstSubmitDate = "" + staModule?.DispFirstSubmitDate?.Replace("\n", ";");
+            csv.DispFirstSubmitQCDate = "" + staModule?.DispFirstSubmitQCDate?.Replace("\n", ";");
 
-            csv.CompletionDate = "" + protocol?.StatusModule?.CompletionDateStruct?.CompletionDate;
-            csv.CompletionDateType = "" + protocol?.StatusModule?.CompletionDateStruct?.CompletionDateType;
+            csv.LastUpdatePostDate = "" + staModule?.LastUpdatePostDateStruct?.LastUpdatePostDate?.Replace("\n", ";");
+            csv.LastUpdatePostDateType = "" + staModule?.LastUpdatePostDateStruct?.LastUpdatePostDateType?.Replace("\n", ";");
+            csv.LastUpdateSubmitDate = "" + staModule?.LastUpdateSubmitDate;
+
+            csv.StartDate = "" + staModule?.StartDateStruct?.StartDate?.Replace("\n", ";");
+            csv.StartDateType = "" + staModule?.StartDateStruct?.StartDateType?.Replace("\n", ";");
+
+            csv.CompletionDate = "" + staModule?.CompletionDateStruct?.CompletionDate?.Replace("\n", ";");
+            csv.CompletionDateType = "" + staModule?.CompletionDateStruct?.CompletionDateType?.Replace("\n", ";");
 
 
-            csv.PrimaryCompletionDate = "" + protocol?.StatusModule?.PrimaryCompletionDateStruct?.PrimaryCompletionDate;
-            csv.PrimaryCompletionDateType = "" + protocol?.StatusModule?.PrimaryCompletionDateStruct?.PrimaryCompletionDateType;
+            csv.PrimaryCompletionDate = "" + staModule?.PrimaryCompletionDateStruct?.PrimaryCompletionDate?.Replace("\n", ";");
+            csv.PrimaryCompletionDateType = "" + staModule?.PrimaryCompletionDateStruct?.PrimaryCompletionDateType?.Replace("\n", ";");
 
-            csv.StatusVerifiedDate = "" + protocol?.StatusModule.StatusVerifiedDate;
+            csv.StatusVerifiedDate = "" + staModule.StatusVerifiedDate?.Replace("\n", ";");
             return csv;
-            //csvs.Add(csv);
         }
     }
    
@@ -263,6 +229,6 @@ namespace CsvExporter
         public string PrimaryCompletionDateType { get; set; }
         public string StatusVerifiedDate { get; set; }
 
-
     }
+
 }
