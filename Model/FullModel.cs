@@ -102,7 +102,6 @@ namespace Model
 
     public class SponsorCollaboratorsModule
     {
-        public string dedLink { get; set; }
         public ResponsibleParty ResponsibleParty { get; set; }
         public LeadSponsor LeadSponsor { get; set; }
         public CollaboratorList CollaboratorList { get; set; }
@@ -219,7 +218,6 @@ namespace Model
 
     public class OutcomesModule
     {
-        public string dedLink { get; set; }
         public PrimaryOutcomeList PrimaryOutcomeList { get; set; }
         public SecondaryOutcomeList SecondaryOutcomeList { get; set; }
         public OtherOutcomeList OtherOutcomeList { get; set; }
@@ -348,7 +346,6 @@ namespace Model
 
     public class ReferencesModule : StudyStructureEntity
     {
-        public string dedLink { get; set; }
         public ReferenceList ReferenceList { get; set; }
         public SeeAlsoLinkList SeeAlsoLinkList { get; set; }
         public AvailIPDList AvailIPDList { get; set; }
@@ -361,7 +358,6 @@ namespace Model
 
     public class IPDSharingStatementModule : StudyStructureEntity
     {
-        public string dedLink { get; set; }
         public string IPDSharing { get; set; }
         public string IPDSharingDescription { get; set; }
         public IPDSharingInfoTypeList IPDSharingInfoTypeList { get; set; }
@@ -468,7 +464,6 @@ namespace Model
 
     public class ParticipantFlowModule : StudyStructureEntity
     {
-        public string dedLink { get; set; }
         public string FlowPreAssignmentDetails { get; set; }
         public string FlowRecruitmentDetails { get; set; }
         public string FlowTypeUnitsAnalyzed { get; set; }
@@ -618,7 +613,6 @@ namespace Model
 
     public class BaselineCharacteristicsModule
     {
-        public string dedLink { get; set; }
         public string BaselinePopulationDescription { get; set; }
         public string BaselineTypeUnitsAnalyzed { get; set; }
         public BaselineGroupList BaselineGroupList { get; set; }
@@ -788,7 +782,6 @@ namespace Model
 
     public class OutcomeMeasuresModule
     {
-        public string dedLink { get; set; }
         public OutcomeMeasureList OutcomeMeasureList { get; set; }
     }
 
@@ -886,7 +879,6 @@ namespace Model
    
     public class CertainAgreement
     {
-        public string dedLink { get; set; }
         public string AgreementPISponsorEmployee { get; set; }
         public string AgreementRestrictionType { get; set; }
         public string AgreementRestrictiveAgreement { get; set; }
@@ -895,7 +887,6 @@ namespace Model
 
     public class PointOfContact
     {
-        public string dedLink { get; set; }
         public string PointOfContactTitle { get; set; }
         public string PointOfContactOrganization { get; set; }
         public string PointOfContactEMail { get; set; }
@@ -967,7 +958,6 @@ namespace Model
 
     public class LargeDocumentModule
     {
-        public string dedLink { get; set; }
         public LargeDocList LargeDocList { get; set; }
     }
 

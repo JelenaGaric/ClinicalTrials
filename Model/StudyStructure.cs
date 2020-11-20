@@ -386,7 +386,6 @@ namespace Model
 
     public class Study : StudyStructureEntity
     {
-        public string type { get; set; }
         public ProtocolSection ProtocolSection { get; set; }
         public ResultsSection ResultsSection { get; set; }
         public AnnotationSection AnnotationSection { get; set; }
