@@ -22,18 +22,6 @@ export class StatisticsComponent implements OnInit {
     Sponsor: new FormControl('')
   });
 
-  title = 'My first AGM project';
-  lat = 51.678418;
-  lng = 7.809007;
-
-  private trialsByYearData = [];
-  private studyTypeData = [];
-  private statusData = [];
-  private phaseListData = [];
-  private locationData = [];
-  private sponsorData = [];
-  private durationData = [];
-
   private svg;
   private margin = 50;
   private width = 550 - (this.margin * 2);
@@ -41,7 +29,7 @@ export class StatisticsComponent implements OnInit {
   
   searchDTO: SearchDTO = new SearchDTO();
 
-  constructor(private _searchService: StatisticsService, private _locationService: GeolocationService) { }
+  constructor(private _searchService: StatisticsService) { }
 
   maxWidth: number;
 
@@ -68,73 +56,70 @@ export class StatisticsComponent implements OnInit {
     this.searchDTO = this.searchForm.value;
     if(this.searchDTO.Condition === "")
       return;
+
+    //clear map too
+
     
-      d3.select("figure#trialsByYear").select("svg").remove();
-      d3.select("figure#studyType").select("svg").remove();
-      d3.select("figure#status").select("svg").remove();
-      d3.select("figure#phaseList").select("svg").remove();
-      d3.select("figure#location").select("svg").remove();
-      d3.select("figure#sponsor").select("svg").remove();
-      d3.select("figure#duration").select("svg").remove();
-      d3.select("figure#sponsor1").select("svg").remove();
-      //clear map too
-    
- 
-    this._searchService.searchStatistics(this.searchDTO).subscribe(response => {   
-      this._searchService.getChart('/sponsor').subscribe(data => {
-        if(data != null)
-          this.createSponsorChart(data);
-          this.createSponsorBubbleChart(data);
-      });
+
+    this._searchService.searchStatistics(this.searchDTO).subscribe(response => {    
+
       //will convert response from any[] to locationDTO
-      this._searchService.getChart('/location').subscribe(data => {
+      this._searchService.getStats(this.searchDTO, '/location').subscribe(data => {
         for(let loc of data){
-          if(loc.Coordinates == null)
+          if(loc.lat == null || loc.lng == null)
             continue;
-          this.locationDTO.locations.push({ lat: Number(loc.Coordinates.split(",")[0]), lng: Number(loc.Coordinates.split(",")[1]) });
+          this.locationDTO.locations.push({ lat: Number(loc.lat), lng: Number(loc.lng) });
           this.locationDTO.labels.push(loc.NUM);
         }
         this.createGoogleMap();
       });
-      this._searchService.getChart('/country').subscribe(data => {
+
+      this._searchService.getStats(this.searchDTO, '/country').subscribe(data => {
+        d3.select("figure#location").select("svg").remove();
         if(data != null)
           this.createLocationChart(data);
       });
-
+       
+      this._searchService.getChart('/sponsor').subscribe(data => {
+        d3.select("figure#sponsor").select("svg").remove();
+        d3.select("figure#sponsor1").select("svg").remove();
+        if(data != null)
+          this.createSponsorChart(data);
+          this.createSponsorBubbleChart(data);
+      });
+      
       this._searchService.getChart('/trialsByYear').subscribe(data => {
+        d3.select("figure#trialsByYear").select("svg").remove();
         if(data != null) {
-          this.trialsByYearData = data;
-          //this.createSvg("trialsByYear");
-          this.createLineChart(this.trialsByYearData);
+          this.createLineChart(data);
         }
       });
       this._searchService.getChart('/studyType').subscribe(data => {
+        d3.select("figure#studyType").select("svg").remove();
         if (data != null) {
-          //this.studyTypeData = data;
           this.createDoughnutChart(data);
         }
       });
       this._searchService.getChart('/status').subscribe(data => {
+        d3.select("figure#status").select("svg").remove();
         if (data != null) {
-          //this.statusData = data;
           this.createStatusChart(data);
-
-          this._searchService.getChart('/phaseList').subscribe(data => {
-            if (data != null) {
-              this.phaseListData = data;
-              this.createBarChart("phaseList");
-            }
-          });
+        }
+      });
+      this._searchService.getChart('/phaseList').subscribe(data => {
+        d3.select("figure#phase").select("svg").remove();
+        if (data != null) {
+          this.createBarChart(data);
         }
       });
       this._searchService.getChart('/duration').subscribe(data => {
+        d3.select("figure#duration").select("svg").remove();
         if (data != null) {
           this.createDurationChart(data);
         }
       });
     });
     
- 
   }
 
   private createSponsorBubbleChart(data: any[]){
@@ -877,22 +862,17 @@ export class StatisticsComponent implements OnInit {
       .delay(function (d, i) { return (i * 100) })
   }
 
-  private createBarChart(type: string): void {
+  private createBarChart(data: any[]): void {
     var newMargin = this.margin + this.maxWidth + 70;
 
-    this.svg = d3.select("figure#" + type)
+    this.svg = d3.select("figure#phase")
       .append("svg")
       .attr("width", this.width + (this.margin * 2))
       .attr("height", this.height + (this.margin * 2))
       .append("g")
       .attr("transform", "translate(" + newMargin + "," + this.margin + ")");
 
-    switch (type) {
-      case "phaseList":
-        this.drawBars(this.phaseListData);
-        break;
-    }
-
+      this.drawBars(data);
   }
 
   private drawBars(data: any[]): void {
@@ -1206,7 +1186,7 @@ export class StatisticsComponent implements OnInit {
         div.transition()
           .duration(500)
           .style("opacity", 0);
-      });;
+      });
 
     label.append("text")
       .text(d => d.NUM)

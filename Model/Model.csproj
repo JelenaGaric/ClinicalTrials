@@ -341,22 +341,6 @@
     <Compile Include="CityCoordinates.cs" />
     <Compile Include="Context\ClinicalTrialsContext.cs" />
     <Compile Include="FullModel.cs" />
-    <Compile Include="Migrations\20201021160303_Migration5.cs" />
-    <Compile Include="Migrations\20201021160303_Migration5.designer.cs">
-      <DependentUpon>20201021160303_Migration5.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20201021160722_Migration6.cs" />
-    <Compile Include="Migrations\20201021160722_Migration6.designer.cs">
-      <DependentUpon>20201021160722_Migration6.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20201021161109_Migration7.cs" />
-    <Compile Include="Migrations\20201021161109_Migration7.designer.cs">
-      <DependentUpon>20201021161109_Migration7.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20201113092002_Migration8.cs" />
-    <Compile Include="Migrations\20201113092002_Migration8.designer.cs">
-      <DependentUpon>20201113092002_Migration8.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\20201115164639_Migration9.cs" />
     <Compile Include="Migrations\20201115164639_Migration9.designer.cs">
       <DependentUpon>20201115164639_Migration9.cs</DependentUpon>
@@ -376,6 +360,14 @@
     <Compile Include="Migrations\20201115175842_Migration13.cs" />
     <Compile Include="Migrations\20201115175842_Migration13.designer.cs">
       <DependentUpon>20201115175842_Migration13.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20201123104516_Migration14.cs" />
+    <Compile Include="Migrations\20201123104516_Migration14.designer.cs">
+      <DependentUpon>20201123104516_Migration14.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20201125140749_Migration15.cs" />
+    <Compile Include="Migrations\20201125140749_Migration15.designer.cs">
+      <DependentUpon>20201125140749_Migration15.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\ClinicalTrialsContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

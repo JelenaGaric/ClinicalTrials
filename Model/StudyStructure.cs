@@ -42,12 +42,12 @@ namespace Model
         public string BriefTitle { get; set; }
         public string OfficialTitle { get; set; }
         public string Acronym { get; set; }
-        public NCTIdAliasList NCTIdAliasList { get; set; }
+        public virtual NCTIdAliasList NCTIdAliasList { get; set; }
 
     }
-    public class NCTIdAliasList
+    public class NCTIdAliasList : StudyStructureEntity
     {
-        public List<string> NCTIdAlias { get; set; }
+        public virtual List<string> NCTIdAlias { get; set; }
     }
     public class ExpandedAccessInfo : StudyStructureEntity
     {
@@ -84,16 +84,16 @@ namespace Model
         public string LastKnownStatus { get; set; }
         public string DelayedPosting { get; set; }
         public string WhyStopped { get; set; }
-        public StartDateStruct StartDateStruct { get; set; }
-        public PrimaryCompletionDateStruct PrimaryCompletionDateStruct { get; set; }
-        public CompletionDateStruct CompletionDateStruct { get; set; }
+        public virtual StartDateStruct StartDateStruct { get; set; }
+        public virtual PrimaryCompletionDateStruct PrimaryCompletionDateStruct { get; set; }
+        public virtual CompletionDateStruct CompletionDateStruct { get; set; }
         public string DispFirstSubmitDate { get; set; }
         public string DispFirstSubmitQCDate { get; set; }
-        public DispFirstPostDateStruct DispFirstPostDateStruct { get; set; }
+        public virtual DispFirstPostDateStruct DispFirstPostDateStruct { get; set; }
         [JsonConverter(typeof(MyDateTimeConverter))]
         public DateTime? ResultsFirstSubmitDate { get; set; }
         public string ResultsFirstSubmitQCDate { get; set; }
-        public ResultsFirstPostDateStruct ResultsFirstPostDateStruct { get; set; }
+        public virtual ResultsFirstPostDateStruct ResultsFirstPostDateStruct { get; set; }
 
     }
 
@@ -103,11 +103,6 @@ namespace Model
         public string LeadSponsorClass { get; set; }
     }
 
-    /*public class SponsorCollaboratorsModule : StudyStructureEntity
-    {
-        public virtual LeadSponsor LeadSponsor { get; set; }
-    }*/
-
     public class DescriptionModule : StudyStructureEntity
     {
         public string BriefSummary { get; set; }
@@ -116,31 +111,31 @@ namespace Model
 
     public class ConditionList : StudyStructureEntity
     {
-        public List<string> Condition { get; set; }
+        public virtual List<string> Condition { get; set; }
     }
 
     public class ConditionsModule : StudyStructureEntity
     {
         public virtual ConditionList ConditionList { get; set; }
-        public KeywordList KeywordList { get; set; }
+        public virtual KeywordList KeywordList { get; set; }
 
     }
 
     public class PhaseList : StudyStructureEntity
     {
-        public List<string> Phase { get; set; }
+        public virtual List<string> Phase { get; set; }
     }
 
-    public class DesignWhoMaskedList
+    public class DesignWhoMaskedList : StudyStructureEntity
     {
-        public List<string> DesignWhoMasked { get; set; }
+        public virtual List<string> DesignWhoMasked { get; set; }
     }
 
     public class DesignMaskingInfo : StudyStructureEntity
     {
         public string DesignMasking { get; set; }
         public string DesignMaskingDescription { get; set; }
-        public DesignWhoMaskedList DesignWhoMaskedList { get; set; }
+        public virtual DesignWhoMaskedList DesignWhoMaskedList { get; set; }
     }
 
     public class DesignInfo : StudyStructureEntity
@@ -161,9 +156,9 @@ namespace Model
         public virtual DesignInfo DesignInfo { get; set; }
         public string PatientRegistry { get; set; }
         public string TargetDuration { get; set; }
-        public BioSpec BioSpec { get; set; }
-        public EnrollmentInfo EnrollmentInfo { get; set; }
-        public ExpandedAccessTypes ExpandedAccessTypes { get; set; }
+        public virtual BioSpec BioSpec { get; set; }
+        public virtual EnrollmentInfo EnrollmentInfo { get; set; }
+        public virtual ExpandedAccessTypes ExpandedAccessTypes { get; set; }
 
 
     }
@@ -186,13 +181,13 @@ namespace Model
     public class ArmsInterventionsModule : StudyStructureEntity
     {
         public virtual InterventionList InterventionList { get; set; }
-        public ArmGroupList ArmGroupList { get; set; }
+        public virtual ArmGroupList ArmGroupList { get; set; }
 
     }
 
     public class StdAgeList : StudyStructureEntity
     {
-        public List<string> StdAge { get; set; }
+        public virtual List<string> StdAge { get; set; }
     }
 
     public class EligibilityModule : StudyStructureEntity
@@ -216,6 +211,7 @@ namespace Model
     public class Location : StudyStructureEntity
     {
         public string LocationFacility { get; set; }
+        [StringLength(100)]
         public string LocationCity { get; set; }
         public string LocationState { get; set; }
         [StringLength(70)]
@@ -258,7 +254,7 @@ namespace Model
 
     public class RemovedCountryList : StudyStructureEntity
     {
-        public List<string> RemovedCountry { get; set; }
+        public virtual List<string> RemovedCountry { get; set; }
     }
 
     public class MiscInfoModule : StudyStructureEntity
@@ -386,11 +382,11 @@ namespace Model
 
     public class Study : StudyStructureEntity
     {
-        public ProtocolSection ProtocolSection { get; set; }
-        public ResultsSection ResultsSection { get; set; }
-        public AnnotationSection AnnotationSection { get; set; }
-        public DocumentSection DocumentSection { get; set; }
-        public DerivedSection DerivedSection { get; set; }
+        public virtual ProtocolSection ProtocolSection { get; set; }
+        public virtual ResultsSection ResultsSection { get; set; }
+        public virtual AnnotationSection AnnotationSection { get; set; }
+        public virtual DocumentSection DocumentSection { get; set; }
+        public virtual DerivedSection DerivedSection { get; set; }
     }
 
     public class FullStudy : StudyStructureEntity

@@ -65,7 +65,7 @@ namespace Model.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-           /* modelBuilder.Entity<ConditionList>()
+           modelBuilder.Entity<ConditionList>()
             .Property(e => e.Condition)
             .HasConversion(
                  v => JsonConvert.SerializeObject(v),
@@ -81,7 +81,55 @@ namespace Model.Context
             .Property(e => e.StdAge)
             .HasConversion(
                  v => JsonConvert.SerializeObject(v),
-                 v => JsonConvert.DeserializeObject<List<string>>(v));*/
+                 v => JsonConvert.DeserializeObject<List<string>>(v));
+
+            modelBuilder.Entity<ArmGroupInterventionList>()
+           .Property(e => e.ArmGroupInterventionName)
+           .HasConversion(
+                v => JsonConvert.SerializeObject(v),
+                v => JsonConvert.DeserializeObject<List<string>>(v));
+
+            modelBuilder.Entity<DesignObservationalModelList>()
+             .Property(e => e.DesignObservationalModel)
+             .HasConversion(
+                  v => JsonConvert.SerializeObject(v),
+                  v => JsonConvert.DeserializeObject<List<string>>(v));
+
+            modelBuilder.Entity<DesignTimePerspectiveList>()
+             .Property(e => e.DesignTimePerspective)
+             .HasConversion(
+                  v => JsonConvert.SerializeObject(v),
+                  v => JsonConvert.DeserializeObject<List<string>>(v));
+
+            modelBuilder.Entity<DesignWhoMaskedList>()
+             .Property(e => e.DesignWhoMasked)
+             .HasConversion(
+                  v => JsonConvert.SerializeObject(v),
+                  v => JsonConvert.DeserializeObject<List<string>>(v));
+
+            modelBuilder.Entity<KeywordList>()
+             .Property(e => e.Keyword)
+             .HasConversion(
+                  v => JsonConvert.SerializeObject(v),
+                  v => JsonConvert.DeserializeObject<List<string>>(v));
+
+            modelBuilder.Entity<NCTIdAliasList>()
+             .Property(e => e.NCTIdAlias)
+             .HasConversion(
+                  v => JsonConvert.SerializeObject(v),
+                  v => JsonConvert.DeserializeObject<List<string>>(v));
+
+            modelBuilder.Entity<OutcomeAnalysisGroupIdList>()
+             .Property(e => e.OutcomeAnalysisGroupId)
+             .HasConversion(
+                  v => JsonConvert.SerializeObject(v),
+                  v => JsonConvert.DeserializeObject<List<string>>(v));
+
+            modelBuilder.Entity<RemovedCountryList>()
+             .Property(e => e.RemovedCountry)
+             .HasConversion(
+                  v => JsonConvert.SerializeObject(v),
+                  v => JsonConvert.DeserializeObject<List<string>>(v));
         }
     }
 }

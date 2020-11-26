@@ -20,6 +20,11 @@ export class StatisticsService {
         .pipe(catchError(this.handleError.bind(this)));
   }
 
+  getStats(searchDTO: any, searchUri: string) : any {
+    return this.http.post<any>(GlobalVariable.baseUrl + this.searchStatisticsUri + searchUri, searchDTO)
+        .pipe(catchError(this.handleError.bind(this)));
+  }
+
   getChart(searchUri: string) : any {
     return this.http.get<any>(GlobalVariable.baseUrl + this.searchStatisticsUri + searchUri)
         .pipe(catchError(this.handleError.bind(this)));

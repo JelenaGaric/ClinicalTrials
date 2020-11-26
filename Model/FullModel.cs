@@ -6,78 +6,33 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse); 
-    /*
-    public class NCTIdAliasList
-    {
-        public string type { get; set; }
-        public NCTIdAlias NCTIdAlias { get; set; }
-    }
 
-
-    public class OrgStudyIdInfo
-    {
-        public string type { get; set; }
-        public OrgStudyId OrgStudyId { get; set; }
-        public OrgStudyIdType OrgStudyIdType { get; set; }
-        public OrgStudyIdDomain OrgStudyIdDomain { get; set; }
-        public OrgStudyIdLink OrgStudyIdLink { get; set; }
-    }
-
-   
-
-    public class SecondaryIdInfo
-    {
-        public string type { get; set; }
-        public SecondaryId SecondaryId { get; set; }
-        public SecondaryIdType SecondaryIdType { get; set; }
-        public SecondaryIdDomain SecondaryIdDomain { get; set; }
-        public SecondaryIdLink SecondaryIdLink { get; set; }
-    }
-
-    public class SecondaryIdInfoList
-    {
-        public string type { get; set; }
-        public SecondaryIdInfo SecondaryIdInfo { get; set; }
-    }
-
-
-    public class Organization
-    {
-        public string type { get; set; }
-        public OrgFullName OrgFullName { get; set; }
-        public OrgClass OrgClass { get; set; }
-    }
-    */
-
-   
-
-    public class PrimaryCompletionDateStruct
+    public class PrimaryCompletionDateStruct : StudyStructureEntity
     {
         public string PrimaryCompletionDate { get; set; }
         public string PrimaryCompletionDateType { get; set; }
     }
 
 
-    public class CompletionDateStruct
+    public class CompletionDateStruct : StudyStructureEntity
     {
         public string CompletionDate { get; set; }
         public string CompletionDateType { get; set; }
     }
 
-    public class ResultsFirstPostDateStruct
+    public class ResultsFirstPostDateStruct : StudyStructureEntity
     {
         public string ResultsFirstPostDate { get; set; }
         public string ResultsFirstPostDateType { get; set; }
     }
-    public class DispFirstPostDateStruct
+    public class DispFirstPostDateStruct : StudyStructureEntity
     {
         public string DispFirstPostDate { get; set; }
         public string DispFirstPostDateType { get; set; }
     }
 
 
-    public class ResponsibleParty
+    public class ResponsibleParty : StudyStructureEntity
     {
         public string ResponsiblePartyType { get; set; }
         public string ResponsiblePartyInvestigatorFullName { get; set; }
@@ -89,26 +44,26 @@ namespace Model
 
  
 
-    public class Collaborator
+    public class Collaborator : StudyStructureEntity
     {
         public string CollaboratorName { get; set; }
         public string CollaboratorClass { get; set; }
     }
 
-    public class CollaboratorList
+    public class CollaboratorList : StudyStructureEntity
     {
-        public List<Collaborator> Collaborator { get; set; }
+        public virtual List<Collaborator> Collaborator { get; set; }
     }
 
-    public class SponsorCollaboratorsModule
+    public class SponsorCollaboratorsModule : StudyStructureEntity
     {
-        public ResponsibleParty ResponsibleParty { get; set; }
-        public LeadSponsor LeadSponsor { get; set; }
-        public CollaboratorList CollaboratorList { get; set; }
+        public virtual ResponsibleParty ResponsibleParty { get; set; }
+        public virtual LeadSponsor LeadSponsor { get; set; }
+        public virtual CollaboratorList CollaboratorList { get; set; }
     }
 
 
-    public class OversightModule
+    public class OversightModule : StudyStructureEntity
     {
         public string OversightHasDMC { get; set; }
         public string IsFDARegulatedDrug { get; set; }
@@ -119,13 +74,13 @@ namespace Model
     }
 
 
-    public class KeywordList
+    public class KeywordList : StudyStructureEntity
     {
         public List<string> Keyword { get; set; }
     }
 
 
-    public class ExpandedAccessTypes
+    public class ExpandedAccessTypes : StudyStructureEntity
     {
         public string ExpAccTypeIndividual { get; set; }
         public string ExpAccTypeIntermediate { get; set; }
@@ -133,98 +88,98 @@ namespace Model
     }
 
 
-    public class DesignObservationalModelList
+    public class DesignObservationalModelList : StudyStructureEntity
     {
         public List<string> DesignObservationalModel { get; set; }
     }
 
 
-    public class DesignTimePerspectiveList
+    public class DesignTimePerspectiveList : StudyStructureEntity
     {
         public List<string> DesignTimePerspective { get; set; }
     }
 
   
 
-    public class BioSpec
+    public class BioSpec : StudyStructureEntity
     {
         public string BioSpecRetention { get; set; }
         public string BioSpecDescription { get; set; }
     }
 
 
-    public class EnrollmentInfo
+    public class EnrollmentInfo : StudyStructureEntity
     {
         public string EnrollmentCount { get; set; }
         public string EnrollmentType { get; set; }
     }
 
-    public class StartDateStruct
-{
+    public class StartDateStruct : StudyStructureEntity
+    {
         public string StartDate { get; set; }
         public string StartDateType { get; set; }
     }
-    public class ArmGroupInterventionList
+    public class ArmGroupInterventionList : StudyStructureEntity
     {
         public List<string> ArmGroupInterventionName { get; set; }
     }
 
-    public class ArmGroup
+    public class ArmGroup : StudyStructureEntity
     {
         public string ArmGroupLabel { get; set; }
         public string ArmGroupType { get; set; }
         public string ArmGroupDescription { get; set; }
-        public ArmGroupInterventionList ArmGroupInterventionList { get; set; }
+        public virtual ArmGroupInterventionList ArmGroupInterventionList { get; set; }
     }
 
 
  
-    public class PrimaryOutcome
+    public class PrimaryOutcome : StudyStructureEntity
     {
         public string PrimaryOutcomeMeasure { get; set; }
         public string PrimaryOutcomeDescription { get; set; }
         public string PrimaryOutcomeTimeFrame { get; set; }
     }
 
-    public class PrimaryOutcomeList
+    public class PrimaryOutcomeList : StudyStructureEntity
     {
-        public List<PrimaryOutcome> PrimaryOutcome { get; set; }
+        public virtual List<PrimaryOutcome> PrimaryOutcome { get; set; }
     }
 
 
-    public class SecondaryOutcome
+    public class SecondaryOutcome : StudyStructureEntity
     {
         public string SecondaryOutcomeMeasure { get; set; }
         public string SecondaryOutcomeDescription { get; set; }
         public string SecondaryOutcomeTimeFrame { get; set; }
     }
 
-    public class SecondaryOutcomeList
+    public class SecondaryOutcomeList : StudyStructureEntity
     {
-        public List<SecondaryOutcome> SecondaryOutcome { get; set; }
+        public virtual List<SecondaryOutcome> SecondaryOutcome { get; set; }
     }
 
-    public class OtherOutcome
+    public class OtherOutcome : StudyStructureEntity
     {
         public string OtherOutcomeMeasure { get; set; }
         public string OtherOutcomeDescription { get; set; }
         public string OtherOutcomeTimeFrame { get; set; }
     }
 
-    public class OtherOutcomeList
+    public class OtherOutcomeList : StudyStructureEntity
     {
-        public List<OtherOutcome> OtherOutcome { get; set; }
+        public virtual List<OtherOutcome> OtherOutcome { get; set; }
     }
 
-    public class OutcomesModule
+    public class OutcomesModule : StudyStructureEntity
     {
-        public PrimaryOutcomeList PrimaryOutcomeList { get; set; }
-        public SecondaryOutcomeList SecondaryOutcomeList { get; set; }
-        public OtherOutcomeList OtherOutcomeList { get; set; }
+        public virtual PrimaryOutcomeList PrimaryOutcomeList { get; set; }
+        public virtual SecondaryOutcomeList SecondaryOutcomeList { get; set; }
+        public virtual OtherOutcomeList OtherOutcomeList { get; set; }
     }
 
 
-    public class CentralContact
+    public class CentralContact : StudyStructureEntity
     {
         public string CentralContactName { get; set; }
         public string CentralContactRole { get; set; }
@@ -233,22 +188,22 @@ namespace Model
         public string CentralContactEMail { get; set; }
     }
 
-    public class CentralContactList
+    public class CentralContactList : StudyStructureEntity
     {
-        public List<CentralContact> CentralContact { get; set; }
+        public virtual List<CentralContact> CentralContact { get; set; }
     }
 
 
-    public class OverallOfficial
+    public class OverallOfficial : StudyStructureEntity
     {
         public string OverallOfficialName { get; set; }
         public string OverallOfficialAffiliation { get; set; }
         public string OverallOfficialRole { get; set; }
     }
 
-    public class OverallOfficialList
+    public class OverallOfficialList : StudyStructureEntity
     {
-        public List<OverallOfficial> OverallOfficial { get; set; }
+        public virtual List<OverallOfficial> OverallOfficial { get; set; }
     }
 
     public class LocationContact : StudyStructureEntity
@@ -260,40 +215,6 @@ namespace Model
         public string LocationContactEMail { get; set; }
     }
 
-    /* public class LocationContactList
-     {
-         public string type { get; set; }
-         public LocationContact LocationContact { get; set; }
-     }
-
-     public class Location
-     {
-         public string type { get; set; }
-         public LocationFacility LocationFacility { get; set; }
-         public LocationStatus LocationStatus { get; set; }
-         public LocationCity LocationCity { get; set; }
-         public LocationState LocationState { get; set; }
-         public LocationZip LocationZip { get; set; }
-         public LocationCountry LocationCountry { get; set; }
-         public LocationContactList LocationContactList { get; set; }
-     }
-
-     public class LocationList
-     {
-         public string type { get; set; }
-         public Location Location { get; set; }
-     }
-
-     public class ContactsLocationsModule
-     {
-         public string type { get; set; }
-         public string dedLink { get; set; }
-         public CentralContactList CentralContactList { get; set; }
-         public OverallOfficialList OverallOfficialList { get; set; }
-         public LocationList LocationList { get; set; }
-     }*/
-
- 
     public class Retraction : StudyStructureEntity
     {
         public string RetractionPMID { get; set; }
@@ -302,7 +223,7 @@ namespace Model
 
     public class RetractionList : StudyStructureEntity
     {
-        public List<Retraction> Retraction { get; set; }
+        public virtual List<Retraction> Retraction { get; set; }
     }
 
     public class Reference : StudyStructureEntity
@@ -310,12 +231,12 @@ namespace Model
         public string ReferencePMID { get; set; }
         public string ReferenceType { get; set; }
         public string ReferenceCitation { get; set; }
-        public RetractionList RetractionList { get; set; }
+        public virtual RetractionList RetractionList { get; set; }
     }
 
-    public class ReferenceList
+    public class ReferenceList : StudyStructureEntity
     {
-        public List<Reference> Reference { get; set; }
+        public virtual List<Reference> Reference { get; set; }
     }
 
  
@@ -328,7 +249,7 @@ namespace Model
 
     public class SeeAlsoLinkList : StudyStructureEntity
     {
-        public List<SeeAlsoLink> SeeAlsoLink { get; set; }
+        public virtual List<SeeAlsoLink> SeeAlsoLink { get; set; }
     }
 
     public class AvailIPD : StudyStructureEntity
@@ -341,17 +262,17 @@ namespace Model
 
     public class AvailIPDList : StudyStructureEntity
     {
-        public List<AvailIPD> AvailIPD { get; set; }
+        public virtual List<AvailIPD> AvailIPD { get; set; }
     }
 
     public class ReferencesModule : StudyStructureEntity
     {
-        public ReferenceList ReferenceList { get; set; }
-        public SeeAlsoLinkList SeeAlsoLinkList { get; set; }
-        public AvailIPDList AvailIPDList { get; set; }
+        public virtual ReferenceList ReferenceList { get; set; }
+        public virtual SeeAlsoLinkList SeeAlsoLinkList { get; set; }
+        public virtual AvailIPDList AvailIPDList { get; set; }
     }
 
-    public class IPDSharingInfoTypeList
+    public class IPDSharingInfoTypeList : StudyStructureEntity
     {
         public List<string> IPDSharingInfoType;
     }
@@ -360,32 +281,12 @@ namespace Model
     {
         public string IPDSharing { get; set; }
         public string IPDSharingDescription { get; set; }
-        public IPDSharingInfoTypeList IPDSharingInfoTypeList { get; set; }
+        public virtual IPDSharingInfoTypeList IPDSharingInfoTypeList { get; set; }
         public string IPDSharingTimeFrame { get; set; }
         public string IPDSharingAccessCriteria { get; set; }
         public string IPDSharingURL { get; set; }
     }
-    /*
-    public class ProtocolSection
-    {
-        public string type { get; set; }
-        public string dedLink { get; set; }
-        public IdentificationModule IdentificationModule { get; set; }
-        public StatusModule StatusModule { get; set; }
-        public SponsorCollaboratorsModule SponsorCollaboratorsModule { get; set; }
-        public OversightModule OversightModule { get; set; }
-        public DescriptionModule DescriptionModule { get; set; }
-        public ConditionsModule ConditionsModule { get; set; }
-        public DesignModule DesignModule { get; set; }
-        public ArmsInterventionsModule ArmsInterventionsModule { get; set; }
-        public OutcomesModule OutcomesModule { get; set; }
-        public EligibilityModule EligibilityModule { get; set; }
-        public ContactsLocationsModule ContactsLocationsModule { get; set; }
-        public ReferencesModule ReferencesModule { get; set; }
-        public IPDSharingStatementModule IPDSharingStatementModule { get; set; }
-    }*/
-
-
+    
 
     public class FlowGroup : StudyStructureEntity
     {
@@ -396,7 +297,7 @@ namespace Model
 
     public class FlowGroupList : StudyStructureEntity
     {
-        public List<FlowGroup> FlowGroup { get; set; }
+        public virtual List<FlowGroup> FlowGroup { get; set; }
     }
 
 
@@ -410,19 +311,19 @@ namespace Model
 
     public class FlowAchievementList : StudyStructureEntity
     {
-        public List<FlowAchievement> FlowAchievement { get; set; }
+        public virtual List<FlowAchievement> FlowAchievement { get; set; }
     }
 
     public class FlowMilestone : StudyStructureEntity
     {
         public string FlowMilestoneType { get; set; }
         public string FlowMilestoneComment { get; set; }
-        public FlowAchievementList FlowAchievementList { get; set; }
+        public virtual FlowAchievementList FlowAchievementList { get; set; }
     }
 
     public class FlowMilestoneList : StudyStructureEntity
     {
-        public List<FlowMilestone> FlowMilestone { get; set; }
+        public virtual List<FlowMilestone> FlowMilestone { get; set; }
     }
 
     public class FlowReason : StudyStructureEntity
@@ -435,31 +336,31 @@ namespace Model
 
     public class FlowReasonList : StudyStructureEntity
     {
-        public List<FlowReason> FlowReason { get; set; }
+        public virtual List<FlowReason> FlowReason { get; set; }
     }
 
     public class FlowDropWithdraw : StudyStructureEntity
     {
         public string FlowDropWithdrawType { get; set; }
         public string FlowDropWithdrawComment { get; set; }
-        public FlowReasonList FlowReasonList { get; set; }
+        public virtual FlowReasonList FlowReasonList { get; set; }
     }
 
     public class FlowDropWithdrawList : StudyStructureEntity
     {
-        public List<FlowDropWithdraw> FlowDropWithdraw { get; set; }
+        public virtual List<FlowDropWithdraw> FlowDropWithdraw { get; set; }
     }
 
     public class FlowPeriod : StudyStructureEntity
     {
         public string FlowPeriodTitle { get; set; }
-        public FlowMilestoneList FlowMilestoneList { get; set; }
-        public FlowDropWithdrawList FlowDropWithdrawList { get; set; }
+        public virtual FlowMilestoneList FlowMilestoneList { get; set; }
+        public virtual FlowDropWithdrawList FlowDropWithdrawList { get; set; }
     }
 
     public class FlowPeriodList : StudyStructureEntity
     {
-        public List<FlowPeriod> FlowPeriod { get; set; }
+        public virtual List<FlowPeriod> FlowPeriod { get; set; }
     }
 
     public class ParticipantFlowModule : StudyStructureEntity
@@ -467,8 +368,8 @@ namespace Model
         public string FlowPreAssignmentDetails { get; set; }
         public string FlowRecruitmentDetails { get; set; }
         public string FlowTypeUnitsAnalyzed { get; set; }
-        public FlowGroupList FlowGroupList { get; set; }
-        public FlowPeriodList FlowPeriodList { get; set; }
+        public virtual FlowGroupList FlowGroupList { get; set; }
+        public virtual FlowPeriodList FlowPeriodList { get; set; }
     }
 
     
@@ -499,7 +400,7 @@ namespace Model
     public class BaselineDenom : StudyStructureEntity
     {
         public string BaselineDenomUnits { get; set; }
-        public BaselineDenomCountList BaselineDenomCountList { get; set; }
+        public virtual BaselineDenomCountList BaselineDenomCountList { get; set; }
     }
 
     public class BaselineDenomList : StudyStructureEntity
@@ -516,45 +417,45 @@ namespace Model
 
     public class BaselineMeasureDenomCountList : StudyStructureEntity
     {
-        public List<BaselineMeasureDenomCount> BaselineMeasureDenomCount { get; set; }
+        public virtual List<BaselineMeasureDenomCount> BaselineMeasureDenomCount { get; set; }
     }
 
     public class BaselineMeasureDenom : StudyStructureEntity
     {
         public string BaselineMeasureDenomUnits { get; set; }
-        public BaselineMeasureDenomCountList BaselineMeasureDenomCountList { get; set; }
+        public virtual BaselineMeasureDenomCountList BaselineMeasureDenomCountList { get; set; }
     }
 
     public class BaselineMeasureDenomList : StudyStructureEntity
     
     {
-        public List<BaselineMeasureDenom> BaselineMeasureDenom { get; set; }
+        public virtual List<BaselineMeasureDenom> BaselineMeasureDenom { get; set; }
     }
 
    
-    public class BaselineClassDenomCount
+    public class BaselineClassDenomCount : StudyStructureEntity
     {
         public string BaselineClassDenomCountGroupId { get; set; }
         public string BaselineClassDenomCountValue { get; set; }
     }
 
-    public class BaselineClassDenomCountList
+    public class BaselineClassDenomCountList : StudyStructureEntity
     {
-        public List<BaselineClassDenomCount> BaselineClassDenomCount { get; set; }
+        public virtual List<BaselineClassDenomCount> BaselineClassDenomCount { get; set; }
     }
 
-    public class BaselineClassDenom
+    public class BaselineClassDenom : StudyStructureEntity
     {
         public string BaselineClassDenomUnits { get; set; }
-        public BaselineClassDenomCountList BaselineClassDenomCountList { get; set; }
+        public virtual BaselineClassDenomCountList BaselineClassDenomCountList { get; set; }
     }
 
-    public class BaselineClassDenomList
+    public class BaselineClassDenomList : StudyStructureEntity
     {
-        public List<BaselineClassDenom> BaselineClassDenom { get; set; }
+        public virtual List<BaselineClassDenom> BaselineClassDenom { get; set; }
     }
 
-    public class BaselineMeasurement
+    public class BaselineMeasurement : StudyStructureEntity
     {
         public string BaselineMeasurementGroupId { get; set; }
         public string BaselineMeasurementValue { get; set; }
@@ -564,35 +465,35 @@ namespace Model
         public string BaselineMeasurementComment { get; set; }
     }
 
-    public class BaselineMeasurementList
+    public class BaselineMeasurementList : StudyStructureEntity
     {
-        public List<BaselineMeasurement> BaselineMeasurement { get; set; }
+        public virtual List<BaselineMeasurement> BaselineMeasurement { get; set; }
     }
 
-    public class BaselineCategory
+    public class BaselineCategory : StudyStructureEntity
     {
         public string BaselineCategoryTitle { get; set; }
-        public BaselineMeasurementList BaselineMeasurementList { get; set; }
+        public virtual BaselineMeasurementList BaselineMeasurementList { get; set; }
     }
 
-    public class BaselineCategoryList
+    public class BaselineCategoryList : StudyStructureEntity
     {
-        public List<BaselineCategory> BaselineCategory { get; set; }
+        public virtual List<BaselineCategory> BaselineCategory { get; set; }
     }
 
-    public class BaselineClass
+    public class BaselineClass : StudyStructureEntity
     {
         public string BaselineClassTitle { get; set; }
-        public BaselineClassDenomList BaselineClassDenomList { get; set; }
-        public BaselineCategoryList BaselineCategoryList { get; set; }
+        public virtual BaselineClassDenomList BaselineClassDenomList { get; set; }
+        public virtual BaselineCategoryList BaselineCategoryList { get; set; }
     }
 
-    public class BaselineClassList
+    public class BaselineClassList : StudyStructureEntity
     {
-        public List<BaselineClass> BaselineClass { get; set; }
+        public virtual List<BaselineClass> BaselineClass { get; set; }
     }
 
-    public class BaselineMeasure
+    public class BaselineMeasure : StudyStructureEntity
     {
         public string BaselineMeasureTitle { get; set; }
         public string BaselineMeasureDescription { get; set; }
@@ -602,85 +503,85 @@ namespace Model
         public string BaselineMeasureUnitOfMeasure { get; set; }
         public string BaselineMeasureCalculatePct { get; set; }
         public string BaselineMeasureDenomUnitsSelected { get; set; }
-        public BaselineMeasureDenomList BaselineMeasureDenomList { get; set; }
-        public BaselineClassList BaselineClassList { get; set; }
+        public virtual BaselineMeasureDenomList BaselineMeasureDenomList { get; set; }
+        public virtual BaselineClassList BaselineClassList { get; set; }
     }
 
-    public class BaselineMeasureList
+    public class BaselineMeasureList : StudyStructureEntity
     {
-        public List<BaselineMeasure> BaselineMeasure { get; set; }
+        public virtual List<BaselineMeasure> BaselineMeasure { get; set; }
     }
 
-    public class BaselineCharacteristicsModule
+    public class BaselineCharacteristicsModule : StudyStructureEntity
     {
         public string BaselinePopulationDescription { get; set; }
         public string BaselineTypeUnitsAnalyzed { get; set; }
-        public BaselineGroupList BaselineGroupList { get; set; }
-        public BaselineDenomList BaselineDenomList { get; set; }
-        public BaselineMeasureList BaselineMeasureList { get; set; }
+        public virtual BaselineGroupList BaselineGroupList { get; set; }
+        public virtual BaselineDenomList BaselineDenomList { get; set; }
+        public virtual BaselineMeasureList BaselineMeasureList { get; set; }
     }
 
 
-    public class OutcomeGroup
+    public class OutcomeGroup : StudyStructureEntity
     {
         public string OutcomeGroupId { get; set; }
         public string OutcomeGroupTitle { get; set; }
         public string OutcomeGroupDescription { get; set; }
     }
 
-    public class OutcomeGroupList
+    public class OutcomeGroupList : StudyStructureEntity
     {
-        public List<OutcomeGroup> OutcomeGroup { get; set; }
+        public virtual List<OutcomeGroup> OutcomeGroup { get; set; }
     }
 
-    public class OutcomeDenomCount
+    public class OutcomeDenomCount : StudyStructureEntity
     {
         public string type { get; set; }
         public string OutcomeDenomCountGroupId { get; set; }
         public string OutcomeDenomCountValue { get; set; }
     }
 
-    public class OutcomeDenomCountList
+    public class OutcomeDenomCountList : StudyStructureEntity
     {
-        public List<OutcomeDenomCount> OutcomeDenomCount { get; set; }
+        public virtual List<OutcomeDenomCount> OutcomeDenomCount { get; set; }
     }
 
-    public class OutcomeDenom
+    public class OutcomeDenom : StudyStructureEntity
     {
         public string OutcomeDenomUnits { get; set; }
-        public OutcomeDenomCountList OutcomeDenomCountList { get; set; }
+        public virtual OutcomeDenomCountList OutcomeDenomCountList { get; set; }
     }
 
-    public class OutcomeDenomList
+    public class OutcomeDenomList : StudyStructureEntity
     {
-        public List<OutcomeDenom> OutcomeDenom { get; set; }
+        public virtual List<OutcomeDenom> OutcomeDenom { get; set; }
     }
 
 
-    public class OutcomeClassDenomCount
+    public class OutcomeClassDenomCount : StudyStructureEntity
     {
         public string OutcomeClassDenomCountGroupId { get; set; }
         public string OutcomeClassDenomCountValue { get; set; }
     }
 
-    public class OutcomeClassDenomCountList
+    public class OutcomeClassDenomCountList : StudyStructureEntity
     {
-        public List<OutcomeClassDenomCount> OutcomeClassDenomCount { get; set; }
+        public virtual List<OutcomeClassDenomCount> OutcomeClassDenomCount { get; set; }
     }
 
-    public class OutcomeClassDenom
+    public class OutcomeClassDenom : StudyStructureEntity
     {
         public string OutcomeClassDenomUnits { get; set; }
-        public OutcomeClassDenomCountList OutcomeClassDenomCountList { get; set; }
+        public virtual OutcomeClassDenomCountList OutcomeClassDenomCountList { get; set; }
     }
 
-    public class OutcomeClassDenomList
+    public class OutcomeClassDenomList : StudyStructureEntity
     {
-        public List<OutcomeClassDenom> OutcomeClassDenom { get; set; }
+        public virtual List<OutcomeClassDenom> OutcomeClassDenom { get; set; }
     }
 
 
-    public class OutcomeMeasurement
+    public class OutcomeMeasurement : StudyStructureEntity
     {
         public string OutcomeMeasurementGroupId { get; set; }
         public string OutcomeMeasurementValue { get; set; }
@@ -690,38 +591,37 @@ namespace Model
         public string OutcomeMeasurementComment { get; set; }
     }
 
-    public class OutcomeMeasurementList
+    public class OutcomeMeasurementList : StudyStructureEntity
     {
-        public List<OutcomeMeasurement> OutcomeMeasurement { get; set; }
+        public virtual List<OutcomeMeasurement> OutcomeMeasurement { get; set; }
     }
 
-    public class OutcomeCategory
+    public class OutcomeCategory : StudyStructureEntity
     {
         public string OutcomeCategoryTitle { get; set; }
-        public OutcomeMeasurementList OutcomeMeasurementList { get; set; }
+        public virtual OutcomeMeasurementList OutcomeMeasurementList { get; set; }
     }
 
-    public class OutcomeCategoryList
+    public class OutcomeCategoryList : StudyStructureEntity
     {
-        public List<OutcomeCategory> OutcomeCategory { get; set; }
+        public virtual List<OutcomeCategory> OutcomeCategory { get; set; }
     }
 
-    public class OutcomeClass
+    public class OutcomeClass : StudyStructureEntity
     {
         public string OutcomeClassTitle { get; set; }
-        public OutcomeClassDenomList OutcomeClassDenomList { get; set; }
-        public OutcomeCategoryList OutcomeCategoryList { get; set; }
+        public virtual OutcomeClassDenomList OutcomeClassDenomList { get; set; }
+        public virtual OutcomeCategoryList OutcomeCategoryList { get; set; }
     }
 
-    public class OutcomeClassList
+    public class OutcomeClassList : StudyStructureEntity
     {
-        public List<OutcomeClass> OutcomeClass { get; set; }
+        public virtual List<OutcomeClass> OutcomeClass { get; set; }
     }
 
-    public class OutcomeAnalysis
+    public class OutcomeAnalysis : StudyStructureEntity
     {
-        public string type { get; set; }
-        public OutcomeAnalysisGroupIdList OutcomeAnalysisGroupIdList { get; set; }
+        public virtual OutcomeAnalysisGroupIdList OutcomeAnalysisGroupIdList { get; set; }
         public string OutcomeAnalysisGroupDescription { get; set; }
         public string OutcomeAnalysisTestedNonInferiority { get; set; }
         public string OutcomeAnalysisNonInferiorityType { get; set; }
@@ -744,17 +644,16 @@ namespace Model
         public string OutcomeAnalysisOtherAnalysisDescription { get; set; }
     }
 
-    public class OutcomeAnalysisGroupIdList
+    public class OutcomeAnalysisGroupIdList : StudyStructureEntity
     {
-        public List<string> OutcomeAnalysisGroupId { get; set; }
+        public virtual List<string> OutcomeAnalysisGroupId { get; set; }
     }
-    public class OutcomeAnalysisList
+    public class OutcomeAnalysisList : StudyStructureEntity
     {
-        public string dedLink { get; set; }
-        public List<OutcomeAnalysis> OutcomeAnalysis { get; set; }
+        public virtual List<OutcomeAnalysis> OutcomeAnalysis { get; set; }
     }
 
-    public class OutcomeMeasure
+    public class OutcomeMeasure : StudyStructureEntity
     {
         public string OutcomeMeasureType { get; set; }
         public string OutcomeMeasureTitle { get; set; }
@@ -769,25 +668,25 @@ namespace Model
         public string OutcomeMeasureTimeFrame { get; set; }
         public string OutcomeMeasureTypeUnitsAnalyzed { get; set; }
         public string OutcomeMeasureDenomUnitsSelected { get; set; }
-        public OutcomeGroupList OutcomeGroupList { get; set; }
-        public OutcomeDenomList OutcomeDenomList { get; set; }
-        public OutcomeClassList OutcomeClassList { get; set; }
-        public OutcomeAnalysisList OutcomeAnalysisList { get; set; }
+        public virtual OutcomeGroupList OutcomeGroupList { get; set; }
+        public virtual OutcomeDenomList OutcomeDenomList { get; set; }
+        public virtual OutcomeClassList OutcomeClassList { get; set; }
+        public virtual OutcomeAnalysisList OutcomeAnalysisList { get; set; }
     }
 
-    public class OutcomeMeasureList
+    public class OutcomeMeasureList : StudyStructureEntity
     {
-        public List<OutcomeMeasure> OutcomeMeasure { get; set; }
+        public virtual List<OutcomeMeasure> OutcomeMeasure { get; set; }
     }
 
-    public class OutcomeMeasuresModule
+    public class OutcomeMeasuresModule : StudyStructureEntity
     {
-        public OutcomeMeasureList OutcomeMeasureList { get; set; }
+        public virtual OutcomeMeasureList OutcomeMeasureList { get; set; }
     }
 
   
 
-    public class EventGroup
+    public class EventGroup : StudyStructureEntity
     {
         public string EventGroupId { get; set; }
         public string EventGroupTitle { get; set; }
@@ -800,12 +699,12 @@ namespace Model
         public string EventGroupOtherNumAtRisk { get; set; }
     }
 
-    public class EventGroupList
+    public class EventGroupList : StudyStructureEntity
     {
-        public List<EventGroup> EventGroup { get; set; }
+        public virtual List<EventGroup> EventGroup { get; set; }
     }
 
-    public class OtherEventStats
+    public class OtherEventStats : StudyStructureEntity
     {
         public string OtherEventStatsGroupId { get; set; }
         public string OtherEventStatsNumEvents { get; set; }
@@ -813,28 +712,28 @@ namespace Model
         public string OtherEventStatsNumAtRisk { get; set; }
     }
 
-    public class OtherEventStatsList
+    public class OtherEventStatsList : StudyStructureEntity
     {
-        public List<OtherEventStats> OtherEventStats { get; set; }
+        public virtual List<OtherEventStats> OtherEventStats { get; set; }
     }
 
-    public class OtherEvent
+    public class OtherEvent : StudyStructureEntity
     {
         public string OtherEventTerm { get; set; }
         public string OtherEventOrganSystem { get; set; }
         public string OtherEventSourceVocabulary { get; set; }
         public string OtherEventAssessmentType { get; set; }
         public string OtherEventNotes { get; set; }
-        public OtherEventStatsList OtherEventStatsList { get; set; }
+        public virtual OtherEventStatsList OtherEventStatsList { get; set; }
     }
 
-    public class OtherEventList
+    public class OtherEventList : StudyStructureEntity
     {
-        public List<OtherEvent> OtherEvent { get; set; }
+        public virtual List<OtherEvent> OtherEvent { get; set; }
     }
    
 
-    public class SeriousEventStats
+    public class SeriousEventStats : StudyStructureEntity
     {
         public string SeriousEventStatsGroupId { get; set; }
         public string SeriousEventStatsNumEvents { get; set; }
@@ -842,42 +741,42 @@ namespace Model
         public string SeriousEventStatsNumAtRisk { get; set; }
     }
 
-    public class SeriousEventStatsList
+    public class SeriousEventStatsList : StudyStructureEntity
     {
-        public List<SeriousEventStats> SeriousEventStats { get; set; }
+        public virtual List<SeriousEventStats> SeriousEventStats { get; set; }
     }
 
-    public class SeriousEvent
+    public class SeriousEvent : StudyStructureEntity
     {
         public string SeriousEventTerm { get; set; }
         public string SeriousEventOrganSystem { get; set; }
         public string SeriousEventSourceVocabulary { get; set; }
         public string SeriousEventAssessmentType { get; set; }
         public string SeriousEventNotes { get; set; }
-        public SeriousEventStatsList SeriousEventStatsList { get; set; }
+        public virtual SeriousEventStatsList SeriousEventStatsList { get; set; }
     }
 
-    public class SeriousEventList
+    public class SeriousEventList : StudyStructureEntity
     {
-        public List<SeriousEvent> SeriousEvent { get; set; }
+        public virtual List<SeriousEvent> SeriousEvent { get; set; }
     }
-    public class AdverseEventsModule
+    public class AdverseEventsModule : StudyStructureEntity
     {
         public string EventsFrequencyThreshold { get; set; }
         public string EventsTimeFrame { get; set; }
         public string EventsDescription { get; set; }
-        public EventGroupList EventGroupList { get; set; }
-        public SeriousEventList SeriousEventList { get; set; }
-        public OtherEventList OtherEventList { get; set; }
+        public virtual EventGroupList EventGroupList { get; set; }
+        public virtual SeriousEventList SeriousEventList { get; set; }
+        public virtual OtherEventList OtherEventList { get; set; }
     }
 
-    public class LimitationsAndCaveats
+    public class LimitationsAndCaveats : StudyStructureEntity
     {
         public string dedLink { get; set; }
     }
 
    
-    public class CertainAgreement
+    public class CertainAgreement : StudyStructureEntity
     {
         public string AgreementPISponsorEmployee { get; set; }
         public string AgreementRestrictionType { get; set; }
@@ -885,7 +784,7 @@ namespace Model
         public string AgreementOtherDetails { get; set; }
     }
 
-    public class PointOfContact
+    public class PointOfContact : StudyStructureEntity
     {
         public string PointOfContactTitle { get; set; }
         public string PointOfContactOrganization { get; set; }
@@ -894,52 +793,52 @@ namespace Model
         public string PointOfContactPhoneExt { get; set; }
     }
 
-    public class MoreInfoModule
+    public class MoreInfoModule : StudyStructureEntity
     {
-        public LimitationsAndCaveats LimitationsAndCaveats { get; set; }
-        public CertainAgreement CertainAgreement { get; set; }
-        public PointOfContact PointOfContact { get; set; }
+        public virtual LimitationsAndCaveats LimitationsAndCaveats { get; set; }
+        public virtual CertainAgreement CertainAgreement { get; set; }
+        public virtual PointOfContact PointOfContact { get; set; }
     }
 
-    public class ResultsSection
+    public class ResultsSection : StudyStructureEntity
     {
-        public ParticipantFlowModule ParticipantFlowModule { get; set; }
-        public BaselineCharacteristicsModule BaselineCharacteristicsModule { get; set; }
-        public OutcomeMeasuresModule OutcomeMeasuresModule { get; set; }
-        public AdverseEventsModule AdverseEventsModule { get; set; }
-        public MoreInfoModule MoreInfoModule { get; set; }
+        public virtual ParticipantFlowModule ParticipantFlowModule { get; set; }
+        public virtual BaselineCharacteristicsModule BaselineCharacteristicsModule { get; set; }
+        public virtual OutcomeMeasuresModule OutcomeMeasuresModule { get; set; }
+        public virtual AdverseEventsModule AdverseEventsModule { get; set; }
+        public virtual MoreInfoModule MoreInfoModule { get; set; }
     }
 
 
-    public class UnpostedEvent
+    public class UnpostedEvent : StudyStructureEntity
     {
         public string UnpostedEventType { get; set; }
         public string UnpostedEventDate { get; set; }
     }
 
-    public class UnpostedEventList
+    public class UnpostedEventList : StudyStructureEntity
     {
-        public List<UnpostedEvent> UnpostedEvent { get; set; }
+        public virtual List<UnpostedEvent> UnpostedEvent { get; set; }
     }
 
-    public class UnpostedAnnotation
+    public class UnpostedAnnotation : StudyStructureEntity
     {
         public string UnpostedResponsibleParty { get; set; }
-        public UnpostedEventList UnpostedEventList { get; set; }
+        public virtual UnpostedEventList UnpostedEventList { get; set; }
     }
 
-    public class AnnotationModule
+    public class AnnotationModule : StudyStructureEntity
     {
-        public UnpostedAnnotation UnpostedAnnotation { get; set; }
+        public virtual UnpostedAnnotation UnpostedAnnotation { get; set; }
     }
 
-    public class AnnotationSection
+    public class AnnotationSection : StudyStructureEntity
     {
-        public AnnotationModule AnnotationModule { get; set; }
+        public virtual AnnotationModule AnnotationModule { get; set; }
     }
 
 
-    public class LargeDoc
+    public class LargeDoc : StudyStructureEntity
     {
         public string LargeDocTypeAbbrev { get; set; }
         public string LargeDocHasProtocol { get; set; }
@@ -951,298 +850,19 @@ namespace Model
         public string LargeDocFilename { get; set; }
     }
 
-    public class LargeDocList
+    public class LargeDocList : StudyStructureEntity
     {
-        public List<LargeDoc> LargeDoc { get; set; }
+        public virtual List<LargeDoc> LargeDoc { get; set; }
     }
 
-    public class LargeDocumentModule
+    public class LargeDocumentModule : StudyStructureEntity
     {
-        public LargeDocList LargeDocList { get; set; }
+        public virtual LargeDocList LargeDocList { get; set; }
     }
 
-    public class DocumentSection
+    public class DocumentSection : StudyStructureEntity
     {
-        public LargeDocumentModule LargeDocumentModule { get; set; }
+        public virtual LargeDocumentModule LargeDocumentModule { get; set; }
     }
-    /*
-   public class VersionHolder
-   {
-       public string type { get; set; }
-   }
-
-   public class RemovedCountry
-   {
-       public string type { get; set; }
-   }
-
-   public class RemovedCountryList
-   {
-       public string type { get; set; }
-       public RemovedCountry RemovedCountry { get; set; }
-   }
-
-   public class MiscInfoModule
-   {
-       public string type { get; set; }
-       public VersionHolder VersionHolder { get; set; }
-       public RemovedCountryList RemovedCountryList { get; set; }
-   }
-
-   public class ConditionMeshId
-   {
-       public string type { get; set; }
-   }
-
-   public class ConditionMeshTerm
-   {
-       public string type { get; set; }
-   }
-
-   public class ConditionMesh
-   {
-       public string type { get; set; }
-       public ConditionMeshId ConditionMeshId { get; set; }
-       public ConditionMeshTerm ConditionMeshTerm { get; set; }
-   }
-
-   public class ConditionMeshList
-   {
-       public string type { get; set; }
-       public ConditionMesh ConditionMesh { get; set; }
-   }
-
-   public class ConditionAncestorId
-   {
-       public string type { get; set; }
-   }
-
-   public class ConditionAncestorTerm
-   {
-       public string type { get; set; }
-   }
-
-   public class ConditionAncestor
-   {
-       public string type { get; set; }
-       public ConditionAncestorId ConditionAncestorId { get; set; }
-       public ConditionAncestorTerm ConditionAncestorTerm { get; set; }
-   }
-
-   public class ConditionAncestorList
-   {
-       public string type { get; set; }
-       public ConditionAncestor ConditionAncestor { get; set; }
-   }
-
-   public class ConditionBrowseLeafId
-   {
-       public string type { get; set; }
-   }
-
-   public class ConditionBrowseLeafName
-   {
-       public string type { get; set; }
-   }
-
-   public class ConditionBrowseLeafAsFound
-   {
-       public string type { get; set; }
-   }
-
-   public class ConditionBrowseLeafRelevance
-   {
-       public string type { get; set; }
-   }
-
-   public class ConditionBrowseLeaf
-   {
-       public string type { get; set; }
-       public ConditionBrowseLeafId ConditionBrowseLeafId { get; set; }
-       public ConditionBrowseLeafName ConditionBrowseLeafName { get; set; }
-       public ConditionBrowseLeafAsFound ConditionBrowseLeafAsFound { get; set; }
-       public ConditionBrowseLeafRelevance ConditionBrowseLeafRelevance { get; set; }
-   }
-
-   public class ConditionBrowseLeafList
-   {
-       public string type { get; set; }
-       public ConditionBrowseLeaf ConditionBrowseLeaf { get; set; }
-   }
-
-   public class ConditionBrowseBranchAbbrev
-   {
-       public string type { get; set; }
-   }
-
-   public class ConditionBrowseBranchName
-   {
-       public string type { get; set; }
-   }
-
-   public class ConditionBrowseBranch
-   {
-       public string type { get; set; }
-       public ConditionBrowseBranchAbbrev ConditionBrowseBranchAbbrev { get; set; }
-       public ConditionBrowseBranchName ConditionBrowseBranchName { get; set; }
-   }
-
-   public class ConditionBrowseBranchList
-   {
-       public string type { get; set; }
-       public ConditionBrowseBranch ConditionBrowseBranch { get; set; }
-   }
-
-   public class ConditionBrowseModule
-   {
-       public string type { get; set; }
-       public ConditionMeshList ConditionMeshList { get; set; }
-       public ConditionAncestorList ConditionAncestorList { get; set; }
-       public ConditionBrowseLeafList ConditionBrowseLeafList { get; set; }
-       public ConditionBrowseBranchList ConditionBrowseBranchList { get; set; }
-   }
-
-   public class InterventionMeshId
-   {
-       public string type { get; set; }
-   }
-
-   public class InterventionMeshTerm
-   {
-       public string type { get; set; }
-   }
-
-   public class InterventionMesh
-   {
-       public string type { get; set; }
-       public InterventionMeshId InterventionMeshId { get; set; }
-       public InterventionMeshTerm InterventionMeshTerm { get; set; }
-   }
-
-   public class InterventionMeshList
-   {
-       public string type { get; set; }
-       public InterventionMesh InterventionMesh { get; set; }
-   }
-
-   public class InterventionAncestorId
-   {
-       public string type { get; set; }
-   }
-
-   public class InterventionAncestorTerm
-   {
-       public string type { get; set; }
-   }
-
-   public class InterventionAncestor
-   {
-       public string type { get; set; }
-       public InterventionAncestorId InterventionAncestorId { get; set; }
-       public InterventionAncestorTerm InterventionAncestorTerm { get; set; }
-   }
-
-   public class InterventionAncestorList
-   {
-       public string type { get; set; }
-       public InterventionAncestor InterventionAncestor { get; set; }
-   }
-
-   public class InterventionBrowseLeafId
-   {
-       public string type { get; set; }
-   }
-
-   public class InterventionBrowseLeafName
-   {
-       public string type { get; set; }
-   }
-
-   public class InterventionBrowseLeafAsFound
-   {
-       public string type { get; set; }
-   }
-
-   public class InterventionBrowseLeafRelevance
-   {
-       public string type { get; set; }
-   }
-
-   public class InterventionBrowseLeaf
-   {
-       public string type { get; set; }
-       public InterventionBrowseLeafId InterventionBrowseLeafId { get; set; }
-       public InterventionBrowseLeafName InterventionBrowseLeafName { get; set; }
-       public InterventionBrowseLeafAsFound InterventionBrowseLeafAsFound { get; set; }
-       public InterventionBrowseLeafRelevance InterventionBrowseLeafRelevance { get; set; }
-   }
-
-   public class InterventionBrowseLeafList
-   {
-       public string type { get; set; }
-       public InterventionBrowseLeaf InterventionBrowseLeaf { get; set; }
-   }
-
-   public class InterventionBrowseBranchAbbrev
-   {
-       public string type { get; set; }
-   }
-
-   public class InterventionBrowseBranchName
-   {
-       public string type { get; set; }
-   }
-
-   public class InterventionBrowseBranch
-   {
-       public string type { get; set; }
-       public InterventionBrowseBranchAbbrev InterventionBrowseBranchAbbrev { get; set; }
-       public InterventionBrowseBranchName InterventionBrowseBranchName { get; set; }
-   }
-
-   public class InterventionBrowseBranchList
-   {
-       public string type { get; set; }
-       public InterventionBrowseBranch InterventionBrowseBranch { get; set; }
-   }
-
-   public class InterventionBrowseModule
-   {
-       public string type { get; set; }
-       public InterventionMeshList InterventionMeshList { get; set; }
-       public InterventionAncestorList InterventionAncestorList { get; set; }
-       public InterventionBrowseLeafList InterventionBrowseLeafList { get; set; }
-       public InterventionBrowseBranchList InterventionBrowseBranchList { get; set; }
-   }
-
-   public class DerivedSection
-   {
-       public string type { get; set; }
-       public MiscInfoModule MiscInfoModule { get; set; }
-       public ConditionBrowseModule ConditionBrowseModule { get; set; }
-       public InterventionBrowseModule InterventionBrowseModule { get; set; }
-   }
-
-   public class Study
-   {
-       public string type { get; set; }
-       public ProtocolSection ProtocolSection { get; set; }
-       public ResultsSection ResultsSection { get; set; }
-       public AnnotationSection AnnotationSection { get; set; }
-       public DocumentSection DocumentSection { get; set; }
-       public DerivedSection DerivedSection { get; set; }
-   }
-
-   public class FullStudy
-   {
-       public int Rank { get; set; }
-       public virtual Study Study { get; set; }
-   }
-
-   public class Root
-   {
-       public virtual FullStudy FullStudy { get; set; }
-   }*/
-
 
 }

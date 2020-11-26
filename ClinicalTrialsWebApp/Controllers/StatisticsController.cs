@@ -107,13 +107,13 @@ namespace ClinicalTrialsWebApp
             }
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("country")]
-        public ActionResult Country()
+        public ActionResult Country(SearchDTO searchDTO)
         {
             try
             {
-                var retVal = _repoWrapper.StatisticsSearch.CountryStatistics();
+                var retVal = _repoWrapper.StatisticsSearch.CountryStatistics(searchDTO);
                 return Ok(retVal);
             }
             catch (Exception e)
@@ -126,11 +126,27 @@ namespace ClinicalTrialsWebApp
 
         [HttpGet]
         [Route("location")]
-        public ActionResult Location()
+        public ActionResult LocationFromView()
         {
             try
             {
-                var retVal = _repoWrapper.StatisticsSearch.LocationStatistics();
+                var retVal = _repoWrapper.StatisticsSearch.LocationFromViewStatistics();
+                return Ok(retVal);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Something went wrong inside LocationFromViewStatistics action: {e.Message}");
+                return StatusCode(404, e.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("location")]
+        public ActionResult Location(SearchDTO searchDTO)
+        {
+            try
+            {
+                var retVal = _repoWrapper.StatisticsSearch.LocationStatistics(searchDTO);
                 return Ok(retVal);
             }
             catch (Exception e)
@@ -184,6 +200,22 @@ namespace ClinicalTrialsWebApp
             catch (Exception e)
             {
                 _logger.LogError($"Something went wrong inside GetLocationCities action: {e.Message}");
+                return StatusCode(404, e.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("interventionalStudies")]
+        public ActionResult InterventionalStudies()
+        {
+            try
+            {
+                var retVal = _repoWrapper.StatisticsSearch.InterventionalStudiesStatistics();
+                return Ok(retVal);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Something went wrong inside InterventionalStudies action: {e.Message}");
                 return StatusCode(404, e.Message);
             }
         }

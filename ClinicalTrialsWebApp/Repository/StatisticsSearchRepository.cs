@@ -1,4 +1,5 @@
-﻿using ExcelDataReader;
+﻿using ClinicalTrialsWebApp.DTO;
+using ExcelDataReader;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Model;
@@ -55,23 +56,34 @@ namespace ClinicalTrialsWebApp.Repository
         {
             return ExecuteCommand("SELECT * FROM PHASE_WITH_MESH_TERM ORDER BY NUM DESC FOR JSON AUTO;");
         }
-        public string CountryStatistics()
+        public string CountryStatistics(SearchDTO searchDTO)
         {
-            return ExecuteCommand("SELECT * FROM COUNTRY_WITH_MESH_TERM ORDER BY NUM DESC FOR JSON AUTO;");
+            //return ExecuteCommand("SELECT * FROM COUNTRY_WITH_MESH_TERM ORDER BY NUM DESC FOR JSON AUTO;");
+            return ExecuteCommand("SELECT * FROM [dbo].[GetCountriesForTerm] ('" + searchDTO.Condition + "')  FOR JSON AUTO;");
+
         }
 
-        //first reading coordinates from created xlxs file and then returning them paired with the location city
-        public string LocationStatistics()
+        public string LocationFromViewStatistics()
         {
-            //return ExecuteCommand("SELECT * FROM LOCATION_WITH_MESH_TERM ORDER BY NUM DESC FOR JSON AUTO;");
-            string sql = "SELECT * FROM LOCATION_WITH_MESH_TERM ORDER BY NUM DESC;";
+            /*var path = Path.Combine(Directory.GetCurrentDirectory(), "..\\allCoordinates.xlsx");
+            try
+            {
+                fillCityCoordinatesTable(path);
+                return "ok";
+            }catch(Exception e)
+            {
+                return e.Message;
+            }*/
+            return ExecuteCommand("SELECT * FROM LOCATION_WITH_MESH_TERM ORDER BY NUM DESC FOR JSON AUTO;");
+            
+            /*string sql = "SELECT * FROM LOCATION_WITH_MESH_TERM ORDER BY NUM DESC;";
 
             SqlConnection con = new SqlConnection(RepositoryContext.Database.GetDbConnection().ConnectionString);
 
             con.Open();
-            
+
             SqlCommand objCMD = new SqlCommand(sql, con);
-            
+
             SqlDataAdapter myAdapter = new SqlDataAdapter();
             myAdapter.SelectCommand = objCMD;
 
@@ -79,23 +91,21 @@ namespace ClinicalTrialsWebApp.Repository
             myAdapter.Fill(myDataSet);
             DataTable dt = myDataSet.Tables[0];
 
-            
-            var path = Path.Combine(Directory.GetCurrentDirectory(), "..\\coordinates1.xlsx");
-            string backupPath = Path.Combine(Directory.GetCurrentDirectory(), "..\\worldcities.xlsx");
 
-            dt = ExtractCoordinatesFromFile(dt, path, backupPath);
-            /*
-            try
-            {
-                dt = ExtractCoordinatesFromFile(dt, path, backupPath);
-            } catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                dt = ExtractCoordinatesFromFile(dt, backupPath, backupPath);
-            }
+            //var path = Path.Combine(Directory.GetCurrentDirectory(), "..\\allCoordinates.xlsx");
+            //string backupPath = Path.Combine(Directory.GetCurrentDirectory(), "..\\worldcities.xlsx");
+
+            //dt = ExtractCoordinatesFromFile(dt, path, backupPath);
+
 
             return DataTableToJSONWithJSONNet(dt);*/
-            return "ok";
+        }
+
+        public string LocationStatistics(SearchDTO searchDTO)
+        {
+            
+            return ExecuteCommand("SELECT * FROM [dbo].[GetCoordinatesForTerm] ('" + searchDTO.Condition + "')  FOR JSON AUTO;");
+           
         }
 
         public DataTable ExtractCoordinatesFromFile(DataTable dt, string path, string backupPath)
@@ -359,6 +369,11 @@ namespace ClinicalTrialsWebApp.Repository
             //Here's the easy part. Create the Excel worksheet from the data set
             ExcelLibrary.DataSetHelper.CreateWorkbook("MyExcelFile910.xls", ds);
             return "ok";
+        }
+
+        public string InterventionalStudiesStatistics()
+        {
+            return ExecuteCommand("SELECT * from INTERVENTIONAL_STUDIES_YEAR FOR JSON AUTO;");
         }
 
         public string ExecuteCommand(string sql)

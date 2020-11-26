@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using ClinicalTrialsWebApp.DTO;
+using Model;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,10 +14,12 @@ namespace ClinicalTrialsWebApp.Repository
         string StudyTypeStatistics();
         string StatusStatistics();
         string PhaseListStatistics();
-        string CountryStatistics();
-        string LocationStatistics();
+        string CountryStatistics(SearchDTO searchDTO);
+        string LocationStatistics(SearchDTO searchDTO);
+        string LocationFromViewStatistics();
         string SponsorStatistics();
         string DurationStatistics();
+        string InterventionalStudiesStatistics();
         Task<string> GetLocationCitiesAsync();
 
     }

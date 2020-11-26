@@ -10,13 +10,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { SearchComponent } from './search/search.component';
 import { StudyViewComponent } from './study-view/study-view.component';
 import { DndModule } from 'ngx-drag-drop';
+import { CustomStatisticsComponent } from './custom-statistics/custom-statistics.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     StatisticsComponent,
     SearchComponent,
-    StudyViewComponent
+    StudyViewComponent,
+    CustomStatisticsComponent
   ],
   imports: [
     BrowserModule,

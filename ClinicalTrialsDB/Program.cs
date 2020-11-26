@@ -17,7 +17,7 @@ namespace ClinicalTrialsWeb
 
         private static void RunApp()
         {
-            /*string input;
+            string input;
             do
             {
                 Console.WriteLine("Clear database and insert new data? (y/n)");
@@ -26,9 +26,8 @@ namespace ClinicalTrialsWeb
                     DBPreparation.WriteToDB();
                 else if (input.Equals("n", StringComparison.OrdinalIgnoreCase))
                     return;
-            } while (!input.Equals("y", StringComparison.OrdinalIgnoreCase) || !input.Equals("n", StringComparison.OrdinalIgnoreCase));*/
+            } while (!input.Equals("y", StringComparison.OrdinalIgnoreCase) || !input.Equals("n", StringComparison.OrdinalIgnoreCase));
 
-            DBPreparation.WriteToCSV();
         }
     }
 }
