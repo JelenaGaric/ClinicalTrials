@@ -130,6 +130,13 @@ namespace Model.Context
              .HasConversion(
                   v => JsonConvert.SerializeObject(v),
                   v => JsonConvert.DeserializeObject<List<string>>(v));
+
+
+            modelBuilder.Entity<IPDSharingInfoTypeList>()
+             .Property(e => e.IPDSharingInfoType)
+             .HasConversion(
+                  v => JsonConvert.SerializeObject(v),
+                  v => JsonConvert.DeserializeObject<List<string>>(v));
         }
     }
 }

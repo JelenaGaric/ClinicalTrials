@@ -10,8 +10,8 @@ using Model.Context;
 namespace Model.Migrations
 {
     [DbContext(typeof(ClinicalTrialsContext))]
-    [Migration("20201125140749_Migration15")]
-    partial class Migration15
+    [Migration("20201127152542_Migration1")]
+    partial class Migration1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1753,6 +1753,9 @@ namespace Model.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("IPDSharingInfoType")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

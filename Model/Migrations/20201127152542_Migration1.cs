@@ -3,255 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Model.Migrations
 {
-    public partial class Migration14 : Migration
+    public partial class Migration1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<int>(
-                name: "AnnotationSectionId",
-                table: "Study",
-                nullable: true);
-
-            migrationBuilder.AddColumn<int>(
-                name: "DocumentSectionId",
-                table: "Study",
-                nullable: true);
-
-            migrationBuilder.AddColumn<int>(
-                name: "ResultsSectionId",
-                table: "Study",
-                nullable: true);
-
-            migrationBuilder.AddColumn<int>(
-                name: "CompletionDateStructId",
-                table: "StatusModule",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "DelayedPosting",
-                table: "StatusModule",
-                nullable: true);
-
-            migrationBuilder.AddColumn<int>(
-                name: "DispFirstPostDateStructId",
-                table: "StatusModule",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "DispFirstSubmitDate",
-                table: "StatusModule",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "DispFirstSubmitQCDate",
-                table: "StatusModule",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "LastKnownStatus",
-                table: "StatusModule",
-                nullable: true);
-
-            migrationBuilder.AddColumn<int>(
-                name: "PrimaryCompletionDateStructId",
-                table: "StatusModule",
-                nullable: true);
-
-            migrationBuilder.AddColumn<int>(
-                name: "ResultsFirstPostDateStructId",
-                table: "StatusModule",
-                nullable: true);
-
-            migrationBuilder.AddColumn<DateTime>(
-                name: "ResultsFirstSubmitDate",
-                table: "StatusModule",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "ResultsFirstSubmitQCDate",
-                table: "StatusModule",
-                nullable: true);
-
-            migrationBuilder.AddColumn<int>(
-                name: "StartDateStructId",
-                table: "StatusModule",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "WhyStopped",
-                table: "StatusModule",
-                nullable: true);
-
-            migrationBuilder.AddColumn<int>(
-                name: "CollaboratorListId",
-                table: "SponsorCollaboratorsModule",
-                nullable: true);
-
-            migrationBuilder.AddColumn<int>(
-                name: "ResponsiblePartyId",
-                table: "SponsorCollaboratorsModule",
-                nullable: true);
-
-            migrationBuilder.AddColumn<int>(
-                name: "IPDSharingStatementModuleId",
-                table: "ProtocolSection",
-                nullable: true);
-
-            migrationBuilder.AddColumn<int>(
-                name: "OutcomesModuleId",
-                table: "ProtocolSection",
-                nullable: true);
-
-            migrationBuilder.AddColumn<int>(
-                name: "OversightModuleId",
-                table: "ProtocolSection",
-                nullable: true);
-
-            migrationBuilder.AddColumn<int>(
-                name: "ReferencesModuleId",
-                table: "ProtocolSection",
-                nullable: true);
-
-            migrationBuilder.AddColumn<int>(
-                name: "RemovedCountryListId",
-                table: "MiscInfoModule",
-                nullable: true);
-
-            migrationBuilder.AddColumn<int>(
-                name: "LocationContactListId",
-                table: "Location",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "LocationStatus",
-                table: "Location",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "LocationZip",
-                table: "Location",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "Acronym",
-                table: "IdentificationModule",
-                nullable: true);
-
-            migrationBuilder.AddColumn<int>(
-                name: "NCTIdAliasListId",
-                table: "IdentificationModule",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "OfficialTitle",
-                table: "IdentificationModule",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "ExpandedAccessNCTId",
-                table: "ExpandedAccessInfo",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "ExpandedAccessStatusForNCTId",
-                table: "ExpandedAccessInfo",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "GenderBased",
-                table: "EligibilityModule",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "GenderDescription",
-                table: "EligibilityModule",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "SamplingMethod",
-                table: "EligibilityModule",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "StudyPopulation",
-                table: "EligibilityModule",
-                nullable: true);
-
-            migrationBuilder.AddColumn<int>(
-                name: "BioSpecId",
-                table: "DesignModule",
-                nullable: true);
-
-            migrationBuilder.AddColumn<int>(
-                name: "EnrollmentInfoId",
-                table: "DesignModule",
-                nullable: true);
-
-            migrationBuilder.AddColumn<int>(
-                name: "ExpandedAccessTypesId",
-                table: "DesignModule",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "PatientRegistry",
-                table: "DesignModule",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "TargetDuration",
-                table: "DesignModule",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "DesignMaskingDescription",
-                table: "DesignMaskingInfo",
-                nullable: true);
-
-            migrationBuilder.AddColumn<int>(
-                name: "DesignWhoMaskedListId",
-                table: "DesignMaskingInfo",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "DesignAllocation",
-                table: "DesignInfo",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "DesignInterventionModelDescription",
-                table: "DesignInfo",
-                nullable: true);
-
-            migrationBuilder.AddColumn<int>(
-                name: "DesignObservationalModelListId",
-                table: "DesignInfo",
-                nullable: true);
-
-            migrationBuilder.AddColumn<int>(
-                name: "DesignTimePerspectiveListId",
-                table: "DesignInfo",
-                nullable: true);
-
-            migrationBuilder.AddColumn<int>(
-                name: "CentralContactListId",
-                table: "ContactsLocationsModule",
-                nullable: true);
-
-            migrationBuilder.AddColumn<int>(
-                name: "OverallOfficialListId",
-                table: "ContactsLocationsModule",
-                nullable: true);
-
-            migrationBuilder.AddColumn<int>(
-                name: "KeywordListId",
-                table: "ConditionsModule",
-                nullable: true);
-
-            migrationBuilder.AddColumn<int>(
-                name: "ArmGroupListId",
-                table: "ArmsInterventionsModule",
-                nullable: true);
-
             migrationBuilder.CreateTable(
                 name: "ArmGroupInterventionList",
                 columns: table => new
@@ -464,6 +219,21 @@ namespace Model.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CityCoordinates",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    LocationCity = table.Column<string>(maxLength: 100, nullable: true),
+                    lat = table.Column<string>(nullable: true),
+                    lng = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CityCoordinates", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CollaboratorList",
                 columns: table => new
                 {
@@ -487,6 +257,81 @@ namespace Model.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CompletionDateStruct", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ConditionAncestorList",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ConditionAncestorList", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ConditionBrowseBranchList",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ConditionBrowseBranchList", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ConditionBrowseLeafList",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ConditionBrowseLeafList", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ConditionList",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Condition = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ConditionList", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ConditionMeshList",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ConditionMeshList", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DescriptionModule",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BriefSummary = table.Column<string>(nullable: true),
+                    DetailedDescription = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DescriptionModule", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -566,6 +411,21 @@ namespace Model.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_EventGroupList", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ExpandedAccessInfo",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    HasExpandedAccess = table.Column<string>(nullable: true),
+                    ExpandedAccessNCTId = table.Column<string>(nullable: true),
+                    ExpandedAccessStatusForNCTId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ExpandedAccessInfo", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -656,11 +516,72 @@ namespace Model.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "IPDSharingInfoTypeList",
+                name: "InterventionAncestorList",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InterventionAncestorList", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "InterventionBrowseBranchList",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InterventionBrowseBranchList", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "InterventionBrowseLeafList",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InterventionBrowseLeafList", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "InterventionList",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InterventionList", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "InterventionMeshList",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InterventionMeshList", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "IPDSharingInfoTypeList",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IPDSharingInfoType = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -693,6 +614,34 @@ namespace Model.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "LastUpdatePostDateStruct",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    LastUpdatePostDate = table.Column<string>(nullable: true),
+                    LastUpdatePostDateType = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LastUpdatePostDateStruct", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "LeadSponsor",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    LeadSponsorName = table.Column<string>(nullable: true),
+                    LeadSponsorClass = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LeadSponsor", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "LimitationsAndCaveats",
                 columns: table => new
                 {
@@ -718,6 +667,18 @@ namespace Model.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "LocationList",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LocationList", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "NCTIdAliasList",
                 columns: table => new
                 {
@@ -728,6 +689,33 @@ namespace Model.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_NCTIdAliasList", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Organization",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OrgFullName = table.Column<string>(maxLength: 200, nullable: true),
+                    OrgClass = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Organization", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OrgStudyIdInfo",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OrgStudyId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrgStudyIdInfo", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -930,6 +918,19 @@ namespace Model.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PhaseList",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Phase = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PhaseList", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PointOfContact",
                 columns: table => new
                 {
@@ -1042,6 +1043,18 @@ namespace Model.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SecondaryIdInfoList",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SecondaryIdInfoList", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SecondaryOutcomeList",
                 columns: table => new
                 {
@@ -1101,6 +1114,76 @@ namespace Model.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_StartDateStruct", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StatisticsSearches",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Condition = table.Column<string>(nullable: true),
+                    DateCreated = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StatisticsSearches", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StdAgeList",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StdAge = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StdAgeList", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StudyFirstPostDateStruct",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StudyFirstPostDate = table.Column<string>(nullable: true),
+                    StudyFirstPostDateType = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StudyFirstPostDateStruct", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TagLists",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NCTId = table.Column<string>(nullable: true),
+                    Section = table.Column<string>(nullable: true),
+                    TagId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TagLists", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Tags",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Description = table.Column<string>(nullable: true),
+                    Deleted = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tags", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -1541,6 +1624,153 @@ namespace Model.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ConditionAncestor",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ConditionAncestorId = table.Column<string>(nullable: true),
+                    ConditionAncestorTerm = table.Column<string>(nullable: true),
+                    ConditionAncestorListId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ConditionAncestor", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ConditionAncestor_ConditionAncestorList_ConditionAncestorListId",
+                        column: x => x.ConditionAncestorListId,
+                        principalTable: "ConditionAncestorList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ConditionBrowseBranch",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ConditionBrowseBranchAbbrev = table.Column<string>(nullable: true),
+                    ConditionBrowseBranchName = table.Column<string>(nullable: true),
+                    ConditionBrowseBranchListId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ConditionBrowseBranch", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ConditionBrowseBranch_ConditionBrowseBranchList_ConditionBrowseBranchListId",
+                        column: x => x.ConditionBrowseBranchListId,
+                        principalTable: "ConditionBrowseBranchList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ConditionBrowseLeaf",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ConditionBrowseLeafId = table.Column<string>(nullable: true),
+                    ConditionBrowseLeafName = table.Column<string>(nullable: true),
+                    ConditionBrowseLeafAsFound = table.Column<string>(nullable: true),
+                    ConditionBrowseLeafRelevance = table.Column<string>(nullable: true),
+                    ConditionBrowseLeafListId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ConditionBrowseLeaf", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ConditionBrowseLeaf_ConditionBrowseLeafList_ConditionBrowseLeafListId",
+                        column: x => x.ConditionBrowseLeafListId,
+                        principalTable: "ConditionBrowseLeafList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ConditionBrowseModule",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ConditionMeshListId = table.Column<int>(nullable: true),
+                    ConditionAncestorListId = table.Column<int>(nullable: true),
+                    ConditionBrowseLeafListId = table.Column<int>(nullable: true),
+                    ConditionBrowseBranchListId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ConditionBrowseModule", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ConditionBrowseModule_ConditionAncestorList_ConditionAncestorListId",
+                        column: x => x.ConditionAncestorListId,
+                        principalTable: "ConditionAncestorList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ConditionBrowseModule_ConditionBrowseBranchList_ConditionBrowseBranchListId",
+                        column: x => x.ConditionBrowseBranchListId,
+                        principalTable: "ConditionBrowseBranchList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ConditionBrowseModule_ConditionBrowseLeafList_ConditionBrowseLeafListId",
+                        column: x => x.ConditionBrowseLeafListId,
+                        principalTable: "ConditionBrowseLeafList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ConditionBrowseModule_ConditionMeshList_ConditionMeshListId",
+                        column: x => x.ConditionMeshListId,
+                        principalTable: "ConditionMeshList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ConditionMesh",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ConditionMeshId = table.Column<string>(nullable: true),
+                    ConditionMeshTerm = table.Column<string>(maxLength: 120, nullable: true),
+                    ConditionMeshListId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ConditionMesh", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ConditionMesh_ConditionMeshList_ConditionMeshListId",
+                        column: x => x.ConditionMeshListId,
+                        principalTable: "ConditionMeshList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DesignMaskingInfo",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DesignMasking = table.Column<string>(nullable: true),
+                    DesignMaskingDescription = table.Column<string>(nullable: true),
+                    DesignWhoMaskedListId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DesignMaskingInfo", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DesignMaskingInfo_DesignWhoMaskedList_DesignWhoMaskedListId",
+                        column: x => x.DesignWhoMaskedListId,
+                        principalTable: "DesignWhoMaskedList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "EventGroup",
                 columns: table => new
                 {
@@ -1756,6 +1986,179 @@ namespace Model.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "InterventionAncestor",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    InterventionAncestorId = table.Column<string>(nullable: true),
+                    InterventionAncestorTerm = table.Column<string>(nullable: true),
+                    InterventionAncestorListId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InterventionAncestor", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_InterventionAncestor_InterventionAncestorList_InterventionAncestorListId",
+                        column: x => x.InterventionAncestorListId,
+                        principalTable: "InterventionAncestorList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "InterventionBrowseBranch",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    InterventionBrowseBranchAbbrev = table.Column<string>(nullable: true),
+                    InterventionBrowseBranchName = table.Column<string>(nullable: true),
+                    InterventionBrowseBranchListId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InterventionBrowseBranch", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_InterventionBrowseBranch_InterventionBrowseBranchList_InterventionBrowseBranchListId",
+                        column: x => x.InterventionBrowseBranchListId,
+                        principalTable: "InterventionBrowseBranchList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "InterventionBrowseLeaf",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    InterventionBrowseLeafId = table.Column<string>(nullable: true),
+                    InterventionBrowseLeafName = table.Column<string>(nullable: true),
+                    InterventionBrowseLeafRelevance = table.Column<string>(nullable: true),
+                    InterventionBrowseLeafAsFound = table.Column<string>(nullable: true),
+                    InterventionBrowseLeafListId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InterventionBrowseLeaf", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_InterventionBrowseLeaf_InterventionBrowseLeafList_InterventionBrowseLeafListId",
+                        column: x => x.InterventionBrowseLeafListId,
+                        principalTable: "InterventionBrowseLeafList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ArmsInterventionsModule",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    InterventionListId = table.Column<int>(nullable: true),
+                    ArmGroupListId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ArmsInterventionsModule", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ArmsInterventionsModule_ArmGroupList_ArmGroupListId",
+                        column: x => x.ArmGroupListId,
+                        principalTable: "ArmGroupList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ArmsInterventionsModule_InterventionList_InterventionListId",
+                        column: x => x.InterventionListId,
+                        principalTable: "InterventionList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Intervention",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    InterventionType = table.Column<string>(nullable: true),
+                    InterventionName = table.Column<string>(nullable: true),
+                    InterventionListId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Intervention", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Intervention_InterventionList_InterventionListId",
+                        column: x => x.InterventionListId,
+                        principalTable: "InterventionList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "InterventionBrowseModule",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    InterventionMeshListId = table.Column<int>(nullable: true),
+                    InterventionAncestorListId = table.Column<int>(nullable: true),
+                    InterventionBrowseLeafListId = table.Column<int>(nullable: true),
+                    InterventionBrowseBranchListId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InterventionBrowseModule", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_InterventionBrowseModule_InterventionAncestorList_InterventionAncestorListId",
+                        column: x => x.InterventionAncestorListId,
+                        principalTable: "InterventionAncestorList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_InterventionBrowseModule_InterventionBrowseBranchList_InterventionBrowseBranchListId",
+                        column: x => x.InterventionBrowseBranchListId,
+                        principalTable: "InterventionBrowseBranchList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_InterventionBrowseModule_InterventionBrowseLeafList_InterventionBrowseLeafListId",
+                        column: x => x.InterventionBrowseLeafListId,
+                        principalTable: "InterventionBrowseLeafList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_InterventionBrowseModule_InterventionMeshList_InterventionMeshListId",
+                        column: x => x.InterventionMeshListId,
+                        principalTable: "InterventionMeshList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "InterventionMesh",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    InterventionMeshId = table.Column<string>(nullable: true),
+                    InterventionMeshTerm = table.Column<string>(nullable: true),
+                    InterventionMeshListId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InterventionMesh", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_InterventionMesh_InterventionMeshList_InterventionMeshListId",
+                        column: x => x.InterventionMeshListId,
+                        principalTable: "InterventionMeshList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "IPDSharingStatementModule",
                 columns: table => new
                 {
@@ -1775,6 +2178,32 @@ namespace Model.Migrations
                         name: "FK_IPDSharingStatementModule_IPDSharingInfoTypeList_IPDSharingInfoTypeListId",
                         column: x => x.IPDSharingInfoTypeListId,
                         principalTable: "IPDSharingInfoTypeList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ConditionsModule",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ConditionListId = table.Column<int>(nullable: true),
+                    KeywordListId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ConditionsModule", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ConditionsModule_ConditionList_ConditionListId",
+                        column: x => x.ConditionListId,
+                        principalTable: "ConditionList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ConditionsModule_KeywordList_KeywordListId",
+                        column: x => x.KeywordListId,
+                        principalTable: "KeywordList",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -1845,6 +2274,38 @@ namespace Model.Migrations
                         name: "FK_LocationContact_LocationContactList_LocationContactListId",
                         column: x => x.LocationContactListId,
                         principalTable: "LocationContactList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Location",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    LocationFacility = table.Column<string>(nullable: true),
+                    LocationCity = table.Column<string>(maxLength: 100, nullable: true),
+                    LocationState = table.Column<string>(nullable: true),
+                    LocationCountry = table.Column<string>(maxLength: 70, nullable: true),
+                    LocationZip = table.Column<string>(nullable: true),
+                    LocationStatus = table.Column<string>(nullable: true),
+                    LocationContactListId = table.Column<int>(nullable: true),
+                    LocationListId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Location", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Location_LocationContactList_LocationContactListId",
+                        column: x => x.LocationContactListId,
+                        principalTable: "LocationContactList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Location_LocationList_LocationListId",
+                        column: x => x.LocationListId,
+                        principalTable: "LocationList",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -2256,6 +2717,39 @@ namespace Model.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ContactsLocationsModule",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    LocationListId = table.Column<int>(nullable: true),
+                    CentralContactListId = table.Column<int>(nullable: true),
+                    OverallOfficialListId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ContactsLocationsModule", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ContactsLocationsModule_CentralContactList_CentralContactListId",
+                        column: x => x.CentralContactListId,
+                        principalTable: "CentralContactList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ContactsLocationsModule_LocationList_LocationListId",
+                        column: x => x.LocationListId,
+                        principalTable: "LocationList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ContactsLocationsModule_OverallOfficialList_OverallOfficialListId",
+                        column: x => x.OverallOfficialListId,
+                        principalTable: "OverallOfficialList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OverallOfficial",
                 columns: table => new
                 {
@@ -2333,6 +2827,59 @@ namespace Model.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "MiscInfoModule",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    VersionHolder = table.Column<string>(nullable: true),
+                    RemovedCountryListId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MiscInfoModule", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MiscInfoModule_RemovedCountryList_RemovedCountryListId",
+                        column: x => x.RemovedCountryListId,
+                        principalTable: "RemovedCountryList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SponsorCollaboratorsModule",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ResponsiblePartyId = table.Column<int>(nullable: true),
+                    LeadSponsorId = table.Column<int>(nullable: true),
+                    CollaboratorListId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SponsorCollaboratorsModule", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SponsorCollaboratorsModule_CollaboratorList_CollaboratorListId",
+                        column: x => x.CollaboratorListId,
+                        principalTable: "CollaboratorList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_SponsorCollaboratorsModule_LeadSponsor_LeadSponsorId",
+                        column: x => x.LeadSponsorId,
+                        principalTable: "LeadSponsor",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_SponsorCollaboratorsModule_ResponsibleParty_ResponsiblePartyId",
+                        column: x => x.ResponsiblePartyId,
+                        principalTable: "ResponsibleParty",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Reference",
                 columns: table => new
                 {
@@ -2378,6 +2925,72 @@ namespace Model.Migrations
                         name: "FK_Retraction_RetractionList_RetractionListId",
                         column: x => x.RetractionListId,
                         principalTable: "RetractionList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "IdentificationModule",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NCTId = table.Column<string>(nullable: true),
+                    OrgStudyIdInfoId = table.Column<int>(nullable: true),
+                    SecondaryIdInfoListId = table.Column<int>(nullable: true),
+                    OrganizationId = table.Column<int>(nullable: true),
+                    BriefTitle = table.Column<string>(nullable: true),
+                    OfficialTitle = table.Column<string>(nullable: true),
+                    Acronym = table.Column<string>(nullable: true),
+                    NCTIdAliasListId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_IdentificationModule", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_IdentificationModule_NCTIdAliasList_NCTIdAliasListId",
+                        column: x => x.NCTIdAliasListId,
+                        principalTable: "NCTIdAliasList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_IdentificationModule_OrgStudyIdInfo_OrgStudyIdInfoId",
+                        column: x => x.OrgStudyIdInfoId,
+                        principalTable: "OrgStudyIdInfo",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_IdentificationModule_Organization_OrganizationId",
+                        column: x => x.OrganizationId,
+                        principalTable: "Organization",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_IdentificationModule_SecondaryIdInfoList_SecondaryIdInfoListId",
+                        column: x => x.SecondaryIdInfoListId,
+                        principalTable: "SecondaryIdInfoList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SecondaryIdInfo",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SecondaryId = table.Column<string>(nullable: true),
+                    SecondaryIdType = table.Column<string>(nullable: true),
+                    SecondaryIdLink = table.Column<string>(nullable: true),
+                    SecondaryIdInfoListId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SecondaryIdInfo", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SecondaryIdInfo_SecondaryIdInfoList_SecondaryIdInfoListId",
+                        column: x => x.SecondaryIdInfoListId,
+                        principalTable: "SecondaryIdInfoList",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -2582,6 +3195,114 @@ namespace Model.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "EligibilityModule",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EligibilityCriteria = table.Column<string>(nullable: true),
+                    HealthyVolunteers = table.Column<string>(nullable: true),
+                    Gender = table.Column<string>(nullable: true),
+                    MinimumAge = table.Column<string>(nullable: true),
+                    MaximumAge = table.Column<string>(nullable: true),
+                    StdAgeListId = table.Column<int>(nullable: true),
+                    GenderBased = table.Column<string>(nullable: true),
+                    GenderDescription = table.Column<string>(nullable: true),
+                    StudyPopulation = table.Column<string>(nullable: true),
+                    SamplingMethod = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EligibilityModule", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_EligibilityModule_StdAgeList_StdAgeListId",
+                        column: x => x.StdAgeListId,
+                        principalTable: "StdAgeList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StatusModule",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StatusVerifiedDate = table.Column<string>(nullable: true),
+                    OverallStatus = table.Column<string>(nullable: true),
+                    ExpandedAccessInfoId = table.Column<int>(nullable: true),
+                    StudyFirstSubmitDate = table.Column<DateTime>(nullable: true),
+                    StudyFirstSubmitQCDate = table.Column<string>(nullable: true),
+                    StudyFirstPostDateStructId = table.Column<int>(nullable: true),
+                    LastUpdateSubmitDate = table.Column<DateTime>(nullable: true),
+                    LastUpdatePostDateStructId = table.Column<int>(nullable: true),
+                    LastKnownStatus = table.Column<string>(nullable: true),
+                    DelayedPosting = table.Column<string>(nullable: true),
+                    WhyStopped = table.Column<string>(nullable: true),
+                    StartDateStructId = table.Column<int>(nullable: true),
+                    PrimaryCompletionDateStructId = table.Column<int>(nullable: true),
+                    CompletionDateStructId = table.Column<int>(nullable: true),
+                    DispFirstSubmitDate = table.Column<string>(nullable: true),
+                    DispFirstSubmitQCDate = table.Column<string>(nullable: true),
+                    DispFirstPostDateStructId = table.Column<int>(nullable: true),
+                    ResultsFirstSubmitDate = table.Column<DateTime>(nullable: true),
+                    ResultsFirstSubmitQCDate = table.Column<string>(nullable: true),
+                    ResultsFirstPostDateStructId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StatusModule", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_StatusModule_CompletionDateStruct_CompletionDateStructId",
+                        column: x => x.CompletionDateStructId,
+                        principalTable: "CompletionDateStruct",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_StatusModule_DispFirstPostDateStruct_DispFirstPostDateStructId",
+                        column: x => x.DispFirstPostDateStructId,
+                        principalTable: "DispFirstPostDateStruct",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_StatusModule_ExpandedAccessInfo_ExpandedAccessInfoId",
+                        column: x => x.ExpandedAccessInfoId,
+                        principalTable: "ExpandedAccessInfo",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_StatusModule_LastUpdatePostDateStruct_LastUpdatePostDateStructId",
+                        column: x => x.LastUpdatePostDateStructId,
+                        principalTable: "LastUpdatePostDateStruct",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_StatusModule_PrimaryCompletionDateStruct_PrimaryCompletionDateStructId",
+                        column: x => x.PrimaryCompletionDateStructId,
+                        principalTable: "PrimaryCompletionDateStruct",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_StatusModule_ResultsFirstPostDateStruct_ResultsFirstPostDateStructId",
+                        column: x => x.ResultsFirstPostDateStructId,
+                        principalTable: "ResultsFirstPostDateStruct",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_StatusModule_StartDateStruct_StartDateStructId",
+                        column: x => x.StartDateStructId,
+                        principalTable: "StartDateStruct",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_StatusModule_StudyFirstPostDateStruct_StudyFirstPostDateStructId",
+                        column: x => x.StudyFirstPostDateStructId,
+                        principalTable: "StudyFirstPostDateStruct",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UnpostedAnnotation",
                 columns: table => new
                 {
@@ -2623,6 +3344,43 @@ namespace Model.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DesignInfo",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DesignAllocation = table.Column<string>(nullable: true),
+                    DesignInterventionModel = table.Column<string>(nullable: true),
+                    DesignInterventionModelDescription = table.Column<string>(nullable: true),
+                    DesignPrimaryPurpose = table.Column<string>(nullable: true),
+                    DesignObservationalModelListId = table.Column<int>(nullable: true),
+                    DesignTimePerspectiveListId = table.Column<int>(nullable: true),
+                    DesignMaskingInfoId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DesignInfo", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DesignInfo_DesignMaskingInfo_DesignMaskingInfoId",
+                        column: x => x.DesignMaskingInfoId,
+                        principalTable: "DesignMaskingInfo",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_DesignInfo_DesignObservationalModelList_DesignObservationalModelListId",
+                        column: x => x.DesignObservationalModelListId,
+                        principalTable: "DesignObservationalModelList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_DesignInfo_DesignTimePerspectiveList_DesignTimePerspectiveListId",
+                        column: x => x.DesignTimePerspectiveListId,
+                        principalTable: "DesignTimePerspectiveList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "DocumentSection",
                 columns: table => new
                 {
@@ -2637,6 +3395,39 @@ namespace Model.Migrations
                         name: "FK_DocumentSection_LargeDocumentModule_LargeDocumentModuleId",
                         column: x => x.LargeDocumentModuleId,
                         principalTable: "LargeDocumentModule",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DerivedSection",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MiscInfoModuleId = table.Column<int>(nullable: true),
+                    InterventionBrowseModuleId = table.Column<int>(nullable: true),
+                    ConditionBrowseModuleId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DerivedSection", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DerivedSection_ConditionBrowseModule_ConditionBrowseModuleId",
+                        column: x => x.ConditionBrowseModuleId,
+                        principalTable: "ConditionBrowseModule",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_DerivedSection_InterventionBrowseModule_InterventionBrowseModuleId",
+                        column: x => x.InterventionBrowseModuleId,
+                        principalTable: "InterventionBrowseModule",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_DerivedSection_MiscInfoModule_MiscInfoModuleId",
+                        column: x => x.MiscInfoModuleId,
+                        principalTable: "MiscInfoModule",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -2708,6 +3499,56 @@ namespace Model.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DesignModule",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StudyType = table.Column<string>(nullable: true),
+                    PhaseListId = table.Column<int>(nullable: true),
+                    DesignInfoId = table.Column<int>(nullable: true),
+                    PatientRegistry = table.Column<string>(nullable: true),
+                    TargetDuration = table.Column<string>(nullable: true),
+                    BioSpecId = table.Column<int>(nullable: true),
+                    EnrollmentInfoId = table.Column<int>(nullable: true),
+                    ExpandedAccessTypesId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DesignModule", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DesignModule_BioSpec_BioSpecId",
+                        column: x => x.BioSpecId,
+                        principalTable: "BioSpec",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_DesignModule_DesignInfo_DesignInfoId",
+                        column: x => x.DesignInfoId,
+                        principalTable: "DesignInfo",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_DesignModule_EnrollmentInfo_EnrollmentInfoId",
+                        column: x => x.EnrollmentInfoId,
+                        principalTable: "EnrollmentInfo",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_DesignModule_ExpandedAccessTypes_ExpandedAccessTypesId",
+                        column: x => x.ExpandedAccessTypesId,
+                        principalTable: "ExpandedAccessTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_DesignModule_PhaseList_PhaseListId",
+                        column: x => x.PhaseListId,
+                        principalTable: "PhaseList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AnnotationSection",
                 columns: table => new
                 {
@@ -2726,140 +3567,194 @@ namespace Model.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Study_AnnotationSectionId",
-                table: "Study",
-                column: "AnnotationSectionId");
+            migrationBuilder.CreateTable(
+                name: "ProtocolSection",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IdentificationModuleId = table.Column<int>(nullable: true),
+                    StatusModuleId = table.Column<int>(nullable: true),
+                    SponsorCollaboratorsModuleId = table.Column<int>(nullable: true),
+                    OversightModuleId = table.Column<int>(nullable: true),
+                    DescriptionModuleId = table.Column<int>(nullable: true),
+                    ConditionsModuleId = table.Column<int>(nullable: true),
+                    DesignModuleId = table.Column<int>(nullable: true),
+                    ArmsInterventionsModuleId = table.Column<int>(nullable: true),
+                    OutcomesModuleId = table.Column<int>(nullable: true),
+                    EligibilityModuleId = table.Column<int>(nullable: true),
+                    ContactsLocationsModuleId = table.Column<int>(nullable: true),
+                    ReferencesModuleId = table.Column<int>(nullable: true),
+                    IPDSharingStatementModuleId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProtocolSection", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ProtocolSection_ArmsInterventionsModule_ArmsInterventionsModuleId",
+                        column: x => x.ArmsInterventionsModuleId,
+                        principalTable: "ArmsInterventionsModule",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ProtocolSection_ConditionsModule_ConditionsModuleId",
+                        column: x => x.ConditionsModuleId,
+                        principalTable: "ConditionsModule",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ProtocolSection_ContactsLocationsModule_ContactsLocationsModuleId",
+                        column: x => x.ContactsLocationsModuleId,
+                        principalTable: "ContactsLocationsModule",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ProtocolSection_DescriptionModule_DescriptionModuleId",
+                        column: x => x.DescriptionModuleId,
+                        principalTable: "DescriptionModule",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ProtocolSection_DesignModule_DesignModuleId",
+                        column: x => x.DesignModuleId,
+                        principalTable: "DesignModule",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ProtocolSection_EligibilityModule_EligibilityModuleId",
+                        column: x => x.EligibilityModuleId,
+                        principalTable: "EligibilityModule",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ProtocolSection_IPDSharingStatementModule_IPDSharingStatementModuleId",
+                        column: x => x.IPDSharingStatementModuleId,
+                        principalTable: "IPDSharingStatementModule",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ProtocolSection_IdentificationModule_IdentificationModuleId",
+                        column: x => x.IdentificationModuleId,
+                        principalTable: "IdentificationModule",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ProtocolSection_OutcomesModule_OutcomesModuleId",
+                        column: x => x.OutcomesModuleId,
+                        principalTable: "OutcomesModule",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ProtocolSection_OversightModule_OversightModuleId",
+                        column: x => x.OversightModuleId,
+                        principalTable: "OversightModule",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ProtocolSection_ReferencesModule_ReferencesModuleId",
+                        column: x => x.ReferencesModuleId,
+                        principalTable: "ReferencesModule",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ProtocolSection_SponsorCollaboratorsModule_SponsorCollaboratorsModuleId",
+                        column: x => x.SponsorCollaboratorsModuleId,
+                        principalTable: "SponsorCollaboratorsModule",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ProtocolSection_StatusModule_StatusModuleId",
+                        column: x => x.StatusModuleId,
+                        principalTable: "StatusModule",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Study_DocumentSectionId",
-                table: "Study",
-                column: "DocumentSectionId");
+            migrationBuilder.CreateTable(
+                name: "Study",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProtocolSectionId = table.Column<int>(nullable: true),
+                    ResultsSectionId = table.Column<int>(nullable: true),
+                    AnnotationSectionId = table.Column<int>(nullable: true),
+                    DocumentSectionId = table.Column<int>(nullable: true),
+                    DerivedSectionId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Study", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Study_AnnotationSection_AnnotationSectionId",
+                        column: x => x.AnnotationSectionId,
+                        principalTable: "AnnotationSection",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Study_DerivedSection_DerivedSectionId",
+                        column: x => x.DerivedSectionId,
+                        principalTable: "DerivedSection",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Study_DocumentSection_DocumentSectionId",
+                        column: x => x.DocumentSectionId,
+                        principalTable: "DocumentSection",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Study_ProtocolSection_ProtocolSectionId",
+                        column: x => x.ProtocolSectionId,
+                        principalTable: "ProtocolSection",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Study_ResultsSection_ResultsSectionId",
+                        column: x => x.ResultsSectionId,
+                        principalTable: "ResultsSection",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Study_ResultsSectionId",
-                table: "Study",
-                column: "ResultsSectionId");
+            migrationBuilder.CreateTable(
+                name: "FullStudy",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Rank = table.Column<int>(nullable: false),
+                    StudyId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FullStudy", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FullStudy_Study_StudyId",
+                        column: x => x.StudyId,
+                        principalTable: "Study",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_StatusModule_CompletionDateStructId",
-                table: "StatusModule",
-                column: "CompletionDateStructId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_StatusModule_DispFirstPostDateStructId",
-                table: "StatusModule",
-                column: "DispFirstPostDateStructId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_StatusModule_PrimaryCompletionDateStructId",
-                table: "StatusModule",
-                column: "PrimaryCompletionDateStructId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_StatusModule_ResultsFirstPostDateStructId",
-                table: "StatusModule",
-                column: "ResultsFirstPostDateStructId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_StatusModule_StartDateStructId",
-                table: "StatusModule",
-                column: "StartDateStructId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SponsorCollaboratorsModule_CollaboratorListId",
-                table: "SponsorCollaboratorsModule",
-                column: "CollaboratorListId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SponsorCollaboratorsModule_ResponsiblePartyId",
-                table: "SponsorCollaboratorsModule",
-                column: "ResponsiblePartyId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ProtocolSection_IPDSharingStatementModuleId",
-                table: "ProtocolSection",
-                column: "IPDSharingStatementModuleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ProtocolSection_OutcomesModuleId",
-                table: "ProtocolSection",
-                column: "OutcomesModuleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ProtocolSection_OversightModuleId",
-                table: "ProtocolSection",
-                column: "OversightModuleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ProtocolSection_ReferencesModuleId",
-                table: "ProtocolSection",
-                column: "ReferencesModuleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MiscInfoModule_RemovedCountryListId",
-                table: "MiscInfoModule",
-                column: "RemovedCountryListId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Location_LocationContactListId",
-                table: "Location",
-                column: "LocationContactListId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_IdentificationModule_NCTIdAliasListId",
-                table: "IdentificationModule",
-                column: "NCTIdAliasListId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_DesignModule_BioSpecId",
-                table: "DesignModule",
-                column: "BioSpecId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_DesignModule_EnrollmentInfoId",
-                table: "DesignModule",
-                column: "EnrollmentInfoId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_DesignModule_ExpandedAccessTypesId",
-                table: "DesignModule",
-                column: "ExpandedAccessTypesId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_DesignMaskingInfo_DesignWhoMaskedListId",
-                table: "DesignMaskingInfo",
-                column: "DesignWhoMaskedListId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_DesignInfo_DesignObservationalModelListId",
-                table: "DesignInfo",
-                column: "DesignObservationalModelListId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_DesignInfo_DesignTimePerspectiveListId",
-                table: "DesignInfo",
-                column: "DesignTimePerspectiveListId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ContactsLocationsModule_CentralContactListId",
-                table: "ContactsLocationsModule",
-                column: "CentralContactListId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ContactsLocationsModule_OverallOfficialListId",
-                table: "ContactsLocationsModule",
-                column: "OverallOfficialListId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ConditionsModule_KeywordListId",
-                table: "ConditionsModule",
-                column: "KeywordListId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ArmsInterventionsModule_ArmGroupListId",
-                table: "ArmsInterventionsModule",
-                column: "ArmGroupListId");
+            migrationBuilder.CreateTable(
+                name: "Studies",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FullStudyId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Studies", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Studies_FullStudy_FullStudyId",
+                        column: x => x.FullStudyId,
+                        principalTable: "FullStudy",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AdverseEventsModule_EventGroupListId",
@@ -2895,6 +3790,16 @@ namespace Model.Migrations
                 name: "IX_ArmGroup_ArmGroupListId",
                 table: "ArmGroup",
                 column: "ArmGroupListId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ArmsInterventionsModule_ArmGroupListId",
+                table: "ArmsInterventionsModule",
+                column: "ArmGroupListId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ArmsInterventionsModule_InterventionListId",
+                table: "ArmsInterventionsModule",
+                column: "InterventionListId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AvailIPD_AvailIPDListId",
@@ -3022,9 +3927,139 @@ namespace Model.Migrations
                 column: "CollaboratorListId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ConditionAncestor_ConditionAncestorListId",
+                table: "ConditionAncestor",
+                column: "ConditionAncestorListId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ConditionBrowseBranch_ConditionBrowseBranchListId",
+                table: "ConditionBrowseBranch",
+                column: "ConditionBrowseBranchListId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ConditionBrowseLeaf_ConditionBrowseLeafListId",
+                table: "ConditionBrowseLeaf",
+                column: "ConditionBrowseLeafListId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ConditionBrowseModule_ConditionAncestorListId",
+                table: "ConditionBrowseModule",
+                column: "ConditionAncestorListId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ConditionBrowseModule_ConditionBrowseBranchListId",
+                table: "ConditionBrowseModule",
+                column: "ConditionBrowseBranchListId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ConditionBrowseModule_ConditionBrowseLeafListId",
+                table: "ConditionBrowseModule",
+                column: "ConditionBrowseLeafListId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ConditionBrowseModule_ConditionMeshListId",
+                table: "ConditionBrowseModule",
+                column: "ConditionMeshListId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ConditionMesh_ConditionMeshListId",
+                table: "ConditionMesh",
+                column: "ConditionMeshListId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ConditionsModule_ConditionListId",
+                table: "ConditionsModule",
+                column: "ConditionListId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ConditionsModule_KeywordListId",
+                table: "ConditionsModule",
+                column: "KeywordListId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ContactsLocationsModule_CentralContactListId",
+                table: "ContactsLocationsModule",
+                column: "CentralContactListId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ContactsLocationsModule_LocationListId",
+                table: "ContactsLocationsModule",
+                column: "LocationListId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ContactsLocationsModule_OverallOfficialListId",
+                table: "ContactsLocationsModule",
+                column: "OverallOfficialListId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DerivedSection_ConditionBrowseModuleId",
+                table: "DerivedSection",
+                column: "ConditionBrowseModuleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DerivedSection_InterventionBrowseModuleId",
+                table: "DerivedSection",
+                column: "InterventionBrowseModuleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DerivedSection_MiscInfoModuleId",
+                table: "DerivedSection",
+                column: "MiscInfoModuleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DesignInfo_DesignMaskingInfoId",
+                table: "DesignInfo",
+                column: "DesignMaskingInfoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DesignInfo_DesignObservationalModelListId",
+                table: "DesignInfo",
+                column: "DesignObservationalModelListId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DesignInfo_DesignTimePerspectiveListId",
+                table: "DesignInfo",
+                column: "DesignTimePerspectiveListId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DesignMaskingInfo_DesignWhoMaskedListId",
+                table: "DesignMaskingInfo",
+                column: "DesignWhoMaskedListId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DesignModule_BioSpecId",
+                table: "DesignModule",
+                column: "BioSpecId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DesignModule_DesignInfoId",
+                table: "DesignModule",
+                column: "DesignInfoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DesignModule_EnrollmentInfoId",
+                table: "DesignModule",
+                column: "EnrollmentInfoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DesignModule_ExpandedAccessTypesId",
+                table: "DesignModule",
+                column: "ExpandedAccessTypesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DesignModule_PhaseListId",
+                table: "DesignModule",
+                column: "PhaseListId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_DocumentSection_LargeDocumentModuleId",
                 table: "DocumentSection",
                 column: "LargeDocumentModuleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EligibilityModule_StdAgeListId",
+                table: "EligibilityModule",
+                column: "StdAgeListId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_EventGroup_EventGroupListId",
@@ -3082,6 +4117,76 @@ namespace Model.Migrations
                 column: "FlowReasonListId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_FullStudy_StudyId",
+                table: "FullStudy",
+                column: "StudyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_IdentificationModule_NCTIdAliasListId",
+                table: "IdentificationModule",
+                column: "NCTIdAliasListId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_IdentificationModule_OrgStudyIdInfoId",
+                table: "IdentificationModule",
+                column: "OrgStudyIdInfoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_IdentificationModule_OrganizationId",
+                table: "IdentificationModule",
+                column: "OrganizationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_IdentificationModule_SecondaryIdInfoListId",
+                table: "IdentificationModule",
+                column: "SecondaryIdInfoListId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Intervention_InterventionListId",
+                table: "Intervention",
+                column: "InterventionListId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_InterventionAncestor_InterventionAncestorListId",
+                table: "InterventionAncestor",
+                column: "InterventionAncestorListId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_InterventionBrowseBranch_InterventionBrowseBranchListId",
+                table: "InterventionBrowseBranch",
+                column: "InterventionBrowseBranchListId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_InterventionBrowseLeaf_InterventionBrowseLeafListId",
+                table: "InterventionBrowseLeaf",
+                column: "InterventionBrowseLeafListId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_InterventionBrowseModule_InterventionAncestorListId",
+                table: "InterventionBrowseModule",
+                column: "InterventionAncestorListId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_InterventionBrowseModule_InterventionBrowseBranchListId",
+                table: "InterventionBrowseModule",
+                column: "InterventionBrowseBranchListId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_InterventionBrowseModule_InterventionBrowseLeafListId",
+                table: "InterventionBrowseModule",
+                column: "InterventionBrowseLeafListId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_InterventionBrowseModule_InterventionMeshListId",
+                table: "InterventionBrowseModule",
+                column: "InterventionMeshListId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_InterventionMesh_InterventionMeshListId",
+                table: "InterventionMesh",
+                column: "InterventionMeshListId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_IPDSharingStatementModule_IPDSharingInfoTypeListId",
                 table: "IPDSharingStatementModule",
                 column: "IPDSharingInfoTypeListId");
@@ -3097,9 +4202,24 @@ namespace Model.Migrations
                 column: "LargeDocListId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Location_LocationContactListId",
+                table: "Location",
+                column: "LocationContactListId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Location_LocationListId",
+                table: "Location",
+                column: "LocationListId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_LocationContact_LocationContactListId",
                 table: "LocationContact",
                 column: "LocationContactListId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MiscInfoModule_RemovedCountryListId",
+                table: "MiscInfoModule",
+                column: "RemovedCountryListId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MoreInfoModule_CertainAgreementId",
@@ -3277,6 +4397,71 @@ namespace Model.Migrations
                 column: "PrimaryOutcomeListId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ProtocolSection_ArmsInterventionsModuleId",
+                table: "ProtocolSection",
+                column: "ArmsInterventionsModuleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProtocolSection_ConditionsModuleId",
+                table: "ProtocolSection",
+                column: "ConditionsModuleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProtocolSection_ContactsLocationsModuleId",
+                table: "ProtocolSection",
+                column: "ContactsLocationsModuleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProtocolSection_DescriptionModuleId",
+                table: "ProtocolSection",
+                column: "DescriptionModuleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProtocolSection_DesignModuleId",
+                table: "ProtocolSection",
+                column: "DesignModuleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProtocolSection_EligibilityModuleId",
+                table: "ProtocolSection",
+                column: "EligibilityModuleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProtocolSection_IPDSharingStatementModuleId",
+                table: "ProtocolSection",
+                column: "IPDSharingStatementModuleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProtocolSection_IdentificationModuleId",
+                table: "ProtocolSection",
+                column: "IdentificationModuleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProtocolSection_OutcomesModuleId",
+                table: "ProtocolSection",
+                column: "OutcomesModuleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProtocolSection_OversightModuleId",
+                table: "ProtocolSection",
+                column: "OversightModuleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProtocolSection_ReferencesModuleId",
+                table: "ProtocolSection",
+                column: "ReferencesModuleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProtocolSection_SponsorCollaboratorsModuleId",
+                table: "ProtocolSection",
+                column: "SponsorCollaboratorsModuleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProtocolSection_StatusModuleId",
+                table: "ProtocolSection",
+                column: "StatusModuleId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Reference_ReferenceListId",
                 table: "Reference",
                 column: "ReferenceListId");
@@ -3332,6 +4517,11 @@ namespace Model.Migrations
                 column: "RetractionListId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_SecondaryIdInfo_SecondaryIdInfoListId",
+                table: "SecondaryIdInfo",
+                column: "SecondaryIdInfoListId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_SecondaryOutcome_SecondaryOutcomeListId",
                 table: "SecondaryOutcome",
                 column: "SecondaryOutcomeListId");
@@ -3357,6 +4547,91 @@ namespace Model.Migrations
                 column: "SeriousEventStatsListId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_SponsorCollaboratorsModule_CollaboratorListId",
+                table: "SponsorCollaboratorsModule",
+                column: "CollaboratorListId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SponsorCollaboratorsModule_LeadSponsorId",
+                table: "SponsorCollaboratorsModule",
+                column: "LeadSponsorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SponsorCollaboratorsModule_ResponsiblePartyId",
+                table: "SponsorCollaboratorsModule",
+                column: "ResponsiblePartyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StatusModule_CompletionDateStructId",
+                table: "StatusModule",
+                column: "CompletionDateStructId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StatusModule_DispFirstPostDateStructId",
+                table: "StatusModule",
+                column: "DispFirstPostDateStructId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StatusModule_ExpandedAccessInfoId",
+                table: "StatusModule",
+                column: "ExpandedAccessInfoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StatusModule_LastUpdatePostDateStructId",
+                table: "StatusModule",
+                column: "LastUpdatePostDateStructId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StatusModule_PrimaryCompletionDateStructId",
+                table: "StatusModule",
+                column: "PrimaryCompletionDateStructId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StatusModule_ResultsFirstPostDateStructId",
+                table: "StatusModule",
+                column: "ResultsFirstPostDateStructId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StatusModule_StartDateStructId",
+                table: "StatusModule",
+                column: "StartDateStructId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StatusModule_StudyFirstPostDateStructId",
+                table: "StatusModule",
+                column: "StudyFirstPostDateStructId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Studies_FullStudyId",
+                table: "Studies",
+                column: "FullStudyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Study_AnnotationSectionId",
+                table: "Study",
+                column: "AnnotationSectionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Study_DerivedSectionId",
+                table: "Study",
+                column: "DerivedSectionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Study_DocumentSectionId",
+                table: "Study",
+                column: "DocumentSectionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Study_ProtocolSectionId",
+                table: "Study",
+                column: "ProtocolSectionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Study_ResultsSectionId",
+                table: "Study",
+                column: "ResultsSectionId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_UnpostedAnnotation_UnpostedEventListId",
                 table: "UnpostedAnnotation",
                 column: "UnpostedEventListId");
@@ -3365,337 +4640,10 @@ namespace Model.Migrations
                 name: "IX_UnpostedEvent_UnpostedEventListId",
                 table: "UnpostedEvent",
                 column: "UnpostedEventListId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_ArmsInterventionsModule_ArmGroupList_ArmGroupListId",
-                table: "ArmsInterventionsModule",
-                column: "ArmGroupListId",
-                principalTable: "ArmGroupList",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_ConditionsModule_KeywordList_KeywordListId",
-                table: "ConditionsModule",
-                column: "KeywordListId",
-                principalTable: "KeywordList",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_ContactsLocationsModule_CentralContactList_CentralContactListId",
-                table: "ContactsLocationsModule",
-                column: "CentralContactListId",
-                principalTable: "CentralContactList",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_ContactsLocationsModule_OverallOfficialList_OverallOfficialListId",
-                table: "ContactsLocationsModule",
-                column: "OverallOfficialListId",
-                principalTable: "OverallOfficialList",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_DesignInfo_DesignObservationalModelList_DesignObservationalModelListId",
-                table: "DesignInfo",
-                column: "DesignObservationalModelListId",
-                principalTable: "DesignObservationalModelList",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_DesignInfo_DesignTimePerspectiveList_DesignTimePerspectiveListId",
-                table: "DesignInfo",
-                column: "DesignTimePerspectiveListId",
-                principalTable: "DesignTimePerspectiveList",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_DesignMaskingInfo_DesignWhoMaskedList_DesignWhoMaskedListId",
-                table: "DesignMaskingInfo",
-                column: "DesignWhoMaskedListId",
-                principalTable: "DesignWhoMaskedList",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_DesignModule_BioSpec_BioSpecId",
-                table: "DesignModule",
-                column: "BioSpecId",
-                principalTable: "BioSpec",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_DesignModule_EnrollmentInfo_EnrollmentInfoId",
-                table: "DesignModule",
-                column: "EnrollmentInfoId",
-                principalTable: "EnrollmentInfo",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_DesignModule_ExpandedAccessTypes_ExpandedAccessTypesId",
-                table: "DesignModule",
-                column: "ExpandedAccessTypesId",
-                principalTable: "ExpandedAccessTypes",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_IdentificationModule_NCTIdAliasList_NCTIdAliasListId",
-                table: "IdentificationModule",
-                column: "NCTIdAliasListId",
-                principalTable: "NCTIdAliasList",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Location_LocationContactList_LocationContactListId",
-                table: "Location",
-                column: "LocationContactListId",
-                principalTable: "LocationContactList",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_MiscInfoModule_RemovedCountryList_RemovedCountryListId",
-                table: "MiscInfoModule",
-                column: "RemovedCountryListId",
-                principalTable: "RemovedCountryList",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_ProtocolSection_IPDSharingStatementModule_IPDSharingStatementModuleId",
-                table: "ProtocolSection",
-                column: "IPDSharingStatementModuleId",
-                principalTable: "IPDSharingStatementModule",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_ProtocolSection_OutcomesModule_OutcomesModuleId",
-                table: "ProtocolSection",
-                column: "OutcomesModuleId",
-                principalTable: "OutcomesModule",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_ProtocolSection_OversightModule_OversightModuleId",
-                table: "ProtocolSection",
-                column: "OversightModuleId",
-                principalTable: "OversightModule",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_ProtocolSection_ReferencesModule_ReferencesModuleId",
-                table: "ProtocolSection",
-                column: "ReferencesModuleId",
-                principalTable: "ReferencesModule",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_SponsorCollaboratorsModule_CollaboratorList_CollaboratorListId",
-                table: "SponsorCollaboratorsModule",
-                column: "CollaboratorListId",
-                principalTable: "CollaboratorList",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_SponsorCollaboratorsModule_ResponsibleParty_ResponsiblePartyId",
-                table: "SponsorCollaboratorsModule",
-                column: "ResponsiblePartyId",
-                principalTable: "ResponsibleParty",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_StatusModule_CompletionDateStruct_CompletionDateStructId",
-                table: "StatusModule",
-                column: "CompletionDateStructId",
-                principalTable: "CompletionDateStruct",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_StatusModule_DispFirstPostDateStruct_DispFirstPostDateStructId",
-                table: "StatusModule",
-                column: "DispFirstPostDateStructId",
-                principalTable: "DispFirstPostDateStruct",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_StatusModule_PrimaryCompletionDateStruct_PrimaryCompletionDateStructId",
-                table: "StatusModule",
-                column: "PrimaryCompletionDateStructId",
-                principalTable: "PrimaryCompletionDateStruct",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_StatusModule_ResultsFirstPostDateStruct_ResultsFirstPostDateStructId",
-                table: "StatusModule",
-                column: "ResultsFirstPostDateStructId",
-                principalTable: "ResultsFirstPostDateStruct",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_StatusModule_StartDateStruct_StartDateStructId",
-                table: "StatusModule",
-                column: "StartDateStructId",
-                principalTable: "StartDateStruct",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Study_AnnotationSection_AnnotationSectionId",
-                table: "Study",
-                column: "AnnotationSectionId",
-                principalTable: "AnnotationSection",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Study_DocumentSection_DocumentSectionId",
-                table: "Study",
-                column: "DocumentSectionId",
-                principalTable: "DocumentSection",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Study_ResultsSection_ResultsSectionId",
-                table: "Study",
-                column: "ResultsSectionId",
-                principalTable: "ResultsSection",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_ArmsInterventionsModule_ArmGroupList_ArmGroupListId",
-                table: "ArmsInterventionsModule");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_ConditionsModule_KeywordList_KeywordListId",
-                table: "ConditionsModule");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_ContactsLocationsModule_CentralContactList_CentralContactListId",
-                table: "ContactsLocationsModule");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_ContactsLocationsModule_OverallOfficialList_OverallOfficialListId",
-                table: "ContactsLocationsModule");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_DesignInfo_DesignObservationalModelList_DesignObservationalModelListId",
-                table: "DesignInfo");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_DesignInfo_DesignTimePerspectiveList_DesignTimePerspectiveListId",
-                table: "DesignInfo");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_DesignMaskingInfo_DesignWhoMaskedList_DesignWhoMaskedListId",
-                table: "DesignMaskingInfo");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_DesignModule_BioSpec_BioSpecId",
-                table: "DesignModule");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_DesignModule_EnrollmentInfo_EnrollmentInfoId",
-                table: "DesignModule");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_DesignModule_ExpandedAccessTypes_ExpandedAccessTypesId",
-                table: "DesignModule");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_IdentificationModule_NCTIdAliasList_NCTIdAliasListId",
-                table: "IdentificationModule");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Location_LocationContactList_LocationContactListId",
-                table: "Location");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_MiscInfoModule_RemovedCountryList_RemovedCountryListId",
-                table: "MiscInfoModule");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_ProtocolSection_IPDSharingStatementModule_IPDSharingStatementModuleId",
-                table: "ProtocolSection");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_ProtocolSection_OutcomesModule_OutcomesModuleId",
-                table: "ProtocolSection");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_ProtocolSection_OversightModule_OversightModuleId",
-                table: "ProtocolSection");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_ProtocolSection_ReferencesModule_ReferencesModuleId",
-                table: "ProtocolSection");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_SponsorCollaboratorsModule_CollaboratorList_CollaboratorListId",
-                table: "SponsorCollaboratorsModule");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_SponsorCollaboratorsModule_ResponsibleParty_ResponsiblePartyId",
-                table: "SponsorCollaboratorsModule");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_StatusModule_CompletionDateStruct_CompletionDateStructId",
-                table: "StatusModule");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_StatusModule_DispFirstPostDateStruct_DispFirstPostDateStructId",
-                table: "StatusModule");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_StatusModule_PrimaryCompletionDateStruct_PrimaryCompletionDateStructId",
-                table: "StatusModule");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_StatusModule_ResultsFirstPostDateStruct_ResultsFirstPostDateStructId",
-                table: "StatusModule");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_StatusModule_StartDateStruct_StartDateStructId",
-                table: "StatusModule");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Study_AnnotationSection_AnnotationSectionId",
-                table: "Study");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Study_DocumentSection_DocumentSectionId",
-                table: "Study");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Study_ResultsSection_ResultsSectionId",
-                table: "Study");
-
-            migrationBuilder.DropTable(
-                name: "AnnotationSection");
-
             migrationBuilder.DropTable(
                 name: "ArmGroup");
 
@@ -3736,40 +4684,28 @@ namespace Model.Migrations
                 name: "BaselineMeasurement");
 
             migrationBuilder.DropTable(
-                name: "BioSpec");
+                name: "CentralContact");
 
             migrationBuilder.DropTable(
-                name: "CentralContact");
+                name: "CityCoordinates");
 
             migrationBuilder.DropTable(
                 name: "Collaborator");
 
             migrationBuilder.DropTable(
-                name: "CompletionDateStruct");
+                name: "ConditionAncestor");
 
             migrationBuilder.DropTable(
-                name: "DesignObservationalModelList");
+                name: "ConditionBrowseBranch");
 
             migrationBuilder.DropTable(
-                name: "DesignTimePerspectiveList");
+                name: "ConditionBrowseLeaf");
 
             migrationBuilder.DropTable(
-                name: "DesignWhoMaskedList");
-
-            migrationBuilder.DropTable(
-                name: "DispFirstPostDateStruct");
-
-            migrationBuilder.DropTable(
-                name: "DocumentSection");
-
-            migrationBuilder.DropTable(
-                name: "EnrollmentInfo");
+                name: "ConditionMesh");
 
             migrationBuilder.DropTable(
                 name: "EventGroup");
-
-            migrationBuilder.DropTable(
-                name: "ExpandedAccessTypes");
 
             migrationBuilder.DropTable(
                 name: "FlowAchievement");
@@ -3790,19 +4726,28 @@ namespace Model.Migrations
                 name: "FlowReason");
 
             migrationBuilder.DropTable(
-                name: "IPDSharingStatementModule");
+                name: "Intervention");
 
             migrationBuilder.DropTable(
-                name: "KeywordList");
+                name: "InterventionAncestor");
+
+            migrationBuilder.DropTable(
+                name: "InterventionBrowseBranch");
+
+            migrationBuilder.DropTable(
+                name: "InterventionBrowseLeaf");
+
+            migrationBuilder.DropTable(
+                name: "InterventionMesh");
 
             migrationBuilder.DropTable(
                 name: "LargeDoc");
 
             migrationBuilder.DropTable(
-                name: "LocationContact");
+                name: "Location");
 
             migrationBuilder.DropTable(
-                name: "NCTIdAliasList");
+                name: "LocationContact");
 
             migrationBuilder.DropTable(
                 name: "OtherEvent");
@@ -3844,16 +4789,7 @@ namespace Model.Migrations
                 name: "OutcomeMeasurement");
 
             migrationBuilder.DropTable(
-                name: "OutcomesModule");
-
-            migrationBuilder.DropTable(
                 name: "OverallOfficial");
-
-            migrationBuilder.DropTable(
-                name: "OversightModule");
-
-            migrationBuilder.DropTable(
-                name: "PrimaryCompletionDateStruct");
 
             migrationBuilder.DropTable(
                 name: "PrimaryOutcome");
@@ -3862,22 +4798,10 @@ namespace Model.Migrations
                 name: "Reference");
 
             migrationBuilder.DropTable(
-                name: "ReferencesModule");
-
-            migrationBuilder.DropTable(
-                name: "RemovedCountryList");
-
-            migrationBuilder.DropTable(
-                name: "ResponsibleParty");
-
-            migrationBuilder.DropTable(
-                name: "ResultsFirstPostDateStruct");
-
-            migrationBuilder.DropTable(
-                name: "ResultsSection");
-
-            migrationBuilder.DropTable(
                 name: "Retraction");
+
+            migrationBuilder.DropTable(
+                name: "SecondaryIdInfo");
 
             migrationBuilder.DropTable(
                 name: "SecondaryOutcome");
@@ -3892,19 +4816,22 @@ namespace Model.Migrations
                 name: "SeriousEventStats");
 
             migrationBuilder.DropTable(
-                name: "StartDateStruct");
+                name: "StatisticsSearches");
+
+            migrationBuilder.DropTable(
+                name: "Studies");
+
+            migrationBuilder.DropTable(
+                name: "TagLists");
+
+            migrationBuilder.DropTable(
+                name: "Tags");
 
             migrationBuilder.DropTable(
                 name: "UnpostedEvent");
 
             migrationBuilder.DropTable(
-                name: "AnnotationModule");
-
-            migrationBuilder.DropTable(
                 name: "ArmGroupInterventionList");
-
-            migrationBuilder.DropTable(
-                name: "ArmGroupList");
 
             migrationBuilder.DropTable(
                 name: "BaselineCategoryList");
@@ -3931,15 +4858,6 @@ namespace Model.Migrations
                 name: "BaselineMeasurementList");
 
             migrationBuilder.DropTable(
-                name: "CentralContactList");
-
-            migrationBuilder.DropTable(
-                name: "CollaboratorList");
-
-            migrationBuilder.DropTable(
-                name: "LargeDocumentModule");
-
-            migrationBuilder.DropTable(
                 name: "FlowAchievementList");
 
             migrationBuilder.DropTable(
@@ -3950,9 +4868,6 @@ namespace Model.Migrations
 
             migrationBuilder.DropTable(
                 name: "FlowReasonList");
-
-            migrationBuilder.DropTable(
-                name: "IPDSharingInfoTypeList");
 
             migrationBuilder.DropTable(
                 name: "LocationContactList");
@@ -3991,19 +4906,85 @@ namespace Model.Migrations
                 name: "OutcomeMeasurementList");
 
             migrationBuilder.DropTable(
-                name: "OtherOutcomeList");
+                name: "RetractionList");
 
             migrationBuilder.DropTable(
-                name: "OverallOfficialList");
+                name: "SeriousEventStatsList");
 
             migrationBuilder.DropTable(
-                name: "PrimaryOutcomeList");
+                name: "FullStudy");
 
             migrationBuilder.DropTable(
-                name: "AvailIPDList");
+                name: "Study");
 
             migrationBuilder.DropTable(
-                name: "ReferenceList");
+                name: "AnnotationSection");
+
+            migrationBuilder.DropTable(
+                name: "DerivedSection");
+
+            migrationBuilder.DropTable(
+                name: "DocumentSection");
+
+            migrationBuilder.DropTable(
+                name: "ProtocolSection");
+
+            migrationBuilder.DropTable(
+                name: "ResultsSection");
+
+            migrationBuilder.DropTable(
+                name: "AnnotationModule");
+
+            migrationBuilder.DropTable(
+                name: "ConditionBrowseModule");
+
+            migrationBuilder.DropTable(
+                name: "InterventionBrowseModule");
+
+            migrationBuilder.DropTable(
+                name: "MiscInfoModule");
+
+            migrationBuilder.DropTable(
+                name: "LargeDocumentModule");
+
+            migrationBuilder.DropTable(
+                name: "ArmsInterventionsModule");
+
+            migrationBuilder.DropTable(
+                name: "ConditionsModule");
+
+            migrationBuilder.DropTable(
+                name: "ContactsLocationsModule");
+
+            migrationBuilder.DropTable(
+                name: "DescriptionModule");
+
+            migrationBuilder.DropTable(
+                name: "DesignModule");
+
+            migrationBuilder.DropTable(
+                name: "EligibilityModule");
+
+            migrationBuilder.DropTable(
+                name: "IPDSharingStatementModule");
+
+            migrationBuilder.DropTable(
+                name: "IdentificationModule");
+
+            migrationBuilder.DropTable(
+                name: "OutcomesModule");
+
+            migrationBuilder.DropTable(
+                name: "OversightModule");
+
+            migrationBuilder.DropTable(
+                name: "ReferencesModule");
+
+            migrationBuilder.DropTable(
+                name: "SponsorCollaboratorsModule");
+
+            migrationBuilder.DropTable(
+                name: "StatusModule");
 
             migrationBuilder.DropTable(
                 name: "AdverseEventsModule");
@@ -4021,22 +5002,142 @@ namespace Model.Migrations
                 name: "ParticipantFlowModule");
 
             migrationBuilder.DropTable(
-                name: "RetractionList");
+                name: "UnpostedAnnotation");
+
+            migrationBuilder.DropTable(
+                name: "ConditionAncestorList");
+
+            migrationBuilder.DropTable(
+                name: "ConditionBrowseBranchList");
+
+            migrationBuilder.DropTable(
+                name: "ConditionBrowseLeafList");
+
+            migrationBuilder.DropTable(
+                name: "ConditionMeshList");
+
+            migrationBuilder.DropTable(
+                name: "InterventionAncestorList");
+
+            migrationBuilder.DropTable(
+                name: "InterventionBrowseBranchList");
+
+            migrationBuilder.DropTable(
+                name: "InterventionBrowseLeafList");
+
+            migrationBuilder.DropTable(
+                name: "InterventionMeshList");
+
+            migrationBuilder.DropTable(
+                name: "RemovedCountryList");
+
+            migrationBuilder.DropTable(
+                name: "LargeDocList");
+
+            migrationBuilder.DropTable(
+                name: "ArmGroupList");
+
+            migrationBuilder.DropTable(
+                name: "InterventionList");
+
+            migrationBuilder.DropTable(
+                name: "ConditionList");
+
+            migrationBuilder.DropTable(
+                name: "KeywordList");
+
+            migrationBuilder.DropTable(
+                name: "CentralContactList");
+
+            migrationBuilder.DropTable(
+                name: "LocationList");
+
+            migrationBuilder.DropTable(
+                name: "OverallOfficialList");
+
+            migrationBuilder.DropTable(
+                name: "BioSpec");
+
+            migrationBuilder.DropTable(
+                name: "DesignInfo");
+
+            migrationBuilder.DropTable(
+                name: "EnrollmentInfo");
+
+            migrationBuilder.DropTable(
+                name: "ExpandedAccessTypes");
+
+            migrationBuilder.DropTable(
+                name: "PhaseList");
+
+            migrationBuilder.DropTable(
+                name: "StdAgeList");
+
+            migrationBuilder.DropTable(
+                name: "IPDSharingInfoTypeList");
+
+            migrationBuilder.DropTable(
+                name: "NCTIdAliasList");
+
+            migrationBuilder.DropTable(
+                name: "OrgStudyIdInfo");
+
+            migrationBuilder.DropTable(
+                name: "Organization");
+
+            migrationBuilder.DropTable(
+                name: "SecondaryIdInfoList");
+
+            migrationBuilder.DropTable(
+                name: "OtherOutcomeList");
+
+            migrationBuilder.DropTable(
+                name: "PrimaryOutcomeList");
 
             migrationBuilder.DropTable(
                 name: "SecondaryOutcomeList");
 
             migrationBuilder.DropTable(
+                name: "AvailIPDList");
+
+            migrationBuilder.DropTable(
+                name: "ReferenceList");
+
+            migrationBuilder.DropTable(
                 name: "SeeAlsoLinkList");
 
             migrationBuilder.DropTable(
-                name: "SeriousEventStatsList");
+                name: "CollaboratorList");
 
             migrationBuilder.DropTable(
-                name: "UnpostedAnnotation");
+                name: "LeadSponsor");
 
             migrationBuilder.DropTable(
-                name: "LargeDocList");
+                name: "ResponsibleParty");
+
+            migrationBuilder.DropTable(
+                name: "CompletionDateStruct");
+
+            migrationBuilder.DropTable(
+                name: "DispFirstPostDateStruct");
+
+            migrationBuilder.DropTable(
+                name: "ExpandedAccessInfo");
+
+            migrationBuilder.DropTable(
+                name: "LastUpdatePostDateStruct");
+
+            migrationBuilder.DropTable(
+                name: "PrimaryCompletionDateStruct");
+
+            migrationBuilder.DropTable(
+                name: "ResultsFirstPostDateStruct");
+
+            migrationBuilder.DropTable(
+                name: "StartDateStruct");
+
+            migrationBuilder.DropTable(
+                name: "StudyFirstPostDateStruct");
 
             migrationBuilder.DropTable(
                 name: "EventGroupList");
@@ -4077,309 +5178,17 @@ namespace Model.Migrations
             migrationBuilder.DropTable(
                 name: "UnpostedEventList");
 
-            migrationBuilder.DropIndex(
-                name: "IX_Study_AnnotationSectionId",
-                table: "Study");
+            migrationBuilder.DropTable(
+                name: "DesignMaskingInfo");
 
-            migrationBuilder.DropIndex(
-                name: "IX_Study_DocumentSectionId",
-                table: "Study");
+            migrationBuilder.DropTable(
+                name: "DesignObservationalModelList");
 
-            migrationBuilder.DropIndex(
-                name: "IX_Study_ResultsSectionId",
-                table: "Study");
+            migrationBuilder.DropTable(
+                name: "DesignTimePerspectiveList");
 
-            migrationBuilder.DropIndex(
-                name: "IX_StatusModule_CompletionDateStructId",
-                table: "StatusModule");
-
-            migrationBuilder.DropIndex(
-                name: "IX_StatusModule_DispFirstPostDateStructId",
-                table: "StatusModule");
-
-            migrationBuilder.DropIndex(
-                name: "IX_StatusModule_PrimaryCompletionDateStructId",
-                table: "StatusModule");
-
-            migrationBuilder.DropIndex(
-                name: "IX_StatusModule_ResultsFirstPostDateStructId",
-                table: "StatusModule");
-
-            migrationBuilder.DropIndex(
-                name: "IX_StatusModule_StartDateStructId",
-                table: "StatusModule");
-
-            migrationBuilder.DropIndex(
-                name: "IX_SponsorCollaboratorsModule_CollaboratorListId",
-                table: "SponsorCollaboratorsModule");
-
-            migrationBuilder.DropIndex(
-                name: "IX_SponsorCollaboratorsModule_ResponsiblePartyId",
-                table: "SponsorCollaboratorsModule");
-
-            migrationBuilder.DropIndex(
-                name: "IX_ProtocolSection_IPDSharingStatementModuleId",
-                table: "ProtocolSection");
-
-            migrationBuilder.DropIndex(
-                name: "IX_ProtocolSection_OutcomesModuleId",
-                table: "ProtocolSection");
-
-            migrationBuilder.DropIndex(
-                name: "IX_ProtocolSection_OversightModuleId",
-                table: "ProtocolSection");
-
-            migrationBuilder.DropIndex(
-                name: "IX_ProtocolSection_ReferencesModuleId",
-                table: "ProtocolSection");
-
-            migrationBuilder.DropIndex(
-                name: "IX_MiscInfoModule_RemovedCountryListId",
-                table: "MiscInfoModule");
-
-            migrationBuilder.DropIndex(
-                name: "IX_Location_LocationContactListId",
-                table: "Location");
-
-            migrationBuilder.DropIndex(
-                name: "IX_IdentificationModule_NCTIdAliasListId",
-                table: "IdentificationModule");
-
-            migrationBuilder.DropIndex(
-                name: "IX_DesignModule_BioSpecId",
-                table: "DesignModule");
-
-            migrationBuilder.DropIndex(
-                name: "IX_DesignModule_EnrollmentInfoId",
-                table: "DesignModule");
-
-            migrationBuilder.DropIndex(
-                name: "IX_DesignModule_ExpandedAccessTypesId",
-                table: "DesignModule");
-
-            migrationBuilder.DropIndex(
-                name: "IX_DesignMaskingInfo_DesignWhoMaskedListId",
-                table: "DesignMaskingInfo");
-
-            migrationBuilder.DropIndex(
-                name: "IX_DesignInfo_DesignObservationalModelListId",
-                table: "DesignInfo");
-
-            migrationBuilder.DropIndex(
-                name: "IX_DesignInfo_DesignTimePerspectiveListId",
-                table: "DesignInfo");
-
-            migrationBuilder.DropIndex(
-                name: "IX_ContactsLocationsModule_CentralContactListId",
-                table: "ContactsLocationsModule");
-
-            migrationBuilder.DropIndex(
-                name: "IX_ContactsLocationsModule_OverallOfficialListId",
-                table: "ContactsLocationsModule");
-
-            migrationBuilder.DropIndex(
-                name: "IX_ConditionsModule_KeywordListId",
-                table: "ConditionsModule");
-
-            migrationBuilder.DropIndex(
-                name: "IX_ArmsInterventionsModule_ArmGroupListId",
-                table: "ArmsInterventionsModule");
-
-            migrationBuilder.DropColumn(
-                name: "AnnotationSectionId",
-                table: "Study");
-
-            migrationBuilder.DropColumn(
-                name: "DocumentSectionId",
-                table: "Study");
-
-            migrationBuilder.DropColumn(
-                name: "ResultsSectionId",
-                table: "Study");
-
-            migrationBuilder.DropColumn(
-                name: "CompletionDateStructId",
-                table: "StatusModule");
-
-            migrationBuilder.DropColumn(
-                name: "DelayedPosting",
-                table: "StatusModule");
-
-            migrationBuilder.DropColumn(
-                name: "DispFirstPostDateStructId",
-                table: "StatusModule");
-
-            migrationBuilder.DropColumn(
-                name: "DispFirstSubmitDate",
-                table: "StatusModule");
-
-            migrationBuilder.DropColumn(
-                name: "DispFirstSubmitQCDate",
-                table: "StatusModule");
-
-            migrationBuilder.DropColumn(
-                name: "LastKnownStatus",
-                table: "StatusModule");
-
-            migrationBuilder.DropColumn(
-                name: "PrimaryCompletionDateStructId",
-                table: "StatusModule");
-
-            migrationBuilder.DropColumn(
-                name: "ResultsFirstPostDateStructId",
-                table: "StatusModule");
-
-            migrationBuilder.DropColumn(
-                name: "ResultsFirstSubmitDate",
-                table: "StatusModule");
-
-            migrationBuilder.DropColumn(
-                name: "ResultsFirstSubmitQCDate",
-                table: "StatusModule");
-
-            migrationBuilder.DropColumn(
-                name: "StartDateStructId",
-                table: "StatusModule");
-
-            migrationBuilder.DropColumn(
-                name: "WhyStopped",
-                table: "StatusModule");
-
-            migrationBuilder.DropColumn(
-                name: "CollaboratorListId",
-                table: "SponsorCollaboratorsModule");
-
-            migrationBuilder.DropColumn(
-                name: "ResponsiblePartyId",
-                table: "SponsorCollaboratorsModule");
-
-            migrationBuilder.DropColumn(
-                name: "IPDSharingStatementModuleId",
-                table: "ProtocolSection");
-
-            migrationBuilder.DropColumn(
-                name: "OutcomesModuleId",
-                table: "ProtocolSection");
-
-            migrationBuilder.DropColumn(
-                name: "OversightModuleId",
-                table: "ProtocolSection");
-
-            migrationBuilder.DropColumn(
-                name: "ReferencesModuleId",
-                table: "ProtocolSection");
-
-            migrationBuilder.DropColumn(
-                name: "RemovedCountryListId",
-                table: "MiscInfoModule");
-
-            migrationBuilder.DropColumn(
-                name: "LocationContactListId",
-                table: "Location");
-
-            migrationBuilder.DropColumn(
-                name: "LocationStatus",
-                table: "Location");
-
-            migrationBuilder.DropColumn(
-                name: "LocationZip",
-                table: "Location");
-
-            migrationBuilder.DropColumn(
-                name: "Acronym",
-                table: "IdentificationModule");
-
-            migrationBuilder.DropColumn(
-                name: "NCTIdAliasListId",
-                table: "IdentificationModule");
-
-            migrationBuilder.DropColumn(
-                name: "OfficialTitle",
-                table: "IdentificationModule");
-
-            migrationBuilder.DropColumn(
-                name: "ExpandedAccessNCTId",
-                table: "ExpandedAccessInfo");
-
-            migrationBuilder.DropColumn(
-                name: "ExpandedAccessStatusForNCTId",
-                table: "ExpandedAccessInfo");
-
-            migrationBuilder.DropColumn(
-                name: "GenderBased",
-                table: "EligibilityModule");
-
-            migrationBuilder.DropColumn(
-                name: "GenderDescription",
-                table: "EligibilityModule");
-
-            migrationBuilder.DropColumn(
-                name: "SamplingMethod",
-                table: "EligibilityModule");
-
-            migrationBuilder.DropColumn(
-                name: "StudyPopulation",
-                table: "EligibilityModule");
-
-            migrationBuilder.DropColumn(
-                name: "BioSpecId",
-                table: "DesignModule");
-
-            migrationBuilder.DropColumn(
-                name: "EnrollmentInfoId",
-                table: "DesignModule");
-
-            migrationBuilder.DropColumn(
-                name: "ExpandedAccessTypesId",
-                table: "DesignModule");
-
-            migrationBuilder.DropColumn(
-                name: "PatientRegistry",
-                table: "DesignModule");
-
-            migrationBuilder.DropColumn(
-                name: "TargetDuration",
-                table: "DesignModule");
-
-            migrationBuilder.DropColumn(
-                name: "DesignMaskingDescription",
-                table: "DesignMaskingInfo");
-
-            migrationBuilder.DropColumn(
-                name: "DesignWhoMaskedListId",
-                table: "DesignMaskingInfo");
-
-            migrationBuilder.DropColumn(
-                name: "DesignAllocation",
-                table: "DesignInfo");
-
-            migrationBuilder.DropColumn(
-                name: "DesignInterventionModelDescription",
-                table: "DesignInfo");
-
-            migrationBuilder.DropColumn(
-                name: "DesignObservationalModelListId",
-                table: "DesignInfo");
-
-            migrationBuilder.DropColumn(
-                name: "DesignTimePerspectiveListId",
-                table: "DesignInfo");
-
-            migrationBuilder.DropColumn(
-                name: "CentralContactListId",
-                table: "ContactsLocationsModule");
-
-            migrationBuilder.DropColumn(
-                name: "OverallOfficialListId",
-                table: "ContactsLocationsModule");
-
-            migrationBuilder.DropColumn(
-                name: "KeywordListId",
-                table: "ConditionsModule");
-
-            migrationBuilder.DropColumn(
-                name: "ArmGroupListId",
-                table: "ArmsInterventionsModule");
+            migrationBuilder.DropTable(
+                name: "DesignWhoMaskedList");
         }
     }
 }

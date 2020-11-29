@@ -40,6 +40,9 @@
     <Reference Include="CsvHelper, Version=16.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
       <HintPath>..\packages\CsvHelper.16.0.0\lib\net47\CsvHelper.dll</HintPath>
     </Reference>
+    <Reference Include="DynamicInterop, Version=0.9.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DynamicInterop.0.9.1\lib\netstandard2.0\DynamicInterop.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework.Core, Version=7.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.Core.7.0.0-rc1-final\lib\net451\EntityFramework.Core.dll</HintPath>
     </Reference>
@@ -191,8 +194,14 @@
       <HintPath>..\packages\ExcelPackage.1.0.0\lib\Microsoft.Office.Interop.Excel.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="Microsoft.Win32.Registry, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Win32.Registry.4.5.0\lib\net461\Microsoft.Win32.Registry.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RDotNet, Version=1.9.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\R.NET.1.9.0\lib\netstandard2.0\RDotNet.dll</HintPath>
     </Reference>
     <Reference Include="Remotion, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
       <HintPath>..\packages\LinqToExcel.1.11.0\lib\Remotion.dll</HintPath>
@@ -324,6 +333,9 @@
     <Reference Include="System.Text.Encodings.Web, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Text.Encodings.Web.4.5.0\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
     </Reference>
+    <Reference Include="System.Threading.Tasks.Dataflow, Version=4.5.24.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Tpl.Dataflow.4.5.24\lib\portable-net45+win8+wpa81\System.Threading.Tasks.Dataflow.dll</HintPath>
+    </Reference>
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
@@ -341,33 +353,9 @@
     <Compile Include="CityCoordinates.cs" />
     <Compile Include="Context\ClinicalTrialsContext.cs" />
     <Compile Include="FullModel.cs" />
-    <Compile Include="Migrations\20201115164639_Migration9.cs" />
-    <Compile Include="Migrations\20201115164639_Migration9.designer.cs">
-      <DependentUpon>20201115164639_Migration9.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20201115165506_Migration10.cs" />
-    <Compile Include="Migrations\20201115165506_Migration10.designer.cs">
-      <DependentUpon>20201115165506_Migration10.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20201115172728_Migration11.cs" />
-    <Compile Include="Migrations\20201115172728_Migration11.designer.cs">
-      <DependentUpon>20201115172728_Migration11.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20201115174236_Migration12.cs" />
-    <Compile Include="Migrations\20201115174236_Migration12.designer.cs">
-      <DependentUpon>20201115174236_Migration12.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20201115175842_Migration13.cs" />
-    <Compile Include="Migrations\20201115175842_Migration13.designer.cs">
-      <DependentUpon>20201115175842_Migration13.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20201123104516_Migration14.cs" />
-    <Compile Include="Migrations\20201123104516_Migration14.designer.cs">
-      <DependentUpon>20201123104516_Migration14.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20201125140749_Migration15.cs" />
-    <Compile Include="Migrations\20201125140749_Migration15.designer.cs">
-      <DependentUpon>20201125140749_Migration15.cs</DependentUpon>
+    <Compile Include="Migrations\20201127152542_Migration1.cs" />
+    <Compile Include="Migrations\20201127152542_Migration1.designer.cs">
+      <DependentUpon>20201127152542_Migration1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\ClinicalTrialsContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

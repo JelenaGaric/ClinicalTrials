@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Model;
 using ClinicalTrialsWebApp.DTO;
 using ClinicalTrialsWebApp.Repository;
-using ClinicalTrialsWebApp.Pagination;
 using Microsoft.Extensions.Logging;
-using ClinicalTrialsWebApp.Controllers;
+using System.IO;
+using RDotNet;
 
 namespace ClinicalTrialsWebApp
 {
@@ -219,6 +214,51 @@ namespace ClinicalTrialsWebApp
                 return StatusCode(404, e.Message);
             }
         }
+
+        [HttpGet]
+        [Route("test")]
+        public ActionResult Test()
+        {
+            try
+            {
+                var scriptpath = Path.Combine(Directory.GetCurrentDirectory(), "..\\test.R");
+
+                string result;
+                string input;
+                REngine engine;
+
+                //init the R engine            
+                REngine.SetEnvironmentVariables();
+                engine = REngine.GetInstance();
+                engine.Initialize();
+
+                //input
+                Console.WriteLine("Please enter the calculation");
+                //input = Console.ReadLine();
+                input = "2+5*3";
+                //calculate
+                CharacterVector vector = engine.Evaluate(input).AsCharacter();
+                result = vector[0];
+
+                //clean up
+                engine.Dispose();
+
+                //output
+                Console.WriteLine("");
+                Console.WriteLine("Result: '{0}'", result);
+                Console.WriteLine("Press any key to exit");
+                Console.ReadKey();
+
+                Console.ReadLine();
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Something went wrong inside Test action: {e.Message}");
+                return StatusCode(404, e.Message);
+            }
+        }
+
 
     }
 }

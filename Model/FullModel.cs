@@ -274,7 +274,8 @@ namespace Model
 
     public class IPDSharingInfoTypeList : StudyStructureEntity
     {
-        public List<string> IPDSharingInfoType;
+        public virtual List<string> IPDSharingInfoType { get; set; }
+
     }
 
     public class IPDSharingStatementModule : StudyStructureEntity
