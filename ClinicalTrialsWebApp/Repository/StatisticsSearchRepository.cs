@@ -13,6 +13,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
@@ -210,7 +211,8 @@ namespace ClinicalTrialsWebApp.Repository
         {
             using (var stream = File.Open(path, FileMode.Open, FileAccess.Read))
             {
-               using (var reader = ExcelReaderFactory.CreateReader(stream))
+                
+                using (var reader = ExcelReaderFactory.CreateReader(stream))
                 {
 
                     var result = reader.AsDataSet();

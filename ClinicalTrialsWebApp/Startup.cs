@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using ClinicalTrialsWebApp.Pagination;
@@ -27,6 +28,9 @@ namespace ClinicalTrialsWebApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            System.Text.Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
+
             services.AddAutoMapper(typeof(Startup));
 
             services.AddDbContext<ClinicalTrialsContext>();
