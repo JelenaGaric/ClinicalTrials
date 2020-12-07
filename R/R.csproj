@@ -49,7 +49,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="a.R" />
-    <None Include="test.R" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

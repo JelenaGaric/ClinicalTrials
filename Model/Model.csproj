@@ -354,13 +354,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CityCoordinates.cs" />
+    <Compile Include="ClinicalTrialJSON.cs" />
     <Compile Include="Context\ClinicalTrialsContext.cs" />
+    <Compile Include="Context\ClinicalTrialsJSONContext.cs" />
     <Compile Include="FullModel.cs" />
     <Compile Include="Migrations\20201127152542_Migration1.cs" />
     <Compile Include="Migrations\20201127152542_Migration1.designer.cs">
       <DependentUpon>20201127152542_Migration1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\ClinicalTrialsContextModelSnapshot.cs" />
+    <Compile Include="Migrations\ClinicalTrialsJSON\20201207122009_MigrationJson1.cs" />
+    <Compile Include="Migrations\ClinicalTrialsJSON\20201207122009_MigrationJson1.designer.cs">
+      <DependentUpon>20201207122009_MigrationJson1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\ClinicalTrialsJSON\ClinicalTrialsJSONContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StatisticsSearch.cs" />
     <Compile Include="StudyStructure.cs" />

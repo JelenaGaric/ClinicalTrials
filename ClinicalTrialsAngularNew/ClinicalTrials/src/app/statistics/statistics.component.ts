@@ -56,14 +56,8 @@ export class StatisticsComponent implements OnInit {
     this.searchDTO = this.searchForm.value;
     if(this.searchDTO.Condition === "")
       return;
-
-    //clear map too
-
     
-
     this._searchService.searchStatistics(this.searchDTO).subscribe(response => {    
-
-      //will convert response from any[] to locationDTO
       this._searchService.getStats(this.searchDTO, '/location').subscribe(data => {
         for(let loc of data){
           if(loc.lat == null || loc.lng == null)

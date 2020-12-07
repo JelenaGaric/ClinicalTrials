@@ -9,6 +9,7 @@ using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -377,6 +378,95 @@ namespace ClinicalTrialsWebApp.Repository
         {
             return ExecuteCommand("SELECT * from INTERVENTIONAL_STUDIES_YEAR FOR JSON AUTO;");
         }
+
+        public void makeSmallStudyTypeTables()
+        {
+            var rpath = @"C:\Program Files\R\R-4.0.3\bin\Rscript.exe";
+            var scriptpath = Path.Combine(Directory.GetCurrentDirectory(), "allStudies.R");
+            var output = RunRScript(rpath, scriptpath);
+        }
+        public string getStatsCsv(string type)
+        {
+            DataTable dt = new DataTable();
+            using (StreamReader sr = new StreamReader(Path.Combine(Directory.GetCurrentDirectory(), @"RDATA\" + type + ".csv")))
+            {
+                string[] headers = sr.ReadLine().Split(',');
+                foreach (string header in headers)
+                {
+                    if (header == "\"\"")
+                        dt.Columns.Add("Date");
+                    else if (header == "\"x\"")
+                        dt.Columns.Add("NUM");
+                    //dt.Columns.Add(header);
+                }
+                while (!sr.EndOfStream)
+                {
+                    var line = sr.ReadLine();
+                    string[] rows = line.Split(',');
+                    DataRow dr = dt.NewRow();
+
+                    for (int i = 0; i < headers.Length; i++)
+                    {   
+                        dr[i] = rows[i].Replace("\"", string.Empty);
+                    }
+                    dt.Rows.Add(dr);
+                }
+
+            }
+            return DataTableToJSONWithJSONNet(dt);
+        }
+
+        public bool getRegression()
+        {
+            //check from type
+            if(!File.Exists(Path.Combine(Directory.GetCurrentDirectory(), @"RDATA\years.csv")))
+            {
+                makeSmallStudyTypeTables();
+            }
+            try
+            {
+                var rpath = @"C:\Program Files\R\R-4.0.3\bin\Rscript.exe";
+                var scriptpath = Path.Combine(Directory.GetCurrentDirectory(), "studyTypeRegression.R");
+                var output = RunRScript(rpath, scriptpath);
+            } catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+
+            return true;
+            
+        }
+
+
+
+        public string RunRScript(string rpath, string scriptpath)
+        {
+            try
+            {
+                var info = new ProcessStartInfo
+                {
+                    FileName = rpath,
+                    WorkingDirectory = Path.GetDirectoryName(scriptpath),
+                    Arguments = Path.GetFileName(scriptpath),
+                    RedirectStandardOutput = true,
+                    CreateNoWindow = true,
+                    UseShellExecute = false
+                };
+
+                using (var proc = new Process { StartInfo = info })
+                {
+                    proc.Start();
+                    return proc.StandardOutput.ReadToEnd();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return ex.ToString();
+            }
+        }
+
 
         public string ExecuteCommand(string sql)
         {

@@ -1,4 +1,15 @@
 
-.axisRed line{
-    stroke: red;
-  }
+.stats-btn{
+  width: 20%;
+}
+
+.btn-outline-ct {
+  background-color: white;
+  border-color: #3718a7;
+  color: #3718a7;
+}
+
+.btn-outline-ct:hover {
+  background-color: #3718a7;
+  color: white;
+}

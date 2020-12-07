@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using ClinicalTrialsWebApp.Pagination;
 using ClinicalTrialsWebApp.Repository;
+using ClinicalTrialsWebApp.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;

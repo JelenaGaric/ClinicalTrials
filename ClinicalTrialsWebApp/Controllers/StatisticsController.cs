@@ -6,6 +6,8 @@ using ClinicalTrialsWebApp.Repository;
 using Microsoft.Extensions.Logging;
 using System.IO;
 using RDotNet;
+using System.Diagnostics;
+using ClinicalTrialsWebApp.Services;
 
 namespace ClinicalTrialsWebApp
 {
@@ -14,10 +16,12 @@ namespace ClinicalTrialsWebApp
     public class StatisticsController : ControllerBase
     {
         private IRepositoryWrapper _repoWrapper;
-        private ILogger<StudyStructuresController> _logger;
+        //private IStatisticsService _service;
+        private ILogger<StatisticsController> _logger;
 
-        public StatisticsController(IRepositoryWrapper repoWrapper, ILogger<StudyStructuresController> logger)
+        public StatisticsController(/*IStatisticsService service,*/ IRepositoryWrapper repoWrapper, ILogger<StatisticsController> logger)
         {
+            //_service = service;
             _logger = logger;
             _repoWrapper = repoWrapper;
         }
@@ -215,50 +219,7 @@ namespace ClinicalTrialsWebApp
             }
         }
 
-        [HttpGet]
-        [Route("test")]
-        public ActionResult Test()
-        {
-            try
-            {
-                var scriptpath = Path.Combine(Directory.GetCurrentDirectory(), "..\\test.R");
-
-                string result;
-                string input;
-                REngine engine;
-
-                //init the R engine            
-                REngine.SetEnvironmentVariables();
-                engine = REngine.GetInstance();
-                engine.Initialize();
-
-                //input
-                Console.WriteLine("Please enter the calculation");
-                //input = Console.ReadLine();
-                input = "2+5*3";
-                //calculate
-                CharacterVector vector = engine.Evaluate(input).AsCharacter();
-                result = vector[0];
-
-                //clean up
-                engine.Dispose();
-
-                //output
-                Console.WriteLine("");
-                Console.WriteLine("Result: '{0}'", result);
-                Console.WriteLine("Press any key to exit");
-                Console.ReadKey();
-
-                Console.ReadLine();
-                return Ok();
-            }
-            catch (Exception e)
-            {
-                _logger.LogError($"Something went wrong inside Test action: {e.Message}");
-                return StatusCode(404, e.Message);
-            }
-        }
-
+       
 
     }
 }

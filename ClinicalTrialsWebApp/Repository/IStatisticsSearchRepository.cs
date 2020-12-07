@@ -1,6 +1,7 @@
 ﻿using ClinicalTrialsWebApp.DTO;
 using Model;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -20,6 +21,9 @@ namespace ClinicalTrialsWebApp.Repository
         string SponsorStatistics();
         string DurationStatistics();
         string InterventionalStudiesStatistics();
+        bool getRegression();
+        string getStatsCsv(string type);
+        string RunRScript(string rPath, string scriptPath);
         Task<string> GetLocationCitiesAsync();
 
     }

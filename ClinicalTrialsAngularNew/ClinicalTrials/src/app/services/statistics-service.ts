@@ -10,23 +10,34 @@ import { GlobalVariable } from '../global';
 export class StatisticsService {
   //private headerOptions = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-  private readonly searchStatisticsUri = "api/Statistics";
+  private readonly statisticsUri = "api/Statistics";
+  private readonly regressionUri = "api/Regression";
 
   constructor(private http: HttpClient) { }
   
 
   searchStatistics(searchDTO: any) : any {
-    return this.http.post<any>(GlobalVariable.baseUrl + this.searchStatisticsUri, searchDTO)
+    return this.http.post<any>(GlobalVariable.baseUrl + this.statisticsUri, searchDTO)
         .pipe(catchError(this.handleError.bind(this)));
   }
 
   getStats(searchDTO: any, searchUri: string) : any {
-    return this.http.post<any>(GlobalVariable.baseUrl + this.searchStatisticsUri + searchUri, searchDTO)
+    return this.http.post<any>(GlobalVariable.baseUrl + this.statisticsUri + searchUri, searchDTO)
         .pipe(catchError(this.handleError.bind(this)));
   }
 
   getChart(searchUri: string) : any {
-    return this.http.get<any>(GlobalVariable.baseUrl + this.searchStatisticsUri + searchUri)
+    return this.http.get<any>(GlobalVariable.baseUrl + this.statisticsUri + searchUri)
+        .pipe(catchError(this.handleError.bind(this)));
+  }
+
+  makeRegression() : any {
+    return this.http.get<any>(GlobalVariable.baseUrl + this.regressionUri)
+        .pipe(catchError(this.handleError.bind(this)));
+  }
+
+  getRegressionCsv(type: string) : any {
+    return this.http.get<any>(GlobalVariable.baseUrl + this.regressionUri + "/" + type)
         .pipe(catchError(this.handleError.bind(this)));
   }
 
