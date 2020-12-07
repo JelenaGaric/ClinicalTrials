@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Model;
 using ClinicalTrialsWebApp.DTO;
 using ClinicalTrialsWebApp.Repository;
-using ClinicalTrialsWebApp.Pagination;
 using Microsoft.Extensions.Logging;
-using ClinicalTrialsWebApp.Controllers;
+using System.IO;
+using RDotNet;
+using System.Diagnostics;
+using ClinicalTrialsWebApp.Services;
 
 namespace ClinicalTrialsWebApp
 {
@@ -19,10 +16,12 @@ namespace ClinicalTrialsWebApp
     public class StatisticsController : ControllerBase
     {
         private IRepositoryWrapper _repoWrapper;
-        private ILogger<StudyStructuresController> _logger;
+        //private IStatisticsService _service;
+        private ILogger<StatisticsController> _logger;
 
-        public StatisticsController(IRepositoryWrapper repoWrapper, ILogger<StudyStructuresController> logger)
+        public StatisticsController(/*IStatisticsService service,*/ IRepositoryWrapper repoWrapper, ILogger<StatisticsController> logger)
         {
+            //_service = service;
             _logger = logger;
             _repoWrapper = repoWrapper;
         }
@@ -107,13 +106,46 @@ namespace ClinicalTrialsWebApp
             }
         }
 
-        [HttpGet]
-        [Route("location")]
-        public ActionResult Location()
+        [HttpPost]
+        [Route("country")]
+        public ActionResult Country(SearchDTO searchDTO)
         {
             try
             {
-                var retVal = _repoWrapper.StatisticsSearch.LocationStatistics();
+                var retVal = _repoWrapper.StatisticsSearch.CountryStatistics(searchDTO);
+                return Ok(retVal);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Something went wrong inside Country action: {e.Message}");
+                return StatusCode(404, e.Message);
+            }
+        }
+
+
+        [HttpGet]
+        [Route("location")]
+        public ActionResult LocationFromView()
+        {
+            try
+            {
+                var retVal = _repoWrapper.StatisticsSearch.LocationFromViewStatistics();
+                return Ok(retVal);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Something went wrong inside LocationFromViewStatistics action: {e.Message}");
+                return StatusCode(404, e.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("location")]
+        public ActionResult Location(SearchDTO searchDTO)
+        {
+            try
+            {
+                var retVal = _repoWrapper.StatisticsSearch.LocationStatistics(searchDTO);
                 return Ok(retVal);
             }
             catch (Exception e)
@@ -154,5 +186,40 @@ namespace ClinicalTrialsWebApp
                 return StatusCode(404, e.Message);
             }
         }
+
+        [HttpGet]
+        [Route("locationCities")]
+        public ActionResult GetLocationCities()
+        {
+            try
+            {
+                var retVal = _repoWrapper.StatisticsSearch.GetLocationCitiesAsync();
+                return Ok(retVal);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Something went wrong inside GetLocationCities action: {e.Message}");
+                return StatusCode(404, e.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("interventionalStudies")]
+        public ActionResult InterventionalStudies()
+        {
+            try
+            {
+                var retVal = _repoWrapper.StatisticsSearch.InterventionalStudiesStatistics();
+                return Ok(retVal);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Something went wrong inside InterventionalStudies action: {e.Message}");
+                return StatusCode(404, e.Message);
+            }
+        }
+
+       
+
     }
 }

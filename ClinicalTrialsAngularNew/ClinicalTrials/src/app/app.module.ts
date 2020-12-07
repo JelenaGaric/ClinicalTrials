@@ -5,22 +5,33 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { StatisticsService } from './services/statistics-service';
+import { HttpClientModule } from '@angular/common/http';
+import { SearchComponent } from './search/search.component';
+import { StudyViewComponent } from './study-view/study-view.component';
+import { DndModule } from 'ngx-drag-drop';
+import { CustomStatisticsComponent } from './custom-statistics/custom-statistics.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    StatisticsComponent
+    StatisticsComponent,
+    SearchComponent,
+    StudyViewComponent,
+    CustomStatisticsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    DndModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBjC5xykhdXPNmyv3ffc7JXWzzrHteQlrA'
     })
   ],
-  providers: [],
+  providers: [StatisticsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

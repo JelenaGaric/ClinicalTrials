@@ -32,8 +32,11 @@ figure{
 
 #map {
   height: 500px;
+  width: 100%;
+  margin: 50px;
 }
 
-agm-map {
-  height: 300px;
+.stats-btn{
+  margin-bottom:500px;
+  float: right; 
 }

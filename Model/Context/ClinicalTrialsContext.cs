@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Configuration;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Console;
 using Newtonsoft.Json;
 
 namespace Model.Context
@@ -17,6 +15,8 @@ namespace Model.Context
         public DbSet<TagList> TagLists { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<StatisticsSearch> StatisticsSearches { get; set; }
+        public DbSet<CityCoordinates> CityCoordinates { get; set; }
+
         public IConfiguration Configuration { get; }
         public string ConnectionString { get; }
         public ClinicalTrialsContext(IConfiguration configuration)
@@ -63,7 +63,7 @@ namespace Model.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ConditionList>()
+           modelBuilder.Entity<ConditionList>()
             .Property(e => e.Condition)
             .HasConversion(
                  v => JsonConvert.SerializeObject(v),
@@ -80,6 +80,61 @@ namespace Model.Context
             .HasConversion(
                  v => JsonConvert.SerializeObject(v),
                  v => JsonConvert.DeserializeObject<List<string>>(v));
+
+            modelBuilder.Entity<ArmGroupInterventionList>()
+           .Property(e => e.ArmGroupInterventionName)
+           .HasConversion(
+                v => JsonConvert.SerializeObject(v),
+                v => JsonConvert.DeserializeObject<List<string>>(v));
+
+            modelBuilder.Entity<DesignObservationalModelList>()
+             .Property(e => e.DesignObservationalModel)
+             .HasConversion(
+                  v => JsonConvert.SerializeObject(v),
+                  v => JsonConvert.DeserializeObject<List<string>>(v));
+
+            modelBuilder.Entity<DesignTimePerspectiveList>()
+             .Property(e => e.DesignTimePerspective)
+             .HasConversion(
+                  v => JsonConvert.SerializeObject(v),
+                  v => JsonConvert.DeserializeObject<List<string>>(v));
+
+            modelBuilder.Entity<DesignWhoMaskedList>()
+             .Property(e => e.DesignWhoMasked)
+             .HasConversion(
+                  v => JsonConvert.SerializeObject(v),
+                  v => JsonConvert.DeserializeObject<List<string>>(v));
+
+            modelBuilder.Entity<KeywordList>()
+             .Property(e => e.Keyword)
+             .HasConversion(
+                  v => JsonConvert.SerializeObject(v),
+                  v => JsonConvert.DeserializeObject<List<string>>(v));
+
+            modelBuilder.Entity<NCTIdAliasList>()
+             .Property(e => e.NCTIdAlias)
+             .HasConversion(
+                  v => JsonConvert.SerializeObject(v),
+                  v => JsonConvert.DeserializeObject<List<string>>(v));
+
+            modelBuilder.Entity<OutcomeAnalysisGroupIdList>()
+             .Property(e => e.OutcomeAnalysisGroupId)
+             .HasConversion(
+                  v => JsonConvert.SerializeObject(v),
+                  v => JsonConvert.DeserializeObject<List<string>>(v));
+
+            modelBuilder.Entity<RemovedCountryList>()
+             .Property(e => e.RemovedCountry)
+             .HasConversion(
+                  v => JsonConvert.SerializeObject(v),
+                  v => JsonConvert.DeserializeObject<List<string>>(v));
+
+
+            modelBuilder.Entity<IPDSharingInfoTypeList>()
+             .Property(e => e.IPDSharingInfoType)
+             .HasConversion(
+                  v => JsonConvert.SerializeObject(v),
+                  v => JsonConvert.DeserializeObject<List<string>>(v));
         }
     }
 }

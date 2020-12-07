@@ -1,33 +1,30 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Model.Migrations
+namespace Model.Migrations.ClinicalTrialsJSON
 {
-    public partial class Migration5 : Migration
+    public partial class MigrationJson1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-           
             migrationBuilder.CreateTable(
-                name: "GetStatiscticsSearches",
+                name: "Study",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Condition = table.Column<string>(nullable: true),
-                    DateCreated = table.Column<DateTime>(nullable: false)
+                    NCTId = table.Column<string>(nullable: true),
+                    JSON = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GetStatiscticsSearches", x => x.Id);
+                    table.PrimaryKey("PK_Study", x => x.Id);
                 });
-    }
+        }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "GetStatiscticsSearches");
-
+                name: "Study");
         }
     }
 }
