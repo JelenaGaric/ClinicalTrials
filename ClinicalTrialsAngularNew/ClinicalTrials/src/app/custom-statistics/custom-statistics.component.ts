@@ -3,7 +3,6 @@ import { curveMonotoneX, DSVParsedArray } from 'd3';
 import d3 = require('d3');
 import { StatisticsService } from '../services/statistics-service';
 import { DecimalPipe } from '@angular/common';
-import { runInThisContext } from 'vm';
 
 @Component({
   selector: 'app-custom-statistics',

@@ -5,6 +5,7 @@ using Model;
 using Model.Context;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,10 +16,65 @@ namespace ClinicalTrialsWebApp.Repository
         public StudyStructureRepository(ClinicalTrialsContext repositoryContext) : base(repositoryContext)
         {
         }
+        public List<ResultDTO> FullTextTermSearch(PaginationFilter filter)
+        {
+            List<ResultDTO> retVal = new List<ResultDTO>();
+            List<string> terms = new List<string>();
+            terms.Add(filter.Condition);
+            terms.Add(filter.Country);
+            terms.Add(filter.Sponsor);
+
+            //make a string which goes into sql expression
+            string searchString = terms[0];
+            for (int i = 1; i < terms.Count - 1; i++)
+            {
+                if (terms[i].Length != 0)
+                    searchString += " or " + terms[i];
+
+            }
+
+
+            string sql = "SELECT [NCTId] FROM[ClinicalTrials].[dbo].[JSONStudy] WHERE contains([JSON], '" + searchString + "')" +
+                " ORDER BY[Id] OFFSET " + (filter.PageNumber - 1) * filter.PageSize + " ROWS FETCH NEXT " + filter.PageSize + " ROWS ONLY";
+
+            using (var command = RepositoryContext.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandText = sql;
+                command.CommandType = CommandType.Text;
+
+                RepositoryContext.Database.OpenConnection();
+                command.CommandTimeout = 120;
+                command.Prepare();
+
+                using (var result = command.ExecuteReader())
+                {
+                    while (result.Read())
+                    {
+                        Console.WriteLine("{0}", result.GetString(0));
+                        
+                        var study = FindByCondition
+                            (x => x.FullStudy.Study.ProtocolSection.IdentificationModule.NCTId.Equals(result.GetString(0)))
+                            .Select(x => new ResultDTO
+                            {
+                                Id = x.Id,
+                                BriefTitle = x.FullStudy.Study.ProtocolSection.IdentificationModule.BriefTitle,
+                                OrgFullName = x.FullStudy.Study.ProtocolSection.IdentificationModule.Organization.OrgFullName,
+                                Condition = x.FullStudy.Study.ProtocolSection.ConditionsModule.ConditionList.Condition,
+                                BriefSummary = x.FullStudy.Study.ProtocolSection.DescriptionModule.BriefSummary,
+                                EligibilityCriteria = x.FullStudy.Study.ProtocolSection.EligibilityModule.EligibilityCriteria,
+                                OverallStatus = x.FullStudy.Study.ProtocolSection.StatusModule.OverallStatus,
+                                LastUpdateSubmitDate = x.FullStudy.Study.ProtocolSection.StatusModule.LastUpdateSubmitDate.ToString()
+                            });
+
+                        retVal.Add(study.FirstOrDefault());
+                    }
+                }
+            }
+            return retVal;
+        }
 
         public async Task<IEnumerable<Root>> GetAllStudiesAsync()
         {
-            
             return await FindAll()
                 .OrderBy(s => s.Id)
                 .ToListAsync();
@@ -100,8 +156,7 @@ namespace ClinicalTrialsWebApp.Repository
                 OverallStatus = x.FullStudy.Study.ProtocolSection.StatusModule.OverallStatus,
                 LastUpdateSubmitDate = x.FullStudy.Study.ProtocolSection.StatusModule.LastUpdateSubmitDate.ToString()
             });
-
-
+            
             return retVal.ToList();
         }
 

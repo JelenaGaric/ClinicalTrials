@@ -11,6 +11,7 @@ namespace ClinicalTrialsWebApp.Repository
         ITagRepository Tag { get; }
         ITagListRepository TagList { get; }
         IStatisticsSearchRepository StatisticsSearch { get; }
+        //IJSONRepository JSONRepository { get; }
         void Save();
     }
 }

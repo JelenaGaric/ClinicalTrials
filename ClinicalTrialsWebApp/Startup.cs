@@ -35,7 +35,9 @@ namespace ClinicalTrialsWebApp
             services.AddAutoMapper(typeof(Startup));
 
             services.AddDbContext<ClinicalTrialsContext>();
-            
+            services.AddDbContext<ClinicalTrialsJSONContext>();
+            services.AddSingleton(_ => Configuration);
+
             services.AddCors();
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
             services.AddHttpContextAccessor();

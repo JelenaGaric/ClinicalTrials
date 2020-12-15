@@ -22,7 +22,6 @@ namespace ClinicalTrialsWebApp
         private readonly IUriService uriService;
         private ILogger<StudyStructuresController> _logger;
 
-
         public StudyStructuresController(IRepositoryWrapper repoWrapper, IUriService uriService, ILogger<StudyStructuresController> logger)
         {
             _logger = logger;
@@ -66,12 +65,11 @@ namespace ClinicalTrialsWebApp
                 var route = Request.Path.Value;
                 var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize, filter.Condition, filter.Country, filter.Sponsor);
 
-                var pagedData = _repoWrapper.StudyStructure.SimpleSearch(validFilter);
-
-                var totalRecords = _repoWrapper.StudyStructure.GetSearchCount(validFilter);
-                //var totalRecords = 1000; 
-                //mozda bi se mogli prvo vratiti rezultati pa onda ostalo za paging
+                //var pagedData = _repoWrapper.StudyStructure.SimpleSearch(validFilter);
                 
+                var pagedData = _repoWrapper.StudyStructure.FullTextTermSearch(validFilter);
+                var totalRecords = _repoWrapper.StudyStructure.GetSearchCount(validFilter);
+                //var totalRecords = 1000;                 
                 if (pagedData == null)
                 {
                     _logger.LogInformation("No studies found.");
@@ -109,6 +107,8 @@ namespace ClinicalTrialsWebApp
                 return StatusCode(404, e.Message);
             }
         }
+
+        
 
     }
 }

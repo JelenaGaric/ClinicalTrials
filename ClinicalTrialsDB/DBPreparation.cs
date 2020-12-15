@@ -68,10 +68,10 @@ namespace ClinicalTrialsWeb
 
             return context;
         }
-        public static ClinicalTrialsJSONContext AddToContextJSON(ClinicalTrialsJSONContext context, ClinicalTrialJSON entity,
+        public static ClinicalTrialsContext AddToContextJSON(ClinicalTrialsContext context, ClinicalTrialJSON entity,
                                                                     int count, int commitCount, bool recreateContext)
         {
-            context.Set<ClinicalTrialJSON>().Add(entity);
+            //context.Set<ClinicalTrialJSON>().Add(entity);
 
             if (count % commitCount == 0)
             {
@@ -84,11 +84,10 @@ namespace ClinicalTrialsWeb
                     Console.WriteLine(e.InnerException);
 
                 }
-                //context.SaveChanges();
                 if (recreateContext)
                 {
                     context.Dispose();
-                    context = new ClinicalTrialsJSONContext();
+                    context = new ClinicalTrialsContext();
 
                     context.ChangeTracker.AutoDetectChangesEnabled = false;
                 }
@@ -101,10 +100,10 @@ namespace ClinicalTrialsWeb
         public static void WriteToDBJSON()
         {
 
-            ClinicalTrialsJSONContext context = null;
+            ClinicalTrialsContext context = null;
             try
             {
-                context = new ClinicalTrialsJSONContext();
+                context = new ClinicalTrialsContext();
                 try
                 {
                     foreach (string m in context.Database.GetMigrations())
@@ -115,8 +114,8 @@ namespace ClinicalTrialsWeb
                 {
                     Console.WriteLine(e.Message);
                 }
-                DeleteOldJSONDb();
-
+                 DeleteOldJSONDb();
+                
                 context.ChangeTracker.AutoDetectChangesEnabled = false;
 
                 int count = 0;
@@ -129,7 +128,6 @@ namespace ClinicalTrialsWeb
 
                     foreach (ZipArchiveEntry entry in archive.Entries)
                     {
-                        //if (countZip <= numFiles){
                         if (entry.FullName.EndsWith(".json", StringComparison.OrdinalIgnoreCase))
                         {
 
@@ -141,17 +139,13 @@ namespace ClinicalTrialsWeb
                                 item.NCTId = trial.FullStudy.Study.ProtocolSection.IdentificationModule.NCTId;
                                 item.JSON = json;
                                 context = AddToContextJSON(context, item, count, commitCount, true);
-                                //context.Set<ClinicalTrialJSON>().Add(item);
-
                             }
                             Console.WriteLine(entry.FullName + " - " + ++count);
-
-                            //countZip++;
                         }
                     }
                 }
-                context.SaveChanges();
-            
+            context.SaveChanges();
+                
             Console.WriteLine("Writing complete.");
             Console.ReadLine();
 
@@ -164,7 +158,7 @@ namespace ClinicalTrialsWeb
                 if (context != null)
                     context.Dispose();
             }
-
+            
         }
 
         public static void WriteToDB()
@@ -294,10 +288,10 @@ namespace ClinicalTrialsWeb
 
         public static void DeleteOldJSONDb()
         {
-            ClinicalTrialsJSONContext db = new ClinicalTrialsJSONContext();
+            ClinicalTrialsContext db = new ClinicalTrialsContext();
             using (db)
             {
-                db.Database.ExecuteSqlCommand("delete from [Study]");
+                db.Database.ExecuteSqlCommand("delete from [JSONStudy]");
 
             }
         }
@@ -529,12 +523,23 @@ namespace ClinicalTrialsWeb
                     {
                         tableName = "Studies";
                     }
-                    else if (tableName.Equals("CityCoordinates") || tableName.Equals("Tag") || tableName.Equals("TagList") || tableName.Equals("__EFMigrationsHistory") || tableName.Equals("StatisticsSearch"))
+                    else if (tableName.Equals("CityCoordinates") 
+                        || tableName.Equals("Tag") 
+                        || tableName.Equals("TagList") 
+                        || tableName.Equals("__EFMigrationsHistory")
+                        || tableName.Equals("StatisticsSearch")
+                        || tableName.Equals("JSONStudy") )
                     {
                         continue;
                     }
                     //db.Database.ExecuteSqlCommand("delete from[" + tableName +"]");
-                    db.Database.ExecuteSqlCommand("DBCC CHECKIDENT([" + tableName + "], RESEED, 1)");
+                    try
+                    {
+                        db.Database.ExecuteSqlCommand("DBCC CHECKIDENT([" + tableName + "], RESEED, 1)");
+                    } catch(Exception e)
+                    {
+                        continue;
+                    }
                 }
                 
             }

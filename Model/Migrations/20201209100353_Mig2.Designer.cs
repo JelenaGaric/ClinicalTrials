@@ -10,8 +10,8 @@ using Model.Context;
 namespace Model.Migrations
 {
     [DbContext(typeof(ClinicalTrialsContext))]
-    [Migration("20201127152542_Migration1")]
-    partial class Migration1
+    [Migration("20201209100353_Mig2")]
+    partial class Mig2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -794,6 +794,24 @@ namespace Model.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("CityCoordinates");
+                });
+
+            modelBuilder.Entity("Model.ClinicalTrialJSON", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("JSON")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NCTId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("JSONStudy");
                 });
 
             modelBuilder.Entity("Model.Collaborator", b =>

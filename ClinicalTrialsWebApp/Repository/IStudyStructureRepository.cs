@@ -19,6 +19,7 @@ namespace ClinicalTrialsWebApp.Repository
         List<ResultDTO> SimpleSearch(PaginationFilter filter);
         int GetSearchCount(PaginationFilter filter);
         int[] SearchStudyIds(SearchDTO searchDTO);
+        List<ResultDTO> FullTextTermSearch(PaginationFilter filter);
 
     }
 }
