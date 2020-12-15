@@ -16,6 +16,7 @@ namespace Model.Context
         public DbSet<Tag> Tags { get; set; }
         public DbSet<StatisticsSearch> StatisticsSearches { get; set; }
         public DbSet<CityCoordinates> CityCoordinates { get; set; }
+        public DbSet<ClinicalTrialJSON> JSONStudy { get; set; }
 
         public IConfiguration Configuration { get; }
         public string ConnectionString { get; }
@@ -25,10 +26,6 @@ namespace Model.Context
             Database.SetCommandTimeout((int)TimeSpan.FromMinutes(5).TotalSeconds);
         }
 
-        /*public ClinicalTrialsContext(string connectionString)
-        {
-            ConnectionString = connectionString;
-        }*/
         public ClinicalTrialsContext() {
             ConnectionStringSettings settings =
                ConfigurationManager.ConnectionStrings["ClinicalTrialsConnection"];

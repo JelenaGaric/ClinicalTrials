@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Model.Migrations.ClinicalTrialsJSON
+namespace Model.Migrations
 {
-    public partial class MigrationJson1 : Migration
+    public partial class Mig2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Study",
+                name: "JSONStudy",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -17,14 +17,14 @@ namespace Model.Migrations.ClinicalTrialsJSON
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Study", x => x.Id);
+                    table.PrimaryKey("PK_JSONStudy", x => x.Id);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Study");
+                name: "JSONStudy");
         }
     }
 }

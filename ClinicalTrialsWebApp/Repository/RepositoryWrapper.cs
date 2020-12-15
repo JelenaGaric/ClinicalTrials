@@ -7,6 +7,8 @@ namespace ClinicalTrialsWebApp.Repository
     {
         private ClinicalTrialsContext _repoContext;
 
+       // private ClinicalTrialsJSONContext _jsonContext;
+
         private IStudyStructureRepository _studyStructure;
 
         private ITagRepository _tag;
@@ -14,6 +16,8 @@ namespace ClinicalTrialsWebApp.Repository
         private ITagListRepository _tagList;
 
         private IStatisticsSearchRepository _statisticsSearchRepository;
+        
+       // private IJSONRepository _jsonRepository;
 
         public IStudyStructureRepository StudyStructure
         {
@@ -62,10 +66,27 @@ namespace ClinicalTrialsWebApp.Repository
             }
         }
 
+        //public IJSONRepository JSONRepository
+        //{
+        //    get
+        //    {
+        //        if (_jsonRepository == null)
+        //        {
+        //            _jsonRepository = new JSONRepository(_jsonContext);
+        //        }
+        //        return _jsonRepository;
+        //    }
+        //}
+
         public RepositoryWrapper(ClinicalTrialsContext repositoryContext)
         {
             _repoContext = repositoryContext;
         }
+
+        //public RepositoryWrapper(ClinicalTrialsJSONContext repositoryContext)
+        //{
+        //    _jsonContext = repositoryContext;
+        //}
 
         public void Save()
         {
